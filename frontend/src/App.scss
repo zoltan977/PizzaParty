@@ -1,0 +1,199 @@
+.App {
+  $Archivo: "Archivo", sans-serif;
+
+  min-height: 100vh;
+
+  .head {
+    height: calc(12vw + 50px);
+    padding: calc(calc(15px + 2vw) + 5px) 0 5px 0;
+    margin-bottom: 20vw;
+
+    @media screen and (min-width: 751px) {
+      padding: calc(calc(15px + 2vw) + 5px) 0 5px 5px;
+      margin-bottom: 10vw;
+    }
+
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+
+    box-shadow: 0vw 1.5vw 2.25vw -0.75vw black;
+
+    img.logo {
+      display: none;
+
+      @media screen and (min-width: 751px) {
+        display: inline-block;
+      }
+
+      height: 100%;
+      width: auto;
+
+      border-radius: 10px;
+
+      background-color: white;
+    }
+
+    h1 {
+      white-space: normal;
+
+      @media screen and (min-width: 751px) {
+        white-space: nowrap;
+      }
+
+      font-size: 8vw;
+      color: white;
+      background-color: rgba($color: #000000, $alpha: 0.5);
+
+      flex: 1;
+
+      text-align: center;
+    }
+  }
+
+  .firstPart,
+  .secondPart {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .firstPart {
+    background: linear-gradient(
+      to bottom,
+      rgba(47, 62, 73, 0),
+      rgba(47, 62, 73, 0) 35%,
+      rgba(47, 62, 73, 1) 90%
+    );
+  }
+
+  .secondPart {
+    background: linear-gradient(
+      to top,
+      rgba(47, 62, 73, 0),
+      rgba(47, 62, 73, 0) 35%,
+      rgba(47, 62, 73, 1) 70%
+    );
+  }
+
+  p.introduction {
+    width: 90%;
+
+    transform: scale(0);
+    transition: transform 2s;
+
+    padding: 2vw;
+
+    font-size: 5vw;
+    font-family: $Archivo;
+
+    margin-bottom: 100px;
+
+    @media screen and (min-width: 751px) and (max-width: 1000px) {
+      font-size: 3vw;
+      margin-bottom: 10vw;
+      width: 70%;
+    }
+    @media screen and (min-width: 1001px) {
+      font-size: 2vw;
+      margin-bottom: 10vw;
+      width: 70%;
+    }
+
+    text-align: justify;
+
+    color: black;
+    background-color: rgba($color: #ffffff, $alpha: 0.25);
+    box-shadow: 0vw 1.5vw 2.25vw -0.75vw black;
+  }
+
+  img.mainImage {
+    width: 95%;
+
+    transform: scale(0);
+    transition: transform 2s;
+
+    border-radius: 5vw;
+    box-shadow: 0vw 1.5vw 2.25vw -0.75vw black;
+
+    @media screen and (min-width: 751px) {
+      width: 80%;
+    }
+  }
+
+  img.menuImage {
+    width: 80%;
+
+    transform: scale(0);
+    transition: transform 2s;
+
+    margin-bottom: 33px;
+
+    @media screen and (min-width: 751px) and (max-width: 1500px) {
+      width: 50%;
+      margin-bottom: 5vw;
+    }
+
+    @media screen and (min-width: 1501px) {
+      width: 33%;
+      margin-bottom: 5vw;
+    }
+
+    border-radius: 15vw;
+    box-shadow: 0vw 1.5vw 2.25vw -0.75vw black;
+  }
+
+  .pizzasAndToppings {
+    width: calc(100% - 40px);
+
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    @media screen and (min-width: 751px) {
+      flex-direction: row;
+    }
+
+    .toppingsContainer {
+      width: 100%;
+
+      background: linear-gradient(
+        to top,
+        rgba(47, 62, 73, 0),
+        rgba(47, 62, 73, 0) 50%,
+        rgba(47, 62, 73, 1) 100%
+      );
+
+      @media screen and (min-width: 751px) {
+        width: 25%;
+        min-width: 280px;
+      }
+    }
+
+    .pizzasContainer {
+      width: 100%;
+
+      @media screen and (min-width: 751px) {
+        width: 75%;
+      }
+    }
+
+    h2 {
+      box-shadow: 0vw 1.5vw 2.25vw -0.75vw black;
+      color: white;
+      width: fit-content;
+
+      font-size: 50px;
+      font-family: $Archivo;
+
+      padding: 0.2em;
+      margin: 0;
+      margin-left: 0.5em;
+      margin-bottom: 0.5em;
+    }
+  }
+}

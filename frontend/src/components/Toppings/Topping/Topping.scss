@@ -1,0 +1,102 @@
+.Topping {
+  width: 280px;
+  height: 280px;
+
+  transform: scale(0);
+  transition: transform 2s;
+
+  background-color: green;
+  border-radius: 20px;
+  border: 3px white solid;
+
+  position: relative;
+  overflow: hidden;
+
+  &:hover .dashboard {
+    transform: translateY(-100%);
+
+    transition: transform 1s;
+  }
+
+  &:hover .topping_info {
+    transform: translateY(100%);
+
+    transition: transform 1s;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+
+    border-radius: 20px;
+
+    object-fit: cover;
+  }
+
+  .topping_info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    position: absolute;
+    top: -67%;
+    left: 0;
+
+    width: 100%;
+    height: 67%;
+
+    transition: transform 1s;
+
+    background-color: rgba($color: #000000, $alpha: 0.75);
+    color: white;
+
+    font-size: 35px;
+
+    padding: 0;
+    margin: 0;
+
+    p {
+      text-align: center;
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+  .dashboard {
+    display: flex;
+
+    position: absolute;
+    top: 100%;
+    left: 0;
+
+    width: 100%;
+    height: 33%;
+
+    background-color: rgba($color: #000000, $alpha: 0.75);
+
+    transition: transform 1s;
+
+    div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-top: 3px solid white;
+      flex: 1;
+      color: white;
+
+      svg {
+        height: 100%;
+      }
+
+      svg:hover {
+        cursor: pointer;
+        color: green;
+      }
+    }
+
+    div:first-child {
+      border-right: 3px solid white;
+    }
+  }
+}

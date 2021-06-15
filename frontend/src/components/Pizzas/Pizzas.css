@@ -1,0 +1,24 @@
+.Pizzas {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: start;
+      align-content: flex-start;
+  row-gap: 100px;
+  -webkit-column-gap: 2vw;
+          column-gap: 2vw;
+  padding: 2vw;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+}
+
+@media screen and (min-width: 751px) {
+  .Pizzas {
+    gap: 2vw;
+  }
+}
