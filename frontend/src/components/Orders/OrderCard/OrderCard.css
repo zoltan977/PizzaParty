@@ -1,0 +1,74 @@
+.OrderCard {
+  border: 1vw solid green;
+  width: 90%;
+  padding: 1.5vw;
+  font-size: 5vw;
+}
+
+@media screen and (min-width: 750px) {
+  .OrderCard {
+    width: 30%;
+    font-size: 1.5vw;
+    border: 0.3vw solid green;
+  }
+}
+
+.OrderCard .personalData {
+  background-color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 1.5vw;
+  padding: 1.5vw;
+  border-radius: 1.5vw;
+}
+
+.OrderCard .personalData table td:first-child {
+  padding-right: 0.4vw;
+  font-weight: 900;
+}
+
+.OrderCard .cart {
+  background-color: rgba(255, 255, 255, 0.5);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 1.5vw;
+  padding: 1.5vw;
+  border-radius: 1.5vw;
+}
+
+.OrderCard .cart div {
+  width: 100%;
+}
+
+.OrderCard .cart div h2 {
+  margin: 0;
+  text-align: center;
+  font-size: 8vw;
+}
+
+@media screen and (min-width: 750px) {
+  .OrderCard .cart div h2 {
+    font-size: 2vw;
+  }
+}
+
+.OrderCard .cart div table {
+  width: 100%;
+  border: 0.15vw solid green;
+  border-collapse: collapse;
+}
+
+.OrderCard .cart div table th,
+.OrderCard .cart div table td {
+  border: 0.08vw solid green;
+}
+
+.OrderCard .cart div table tr:last-child td {
+  border: none;
+}

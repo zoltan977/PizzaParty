@@ -1,42 +1,49 @@
 {
-    "pizzas": [
+    "pizza": [
         {
+            "id": 0,
             "name": "olivás paradicsomos",
             "price": 1100,
             "image": "0001.jpg",
             "description": ""
         },
         {
+            "id": 1,
             "name": "Hagymás tepertős",
             "price": 1200,
             "image": "0002.jpg",
             "description": ""
         },
         {
+            "id": 2,
             "name": "petrezselymes",
             "price": 1300,
             "image": "0003.jpg",
             "description": ""
         },
         {
+            "id": 3,
             "name": "Kukoricás, sonkás",
             "price": 1400,
             "image": "0004.jpg",
             "description": ""
         },
         {
+            "id": 4,
             "name": "uborkás pizza",
             "price": 1500,
             "image": "0005.jpg",
             "description": ""
         },
         {
+            "id": 5,
             "name": "sajtos pizza",
             "price": 1600,
             "image": "0006.jpg",
             "description": ""
         },
         {
+            "id": 6,
             "name": "szalámis pizza",
             "price": 1700,
             "image": "0007.jpg",
@@ -44,32 +51,37 @@
         }
     ],
 
-    "toppings": [
+    "topping": [
         {
+            "id": 0,
             "name": "bolognai feltét",
             "price": 500,
             "image": "0001.jpg",
             "description": ""
         },
         {
+            "id": 1,
             "name": "calzone feltét",
             "price": 1000,
             "image": "0002.jpg",
             "description": ""
         },
         {
+            "id": 2,
             "name": "margherita feltét",
             "price": 1500,
             "image": "0003.jpg",
             "description": ""
         },
         {
+            "id": 3,
             "name": "marinara feltét",
             "price": 2000,
             "image": "0004.jpg",
             "description": ""
         },
         {
+            "id": 4,
             "name": "napoletana feltét",
             "price": 2500,
             "image": "0005.jpg",

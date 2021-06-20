@@ -14,11 +14,35 @@
   background-color: rgba($color: #ffffff, $alpha: 0.85);
   border-bottom: 2px solid black;
 
-  svg.cart {
+  .cart {
+    display: inline-block;
     height: 100%;
+    width: fit-content;
+    position: relative;
+    // border: 1px solid red;
+    svg {
+      height: 100%;
 
-    path {
-      fill: black;
+      path {
+        fill: black;
+      }
+    }
+
+    span {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+
+      padding: 2px;
+
+      color: white;
+      background-color: red;
+
+      font-weight: 900;
+      font-size: 10px;
+
+      border-radius: 2px;
     }
   }
 

@@ -1,4 +1,4 @@
-.Pizzas {
+.pizzas {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -18,7 +18,62 @@
 }
 
 @media screen and (min-width: 751px) {
-  .Pizzas {
+  .pizzas {
     gap: 2vw;
   }
+}
+
+.pizzas .navigation {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.pizzas .navigation input {
+  width: 2ch;
+  text-align: center;
+  color: white;
+  background-color: rgba(255, 255, 255, 0);
+  margin: 0;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 20px;
+}
+
+@media screen and (min-width: 451px) and (max-width: 1000px) {
+  .pizzas .navigation input {
+    font-size: 4vw;
+  }
+}
+
+@media screen and (min-width: 1001px) {
+  .pizzas .navigation input {
+    font-size: 3vw;
+  }
+}
+
+.pizzas .navigation span {
+  color: white;
+  font-size: 20px;
+}
+
+@media screen and (min-width: 451px) and (max-width: 1000px) {
+  .pizzas .navigation span {
+    font-size: 4vw;
+  }
+}
+
+@media screen and (min-width: 1001px) {
+  .pizzas .navigation span {
+    font-size: 3vw;
+  }
+}
+
+.pizzas .navigation span:first-child, .pizzas .navigation span:last-child {
+  cursor: pointer;
 }

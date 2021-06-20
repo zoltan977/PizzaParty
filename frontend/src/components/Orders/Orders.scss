@@ -1,0 +1,18 @@
+.Orders {
+  // border: 2px solid blue;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5vw;
+
+  padding-top: 100px;
+
+  p.info {
+    color: white;
+    background-color: black;
+    font-size: 30px;
+    text-align: center;
+    padding: 20px;
+  }
+}

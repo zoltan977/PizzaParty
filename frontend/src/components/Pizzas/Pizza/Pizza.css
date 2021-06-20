@@ -1,4 +1,4 @@
-.Pizza {
+.pizza {
   width: 280px;
   height: 280px;
   -webkit-transform: scale(0);
@@ -15,13 +15,13 @@
 }
 
 @media screen and (min-width: 1501px) {
-  .Pizza {
+  .pizza {
     width: 20vw;
     height: 20vw;
   }
 }
 
-.Pizza:hover .dashboard {
+.pizza:hover .dashboard {
   -webkit-transform: translateY(-100%);
           transform: translateY(-100%);
   -webkit-transition: -webkit-transform 1s;
@@ -30,7 +30,7 @@
   transition: transform 1s, -webkit-transform 1s;
 }
 
-.Pizza:hover .pizza_info {
+.pizza:hover .pizza_info {
   -webkit-transform: translateY(100%);
           transform: translateY(100%);
   -webkit-transition: -webkit-transform 1s;
@@ -39,7 +39,7 @@
   transition: transform 1s, -webkit-transform 1s;
 }
 
-.Pizza img {
+.pizza img {
   width: 100%;
   height: 100%;
   border-radius: 20px;
@@ -47,7 +47,7 @@
      object-fit: cover;
 }
 
-.Pizza .pizza_info {
+.pizza .pizza_info {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -77,18 +77,18 @@
 }
 
 @media screen and (min-width: 1500px) {
-  .Pizza .pizza_info {
+  .pizza .pizza_info {
     font-size: 3vw;
   }
 }
 
-.Pizza .pizza_info p {
+.pizza .pizza_info p {
   text-align: center;
   padding: 0;
   margin: 0;
 }
 
-.Pizza .dashboard {
+.pizza .dashboard {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -104,7 +104,7 @@
   transition: transform 1s, -webkit-transform 1s;
 }
 
-.Pizza .dashboard div {
+.pizza .dashboard div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -121,15 +121,15 @@
   color: white;
 }
 
-.Pizza .dashboard div svg {
+.pizza .dashboard div svg {
   height: 100%;
 }
 
-.Pizza .dashboard div svg:hover {
+.pizza .dashboard div svg:hover {
   cursor: pointer;
   color: green;
 }
 
-.Pizza .dashboard div:first-child {
+.pizza .dashboard div:first-child {
   border-right: 3px solid white;
 }

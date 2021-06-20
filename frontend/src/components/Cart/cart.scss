@@ -1,0 +1,111 @@
+.cartRoute {
+  padding: calc(40px + 7.5vw) 3vw 0;
+  @media screen and (min-width: 751px) {
+    padding: 7.5vw;
+  }
+
+  font-family: "Times New Roman", Times, serif;
+
+  padding-bottom: 3.7vw;
+
+  div.backdrop {
+    width: fit-content;
+    background-color: rgba($color: #fff, $alpha: 0.5);
+    margin: 0 auto 7.6vw auto;
+    padding: 3vw;
+    border-radius: 3vw;
+
+    @media screen and (min-width: 751px) {
+      margin: 0 auto 3.8vw auto;
+      padding: 1.5vw;
+      border-radius: 1.5vw;
+    }
+
+    &:not(:last-child) {
+      padding-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    h2 {
+      font-size: 6.6vw;
+      @media screen and (min-width: 751px) {
+        font-size: 3.3vw;
+      }
+      font-weight: 900;
+
+      padding: 0;
+      margin: 0;
+
+      font-family: Arial, Helvetica, sans-serif;
+    }
+  }
+
+  table {
+    border: 0.6vw solid green;
+    border-collapse: collapse;
+
+    font-size: 4.5vw;
+    @media screen and (min-width: 751px) {
+      font-size: 2.25vw;
+      border: 0.3vw solid green;
+    }
+
+    td,
+    th {
+      padding: 1.5vw;
+      border: 0.3vw solid green;
+      @media screen and (min-width: 751px) {
+        padding: 0.75vw;
+        border: 0.15vw solid green;
+      }
+      text-align: center;
+
+      input {
+        font-size: 4.5vw;
+        @media screen and (min-width: 751px) {
+          font-size: 2.25vw;
+        }
+        width: 5ch;
+        text-align: center;
+        background-color: rgba($color: #fff, $alpha: 0);
+        border: none;
+        cursor: pointer;
+      }
+
+      svg {
+        height: 4.5vw;
+        @media screen and (min-width: 751px) {
+          height: 2.25vw;
+        }
+        color: red;
+        margin: 0;
+        padding: 0;
+        cursor: pointer;
+      }
+    }
+
+    tbody {
+      tr:last-child {
+        td {
+          border: none;
+        }
+      }
+    }
+  }
+
+  p {
+    margin: 0;
+    padding: 3vw;
+    width: fit-content;
+    font-size: 4.5vw;
+    border: 0.6vw solid green;
+    @media screen and (min-width: 751px) {
+      padding: 1.5vw;
+      font-size: 2.25vw;
+      border: 0.3vw solid green;
+    }
+  }
+}

@@ -1,0 +1,74 @@
+.OrderCard {
+  border: 1vw solid green;
+  width: 90%;
+
+  padding: 1.5vw;
+
+  font-size: 5vw;
+
+  @media screen and (min-width: 750px) {
+    width: 30%;
+    font-size: 1.5vw;
+    border: 0.3vw solid green;
+  }
+
+  .personalData {
+    background-color: rgba($color: #fff, $alpha: 0.5);
+    margin-bottom: 1.5vw;
+    padding: 1.5vw;
+
+    border-radius: 1.5vw;
+
+    table {
+      td:first-child {
+        padding-right: 0.4vw;
+        font-weight: 900;
+      }
+    }
+  }
+
+  .cart {
+    background-color: rgba($color: #fff, $alpha: 0.5);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5vw;
+
+    padding: 1.5vw;
+
+    border-radius: 1.5vw;
+
+    div {
+      width: 100%;
+      //   background-color: blue;
+
+      h2 {
+        margin: 0;
+        text-align: center;
+        font-size: 8vw;
+        @media screen and (min-width: 750px) {
+          font-size: 2vw;
+        }
+      }
+
+      table {
+        width: 100%;
+        // background-color: red;
+
+        border: 0.15vw solid green;
+        border-collapse: collapse;
+        th,
+        td {
+          border: 0.08vw solid green;
+        }
+
+        tr:last-child {
+          td {
+            border: none;
+          }
+        }
+      }
+    }
+  }
+}

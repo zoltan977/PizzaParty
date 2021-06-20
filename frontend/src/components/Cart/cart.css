@@ -1,0 +1,134 @@
+.cartRoute {
+  padding: calc(40px + 7.5vw) 3vw 0;
+  font-family: "Times New Roman", Times, serif;
+  padding-bottom: 3.7vw;
+}
+
+@media screen and (min-width: 751px) {
+  .cartRoute {
+    padding: 7.5vw;
+  }
+}
+
+.cartRoute div.backdrop {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin: 0 auto 7.6vw auto;
+  padding: 3vw;
+  border-radius: 3vw;
+}
+
+@media screen and (min-width: 751px) {
+  .cartRoute div.backdrop {
+    margin: 0 auto 3.8vw auto;
+    padding: 1.5vw;
+    border-radius: 1.5vw;
+  }
+}
+
+.cartRoute div.backdrop:not(:last-child) {
+  padding-top: 0;
+}
+
+.cartRoute div.backdrop:last-child {
+  margin-bottom: 0;
+}
+
+.cartRoute div.backdrop h2 {
+  font-size: 6.6vw;
+  font-weight: 900;
+  padding: 0;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@media screen and (min-width: 751px) {
+  .cartRoute div.backdrop h2 {
+    font-size: 3.3vw;
+  }
+}
+
+.cartRoute table {
+  border: 0.6vw solid green;
+  border-collapse: collapse;
+  font-size: 4.5vw;
+}
+
+@media screen and (min-width: 751px) {
+  .cartRoute table {
+    font-size: 2.25vw;
+    border: 0.3vw solid green;
+  }
+}
+
+.cartRoute table td,
+.cartRoute table th {
+  padding: 1.5vw;
+  border: 0.3vw solid green;
+  text-align: center;
+}
+
+@media screen and (min-width: 751px) {
+  .cartRoute table td,
+  .cartRoute table th {
+    padding: 0.75vw;
+    border: 0.15vw solid green;
+  }
+}
+
+.cartRoute table td input,
+.cartRoute table th input {
+  font-size: 4.5vw;
+  width: 5ch;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 751px) {
+  .cartRoute table td input,
+  .cartRoute table th input {
+    font-size: 2.25vw;
+  }
+}
+
+.cartRoute table td svg,
+.cartRoute table th svg {
+  height: 4.5vw;
+  color: red;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 751px) {
+  .cartRoute table td svg,
+  .cartRoute table th svg {
+    height: 2.25vw;
+  }
+}
+
+.cartRoute table tbody tr:last-child td {
+  border: none;
+}
+
+.cartRoute p {
+  margin: 0;
+  padding: 3vw;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  font-size: 4.5vw;
+  border: 0.6vw solid green;
+}
+
+@media screen and (min-width: 751px) {
+  .cartRoute p {
+    padding: 1.5vw;
+    font-size: 2.25vw;
+    border: 0.3vw solid green;
+  }
+}
