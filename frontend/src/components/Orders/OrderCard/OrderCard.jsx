@@ -6,26 +6,64 @@ export default function OrderCard({order}) {
 
     const {data} = useContext(DataContext)
 
+    let totalSum = 0;
+
+    const renderTable = (category) => {
+
+        let items = []
+        for (const key in order.cart[category]) {
+            items.push(
+                {...data[category].filter(p => p.id === Number(key))[0],
+                    db: order.cart[category][key]
+                })
+        }
+
+        let sum = 0;
+        let rows = items.map((p, idx) => {
+
+            sum += p.db * p.price
+
+            return (<tr key={idx}>
+            <td>{p.name}</td>
+            <td>{p.price}</td>
+            <td>{p.db}</td>
+            <td>{p.db * p.price}</td>
+        </tr>)
+        })
+
+        rows.push(
+            <tr key={items.length}>
+                <td colSpan="3"></td>
+                <td>{sum}</td>
+            </tr>)
+
+        totalSum += sum;
+
+        return rows;
+    }
+
     return (
         <div className="OrderCard">
             <div className="personalData">
                 <table>
-                    <tr>
-                        <td>Név: </td>
-                        <td>{order.name}</td>
-                    </tr>
-                    <tr>
-                        <td>Cím: </td>
-                        <td>{order.address}</td>
-                    </tr>
-                    <tr>
-                        <td>Email: </td>
-                        <td>{order.email}</td>
-                    </tr>
-                    <tr>
-                        <td>Tel: </td>
-                        <td>{order.tel}</td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td>Név: </td>
+                            <td>{order.name}</td>
+                        </tr>
+                        <tr>
+                            <td>Cím: </td>
+                            <td>{order.address}</td>
+                        </tr>
+                        <tr>
+                            <td>Email: </td>
+                            <td>{order.email}</td>
+                        </tr>
+                        <tr>
+                            <td>Tel: </td>
+                            <td>{order.tel}</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
             <div className="cart">
@@ -45,34 +83,9 @@ export default function OrderCard({order}) {
                             <tbody>
                                 {
                                     function () {
-                                        let pizzas = []
-                                        for (const key in order.cart.pizza) {
-                                            pizzas.push(
-                                                {...data.pizza.filter(p => p.id === Number(key))[0],
-                                                    db: order.cart.pizza[key]
-                                                })
-                                        }
+                                        totalSum = 0;
 
-                                        let sum = 0;
-                                        let rows = pizzas.map((p, idx) => {
-
-                                            sum += p.db * p.price
-
-                                            return (<tr key={idx}>
-                                            <td>{p.name}</td>
-                                            <td>{p.price}</td>
-                                            <td>{p.db}</td>
-                                            <td>{p.db * p.price}</td>
-                                        </tr>)
-                                        })
-
-                                        rows.push(
-                                            <tr key={pizzas.length}>
-                                                <td colSpan="3"></td>
-                                                <td>{sum}</td>
-                                            </tr>)
-
-                                        return rows;
+                                        return renderTable("pizza")
                                     }()
                                 }
                             </tbody>
@@ -95,40 +108,16 @@ export default function OrderCard({order}) {
                             <tbody>
                             {
                                     function () {
-                                        let toppings = []
-                                        for (const key in order.cart.topping) {
-                                            toppings.push(
-                                                {...data.topping.filter(p => p.id === Number(key))[0],
-                                                    db: order.cart.topping[key]
-                                                })
-                                        }
-
-                                        let sum = 0;
-                                        let rows = toppings.map((t, idx) => {
-                                        
-                                            sum += t.db * t.price
-
-                                            return <tr key={idx}>
-                                                <td>{t.name}</td>
-                                                <td>{t.price}</td>
-                                                <td>{t.db}</td>
-                                                <td>{t.db * t.price}</td>
-                                            </tr>
-                                        })
-
-                                        rows.push(
-                                            <tr key={toppings.length}>
-                                                <td colSpan="3"></td>
-                                                <td>{sum}</td>
-                                            </tr>)
-
-                                        return rows;
+                                        return renderTable("topping")
                                     }()
                                 }
                             </tbody>
                         </table>
                     </div> : <p>Nincsenek feltétek!</p>
                 }
+            </div>
+            <div className="totalSum">
+                Összesen: {totalSum} Ft.
             </div>
         </div>
     )

@@ -9,7 +9,7 @@ const AuthState = (props) => {
 
     const initialState = {
         token: localStorage.getItem('token'),
-        isAuthenticated: null,
+        isAuthenticated: false,
         loading: true,
         error: null,
         user: null
@@ -28,7 +28,7 @@ const AuthState = (props) => {
                 dispatch({
                     type: CLEAR_ERRORS
                 })
-                const res = await axios.post("http://localhost:8000/register", formData, config)
+                const res = await axios.post("http://localhost:8000/api/register", formData, config)
                 console.log(res.data)
                 dispatch({
                     type: REGISTER_SUCCESS,
@@ -37,6 +37,7 @@ const AuthState = (props) => {
                 loadUser()
         } catch (error) {
             console.log(error.response.data)
+            setAuthToken();
             dispatch({
                 type: REGISTER_FAIL,
                 payload: error.response.data
@@ -55,7 +56,7 @@ const AuthState = (props) => {
                 dispatch({
                     type: CLEAR_ERRORS
                 })
-                const res = await axios.post("http://localhost:8000/login", formData, config)
+                const res = await axios.post("http://localhost:8000/api/login", formData, config)
                 console.log(res.data)
                 dispatch({
                     type: LOGIN_SUCCESS,
@@ -64,6 +65,7 @@ const AuthState = (props) => {
                 loadUser()
         } catch (error) {
             console.log(error.response.data)
+            setAuthToken();
             dispatch({
                 type: LOGIN_FAIL,
                 payload: error.response.data
@@ -82,17 +84,24 @@ const AuthState = (props) => {
             setAuthToken(localStorage.token)
 
         try {
-            const res = await axios.get("http://localhost:8000/loaduser")
+            const res = await axios.get("http://localhost:8000/api/loaduser")
 
             dispatch({
                 type: USER_LOADED,
                 payload: res.data
             })
         } catch (error) {
+            setAuthToken();
             dispatch({
                 type: AUTH_ERROR
             })
         }
+    }
+
+    const clearErrors = () => {
+        dispatch({
+            type: CLEAR_ERRORS
+        })
     }
 
     return <AuthContext.Provider
@@ -106,7 +115,8 @@ const AuthState = (props) => {
                     register,
                     login,
                     logout,
-                    loadUser
+                    loadUser,
+                    clearErrors
                 }
             }>
             {props.children}

@@ -1,20 +1,17 @@
-import React, { useEffect, useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import OrderCard from './OrderCard/OrderCard';
-import AuthContext from '../../context/auth/authContext';
 import './Orders.css';
 
 export default function Orders(props) {
 
     const [orders, setOrders] = useState([]);
 
-    const {loading, isAuthenticated} = useContext(AuthContext);
-
     useEffect(() => {
         const asyncFn = async () => {
             try {
     
-                const res = await axios.get("http://localhost:8000/orders")
+                const res = await axios.get("http://localhost:8000/api/orders")
                 console.log(res.data)
                 setOrders(res.data)
     
@@ -23,14 +20,9 @@ export default function Orders(props) {
             }
         }
 
-        if (!loading) {
-            if (!isAuthenticated)
-                props.history.push("/")
-            else
-                asyncFn()
-        }
+        asyncFn()
 
-    }, [loading, isAuthenticated]);
+    }, []);
 
     return (
         <div className="Orders">

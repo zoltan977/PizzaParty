@@ -1,4 +1,7 @@
 .NavBar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
   position: fixed;
   top: 0;
   left: 0;
@@ -15,7 +18,216 @@
   }
 }
 
-.NavBar .cart {
+.NavBar .dropDownMenu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  top: -90vw;
+  left: 0;
+  width: 100%;
+  height: 90vw;
+  max-height: calc(100vh - 45px);
+  background-color: rgba(0, 0, 0, 0.95);
+  -webkit-transition: top 1s;
+  transition: top 1s;
+}
+
+@media screen and (min-width: 451px) and (max-width: 750px) {
+  .NavBar .dropDownMenu {
+    height: 45vw;
+    top: -45vw;
+  }
+}
+
+@media screen and (min-width: 751px) {
+  .NavBar .dropDownMenu {
+    height: 22.5vw;
+    top: -22.5vw;
+  }
+}
+
+.NavBar .dropDownMenu.show {
+  top: 45px;
+}
+
+@media screen and (min-width: 1501px) {
+  .NavBar .dropDownMenu.show {
+    top: 4vw;
+  }
+}
+
+.NavBar .dropDownMenu a {
+  text-decoration: none;
+  color: white;
+  font-size: 9vw;
+  font-family: Arial, Helvetica, sans-serif;
+  display: block;
+  width: 30vw;
+  height: 0;
+  overflow: visible;
+  position: relative;
+}
+
+@media screen and (min-width: 451px) and (max-width: 750px) {
+  .NavBar .dropDownMenu a {
+    font-size: 4.5vw;
+    width: 15vw;
+  }
+}
+
+@media screen and (min-width: 751px) {
+  .NavBar .dropDownMenu a {
+    font-size: 2.25vw;
+    width: 7.5vw;
+  }
+}
+
+.NavBar .dropDownMenu a:hover {
+  -webkit-box-shadow: 0 0 15.2vw 4.4vw white;
+          box-shadow: 0 0 15.2vw 4.4vw white;
+}
+
+@media screen and (min-width: 451px) and (max-width: 750px) {
+  .NavBar .dropDownMenu a:hover {
+    -webkit-box-shadow: 0 0 7.6vw 2.2vw white;
+            box-shadow: 0 0 7.6vw 2.2vw white;
+  }
+}
+
+@media screen and (min-width: 751px) {
+  .NavBar .dropDownMenu a:hover {
+    -webkit-box-shadow: 0 0 3.8vw 1.1vw white;
+            box-shadow: 0 0 3.8vw 1.1vw white;
+  }
+}
+
+.NavBar .dropDownMenu a span {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.NavBar .linksAndUser {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 10px;
+}
+
+@media screen and (max-width: 750px) {
+  .NavBar .linksAndUser {
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+  }
+}
+
+.NavBar .linksAndUser .links {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: none;
+  gap: 1.1vw;
+  font-size: 2.25vw;
+}
+
+@media screen and (min-width: 751px) {
+  .NavBar .linksAndUser .links {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+.NavBar .linksAndUser .links a {
+  text-decoration: none;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 900;
+}
+
+.NavBar .linksAndUser .links a:hover, .NavBar .linksAndUser .links a.active {
+  color: red;
+}
+
+.NavBar .linksAndUser .userInfo {
+  height: 100%;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 0.75vw;
+  width: fit-content;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 900;
+}
+
+.NavBar .linksAndUser .userInfo span {
+  display: none;
+}
+
+@media screen and (min-width: 501px) and (max-width: 750px) {
+  .NavBar .linksAndUser .userInfo span {
+    display: inline;
+    font-size: 4.5vw;
+  }
+}
+
+@media screen and (min-width: 751px) {
+  .NavBar .linksAndUser .userInfo span {
+    display: inline;
+    font-size: 2.25vw;
+  }
+}
+
+.NavBar .linksAndUser .userInfo .logout {
+  display: inline-block;
+  height: 100%;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.NavBar .linksAndUser .userInfo .logout:hover path {
+  fill: red;
+}
+
+.NavBar .linksAndUser .userInfo .logout svg {
+  height: 100%;
+}
+
+.NavBar .linksAndUser .userInfo .logout svg path {
+  fill: black;
+}
+
+.NavBar .icons .cart {
   display: inline-block;
   height: 100%;
   width: -webkit-fit-content;
@@ -24,15 +236,15 @@
   position: relative;
 }
 
-.NavBar .cart svg {
+.NavBar .icons .cart svg {
   height: 100%;
 }
 
-.NavBar .cart svg path {
+.NavBar .icons .cart svg path {
   fill: black;
 }
 
-.NavBar .cart span {
+.NavBar .icons .cart span {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -46,18 +258,45 @@
   border-radius: 2px;
 }
 
-.NavBar svg.hamburger {
+@media screen and (min-width: 751px) and (max-width: 1000px) {
+  .NavBar .icons .cart span {
+    font-size: 7px;
+  }
+}
+
+@media screen and (min-width: 1001px) and (max-width: 1500px) {
+  .NavBar .icons .cart span {
+    font-size: 10px;
+  }
+}
+
+@media screen and (min-width: 1501px) {
+  .NavBar .icons .cart span {
+    font-size: 0.75vw;
+  }
+}
+
+.NavBar .icons .hamburger {
+  display: inline-block;
+  height: 100%;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  position: relative;
+}
+
+.NavBar .icons .hamburger svg {
   height: 100%;
   background-color: black;
   border-radius: 50%;
 }
 
-.NavBar svg.hamburger rect {
+.NavBar .icons .hamburger svg rect {
   fill: white;
   transform-box: fill-box;
 }
 
-.NavBar svg.hamburger rect.a {
+.NavBar .icons .hamburger svg rect.a {
   -webkit-transition: -webkit-transform 1s;
   transition: -webkit-transform 1s;
   transition: transform 1s;
@@ -66,14 +305,14 @@
           transform: translate(10px, 12px);
 }
 
-.NavBar svg.hamburger rect.b {
+.NavBar .icons .hamburger svg rect.b {
   -webkit-transition: opacity 1s;
   transition: opacity 1s;
   -webkit-transform: translate(10px, 19px);
           transform: translate(10px, 19px);
 }
 
-.NavBar svg.hamburger rect.c {
+.NavBar .icons .hamburger svg rect.c {
   -webkit-transition: -webkit-transform 1s;
   transition: -webkit-transform 1s;
   transition: transform 1s;
@@ -82,7 +321,7 @@
           transform: translate(10px, 26px);
 }
 
-.NavBar svg.hamburger rect.ax {
+.NavBar .icons .hamburger svg rect.ax {
   -webkit-transition: -webkit-transform 1s;
   transition: -webkit-transform 1s;
   transition: transform 1s;
@@ -91,7 +330,7 @@
           transform: translate(12px, 12px) rotate(45deg);
 }
 
-.NavBar svg.hamburger rect.bx {
+.NavBar .icons .hamburger svg rect.bx {
   -webkit-transition: opacity 1s;
   transition: opacity 1s;
   -webkit-transform: translate(10px, 19px);
@@ -99,7 +338,7 @@
   opacity: 0;
 }
 
-.NavBar svg.hamburger rect.cx {
+.NavBar .icons .hamburger svg rect.cx {
   -webkit-transition: -webkit-transform 1s;
   transition: -webkit-transform 1s;
   transition: transform 1s;

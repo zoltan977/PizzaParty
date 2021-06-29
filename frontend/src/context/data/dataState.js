@@ -1,18 +1,24 @@
-import { useReducer, useState } from 'react';
+import { useReducer } from 'react';
 import DataContext from './dataContext';
 import dataReducer from './dataReducer';
-import { SET_DATA } from '../types';
+import { SET_DATA, SELECT_PIZZA, SELECT_TOPPING } from '../types';
 
 const DataState = (props) => {
 
-    const initialState = {topping: [], pizza: []};
+    const initialState = {topping: [], pizza: [], selectedPizza: null, selectedTopping: null, loading: true};
 
     const [state, dispatch] = useReducer(dataReducer, initialState);
 
-    const [loading, setLoading] = useState(false);
-
     const setData = (data) => {
         dispatch({type: SET_DATA, payload: data});
+    };
+
+    const selectPizza = (pizza) => {
+        dispatch({type: SELECT_PIZZA, payload: pizza});
+    };
+
+    const selectTopping = (topping) => {
+        dispatch({type: SELECT_TOPPING, payload: topping});
     };
 
     return <DataContext.Provider
@@ -20,8 +26,11 @@ const DataState = (props) => {
                 {
                     data: state,
                     setData,
-                    loading,
-                    setLoading
+                    loading: state.loading,
+                    selectPizza,
+                    selectedPizza: state.selectedPizza,
+                    selectTopping,
+                    selectedTopping: state.selectedTopping
                 }
             }>
             {props.children}

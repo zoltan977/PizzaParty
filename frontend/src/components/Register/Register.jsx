@@ -16,12 +16,11 @@ export default function Register(props) {
     const {name, email, password, password2} = user;
 
     const authContext = useContext(AuthContext)
-    const { register, error, isAuthenticated } = authContext
+    const { register, error, clearErrors } = authContext
 
     useEffect(() => {
-        if (isAuthenticated)
-            props.history.push("/")
-    }, [isAuthenticated]);
+        clearErrors()
+    }, []);
 
     const onChange = e => setUser({...user, [e.target.name]: e.target.value})
 

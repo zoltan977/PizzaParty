@@ -8,7 +8,7 @@ import { LOGOUT,
         AUTH_ERROR
 } from '../types';
 
-export default (state, action) => {
+const authReducer = (state, action) => {
     switch (action.type) {
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
@@ -27,10 +27,10 @@ export default (state, action) => {
             localStorage.removeItem("token")
             return {
                 ...state,
+                user: null,
                 token: null,
                 isAuthenticated: false,
                 loading: false,
-                user: null,
                 error: action.payload
             }
 
@@ -43,12 +43,14 @@ export default (state, action) => {
         case USER_LOADED:
             return {
                 ...state,
+                user: action.payload,
                 isAuthenticated: true,
-                loading: false,
-                user: action.payload
+                loading: false
             }
 
         default:
             return state
     }
 }
+
+export default authReducer;

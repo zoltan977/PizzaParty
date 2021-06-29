@@ -1,4 +1,9 @@
 .toppings {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+}
+
+.toppings .content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -13,13 +18,41 @@
   -webkit-column-gap: 2vw;
           column-gap: 2vw;
   padding: 2vw;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 20px;
 }
 
 @media screen and (min-width: 751px) {
-  .toppings {
+  .toppings .content {
     gap: 2vw;
+  }
+}
+
+.toppings .search {
+  padding-top: 20px;
+  text-align: center;
+}
+
+.toppings .search input {
+  min-width: 200px;
+  width: 50%;
+  color: white;
+  background-color: rgba(0, 0, 0, 0);
+  border-right: none;
+  border-left: none;
+  border-top: none;
+  border-bottom: 2px solid inset;
+  outline: none;
+  font-size: 20px;
+}
+
+@media screen and (min-width: 451px) and (max-width: 1000px) {
+  .toppings .search input {
+    font-size: 4vw;
+  }
+}
+
+@media screen and (min-width: 1001px) {
+  .toppings .search input {
+    font-size: 3vw;
   }
 }
 
@@ -30,6 +63,8 @@
   display: flex;
   -ms-flex-pack: distribute;
       justify-content: space-around;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .toppings .navigation input {
@@ -76,4 +111,30 @@
 
 .toppings .navigation span:first-child, .toppings .navigation span:last-child {
   cursor: pointer;
+}
+
+.toppings .navigation span:nth-child(2) {
+  position: relative;
+}
+
+.toppings .navigation span:nth-child(2):hover span {
+  display: inline;
+}
+
+.toppings .navigation span:nth-child(2) span {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  cursor: pointer;
+}
+
+.toppings .navigation span:nth-child(2) span:first-of-type {
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.toppings .navigation span:nth-child(2) span:last-of-type {
+  -webkit-transform: translate(-50%, 50%);
+          transform: translate(-50%, 50%);
 }

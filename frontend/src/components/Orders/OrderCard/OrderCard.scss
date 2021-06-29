@@ -12,6 +12,16 @@
     border: 0.3vw solid green;
   }
 
+  .totalSum {
+    background-color: rgba($color: #fff, $alpha: 0.5);
+    margin-top: 1.5vw;
+    padding: 1.5vw;
+
+    border-radius: 1.5vw;
+
+    text-align: center;
+  }
+
   .personalData {
     background-color: rgba($color: #fff, $alpha: 0.5);
     margin-bottom: 1.5vw;

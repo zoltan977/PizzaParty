@@ -13,6 +13,14 @@
   }
 }
 
+.OrderCard .totalSum {
+  background-color: rgba(255, 255, 255, 0.5);
+  margin-top: 1.5vw;
+  padding: 1.5vw;
+  border-radius: 1.5vw;
+  text-align: center;
+}
+
 .OrderCard .personalData {
   background-color: rgba(255, 255, 255, 0.5);
   margin-bottom: 1.5vw;

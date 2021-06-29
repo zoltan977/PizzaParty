@@ -18,7 +18,9 @@ export default function Cart() {
         for (const key in cart[pizzaOrTopping]) {
             const item = data[pizzaOrTopping].filter((p) => {
                 if (p.id === Number(key))
-                    return p;
+                    return true;
+                else 
+                    return false;
             })
             .map(p => ({...p, db: cart[pizzaOrTopping][key]}))[0]
 
@@ -31,22 +33,20 @@ export default function Cart() {
             setToppings(array);
     }
 
-    const numbers = "0123456789";
-    
-    const keyDown = (e) => {
-        if (!numbers.includes(e.key) && 
-            !e.key.includes("Arrow") && 
-            e.key !== "Backspace" && 
-            e.key !== "Delete") 
-                e.preventDefault();
-    }
-
     const change = (e, id, category) => {
-        if (e.target.value === "0" || 
-            e.target.value === "")
-                e.target.value = "1";
+        if (e.target.value.length > 3)
+        e.target.value = e.target.value.slice(0, 3)
+
+        if(isNaN(e.target.value))
+            e.target.value = 1;
+
+        if (Number(e.target.value) < 1)
+            e.target.value = 1;
+
+        e.target.value = Number(e.target.value)
 
         modifyOrDeleteItem(true, id, category, e.target.value)
+
     }
 
     const renderTableBody = (pizzasOrToppings, category) => {
@@ -60,7 +60,6 @@ export default function Cart() {
             <td>{item.price}</td>
             <td>
                 <input value={item.db} 
-                    onKeyDown={keyDown} 
                     onChange={(e) => change(e, item.id, category)}/>
             </td>
             <td>{item.price * item.db}</td>

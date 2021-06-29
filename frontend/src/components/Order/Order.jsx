@@ -3,7 +3,7 @@ import CartContext from '../../context/cart/cartContext';
 import axios from 'axios';
 import './Order.css';
 
-export default function Order() {
+export default function Order(props) {
 
     let formValid = true
     
@@ -40,19 +40,22 @@ export default function Order() {
 
             setError(null)
             const res = await axios.post(
-                "http://localhost:8000/order", 
+                "http://localhost:8000/api/order", 
                 {...order, cart}, 
                 config)
 
+            if (res.data && res.data.success === true)
+                props.history.push("/orders")
+
         } catch (err) {
-            // console.log(err.response.data)
+            console.log("error: ", err.response.data)
             setError(err.response.data)
         }
 
     }
 
     return (
-        <div className="Register">
+        <div className="Order">
             <div className="content">
                 <h1>Order</h1>
                 <div className="alerts">
@@ -63,6 +66,11 @@ export default function Order() {
 
                         if (name === "" || email === "" || tel === "" || address === "") {
                             alerts.push(<p key={alerts.length + 1}>Please fill every field!</p>)
+                            formValid = false
+                        }
+
+                        if (!Object.keys(cart.pizza).length && !Object.keys(cart.topping).length) {
+                            alerts.push(<p key={alerts.length + 1}>Cart is empty!</p>)
                             formValid = false
                         }
 

@@ -3,7 +3,7 @@ const app = express();
 const fs = require('fs');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { check, validationResult } = require('express-validator/check');
+const { check, validationResult } = require('express-validator');
 const config = require('config');
 const uuid = require('uuid');
 const auth = require('./middleware/auth');
@@ -105,7 +105,7 @@ app.use('/', express.static(__dirname + '/public'))
 app.use(express.json({ extended: false }))
 
 app.post(
-    '/order',
+    '/api/order',
     [
         auth,
         check('email', 'Please include a valid email')
@@ -132,15 +132,17 @@ app.post(
             
             createOrder(order);
 
+            res.json({success: true})
+
         } catch (error) {
             console.log(error.message)
 
-            res.status(500).json({message: 'Server Error'})
+            res.status(500).json({msg: 'Server Error'})
         }
 })
 
 app.post(
-    '/login',
+    '/api/login',
     [
         check('email', 'Please include a valid email')
         .isEmail(),
@@ -190,13 +192,13 @@ app.post(
         } catch (error) {
             console.log(error.message)
 
-            res.status(500).json({message: 'Server Error'})
+            res.status(500).json({msg: 'Server Error'})
         }
 })
 
 
 app.post(
-    '/register',
+    '/api/register',
     [
         check('name', 'Please add name')
         .not().isEmpty(),
@@ -248,11 +250,11 @@ app.post(
         } catch (error) {
             console.log(error.message)
 
-            res.status(500).json({message: 'Server Error'})
+            res.status(500).json({msg: 'Server Error'})
         }
 })
 
-app.get('/data', function(req, res) {
+app.get('/api/data', function(req, res) {
 
     const jsonFilePath = __dirname + '/data/' + 'data.json';
 
@@ -264,25 +266,28 @@ app.get('/data', function(req, res) {
     } catch (err) {
         console.error(err);
 
-        res.status(500).json({message: 'Server Error'})
+        res.status(500).json({msg: 'Server Error'})
     }
 
     res.json(jsonData);
 });
 
-app.get('/loaduser', auth, async function(req, res) {
+app.get('/api/loaduser', auth, async function(req, res) {
 
     try {
         const user = findUser({id: req.user.id})
-        res.json(user)
+        if (!user)
+            res.status(401).json({msg: "Nincs ilyen user"})
+        else
+            res.json(user)
 
     } catch (error) {
         console.log(error.message)
-        res.status(500).json({message: 'Server Error'})
+        res.status(500).json({msg: 'Server Error'})
     }
 });
 
-app.get('/orders', auth, async function(req, res) {
+app.get('/api/orders', auth, async function(req, res) {
 
     try {
         const orders = findOrder(req.user.id)
@@ -290,7 +295,7 @@ app.get('/orders', auth, async function(req, res) {
 
     } catch (error) {
         console.log(error.message)
-        res.status(500).json({message: 'Server Error'})
+        res.status(500).json({msg: 'Server Error'})
     }
 });
   

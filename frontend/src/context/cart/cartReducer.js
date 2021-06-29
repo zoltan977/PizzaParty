@@ -1,11 +1,16 @@
 import {SET_CART} from './../types';
 
-export default (state, action) => {
+const cartReducer = (state, action) => {
     switch (action.type) {
         case SET_CART:
-            return action.payload
+            return {
+                pizza: {...action.payload.pizza},
+                topping: {...action.payload.topping}
+            }
     
         default:
             return state
     }
 }
+
+export default cartReducer;

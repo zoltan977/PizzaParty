@@ -25,6 +25,18 @@
   }
 }
 
+.Login .content .alerts p {
+  color: red;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 4vw;
+}
+
+@media screen and (min-width: 751px) {
+  .Login .content .alerts p {
+    font-size: 2vw;
+  }
+}
+
 .Login .content h1 {
   font-size: 6vw;
 }

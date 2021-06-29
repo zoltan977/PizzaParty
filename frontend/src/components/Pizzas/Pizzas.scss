@@ -1,25 +1,57 @@
 .pizzas {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-content: flex-start;
-  row-gap: 100px;
-  column-gap: 2vw;
-
-  @media screen and (min-width: 751px) {
-    gap: 2vw;
-  }
-
-  padding: 2vw;
-
-  // background-color: red;
   background-color: rgba($color: #000000, $alpha: 0.5);
   border-radius: 20px;
+
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+    row-gap: 100px;
+    column-gap: 2vw;
+
+    @media screen and (min-width: 751px) {
+      gap: 2vw;
+    }
+    padding: 2vw;
+  }
+
+  .search {
+    padding-top: 20px;
+    text-align: center;
+
+    input {
+      min-width: 200px;
+      width: 50%;
+
+      color: white;
+      background-color: rgba($color: #000000, $alpha: 0);
+
+      border-right: none;
+      border-left: none;
+      border-top: none;
+      border-bottom: 2px solid inset;
+
+      outline: none;
+
+      font-size: 20px;
+      @media screen and (min-width: 451px) and (max-width: 1000px) {
+        font-size: 4vw;
+      }
+
+      @media screen and (min-width: 1001px) {
+        font-size: 3vw;
+      }
+    }
+  }
 
   .navigation {
     width: 100%;
     display: flex;
     justify-content: space-around;
+
+    padding-top: 20px;
+    padding-bottom: 20px;
 
     input {
       width: 2ch;
@@ -35,11 +67,11 @@
       cursor: pointer;
 
       font-family: "Times New Roman", Times, serif;
+
       font-size: 20px;
       @media screen and (min-width: 451px) and (max-width: 1000px) {
         font-size: 4vw;
       }
-
       @media screen and (min-width: 1001px) {
         font-size: 3vw;
       }
@@ -60,6 +92,28 @@
       &:first-child,
       &:last-child {
         cursor: pointer;
+      }
+
+      &:nth-child(2) {
+        position: relative;
+
+        &:hover span {
+          display: inline;
+        }
+        span {
+          display: none;
+          position: absolute;
+          left: 50%;
+          top: 0;
+          cursor: pointer;
+
+          &:first-of-type {
+            transform: translate(-50%, -50%);
+          }
+          &:last-of-type {
+            transform: translate(-50%, 50%);
+          }
+        }
       }
     }
   }

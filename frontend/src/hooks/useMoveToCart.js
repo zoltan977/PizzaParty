@@ -1,8 +1,6 @@
-import {useCallback} from 'react';
-
 export default function useMoveToCart() {
    
-    const moveToCart = useCallback((node, container) => {
+    const moveToCart = (node, container) => {
 
         const cartNodeInfo = document.getElementById("cart").getBoundingClientRect();
 
@@ -30,7 +28,7 @@ export default function useMoveToCart() {
         setTimeout(() => {
             clonedNode.remove();
         }, 2100);
-    })
+    }
 
     return moveToCart
 }

@@ -14,12 +14,11 @@ export default function Login(props) {
     const {email, password} = user;
 
     const authContext = useContext(AuthContext)
-    const { login, error, isAuthenticated } = authContext
+    const { login, error, clearErrors } = authContext
 
     useEffect(() => {
-        if (isAuthenticated)
-            props.history.push("/")
-    }, [isAuthenticated]);
+        clearErrors()
+    }, []);
 
 
     const onChange = e => setUser({...user, [e.target.name]: e.target.value})

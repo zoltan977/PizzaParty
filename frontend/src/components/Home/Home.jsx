@@ -1,4 +1,4 @@
-import React, { useState, useContext, useCallback, useEffect, useRef } from 'react';
+import React, { useContext, useRef, useEffect } from 'react';
 import Pizzas from './../Pizzas/Pizzas';
 import Toppings from './../Toppings/Toppings';
 import DataContext from './../../context/data/dataContext';
@@ -6,68 +6,40 @@ import './Home.css';
 
 export default function Home() {
 
-    const [mainImgStyle, setMainImgStyle] = useState({})
-    const [menuImgStyle, setMenuImgStyle] = useState({})
-    const [introductionStyle, setIntroductionStyle] = useState({})
-
     const {data, loading} = useContext(DataContext)
 
-    const observerRef1 = useRef()
-    const observerRef2 = useRef()
-    const observerRef3 = useRef()
+    const observerRef= useRef()
 
-    const mainImgRef = useCallback((node) => {
-        const observer = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting) {
-                setMainImgStyle({transform: 'scale(1)'})
-            } else {
-                setMainImgStyle({})
-            }
-        })
+    const mainImgRef= useRef()
+    const menuImgRef= useRef()
+    const introductionRef= useRef()
     
-        if (node) {
-            observer.observe(node)
-            observerRef1.current = observer
-        }
-    }, [])
-    
-    const menuImgRef = useCallback((node) => {
-      const observer = new IntersectionObserver(entries => {
-          if (entries[0].isIntersecting) {
-              setMenuImgStyle({transform: 'scale(1)'})
-          } else {
-              setMenuImgStyle({})
-          }
-      })
-    
-      if (node) {
-        observer.observe(node)
-        observerRef2.current = observer
-      }
-    }, [])
-    
-    const introductionRef = useCallback((node) => {
-      const observer = new IntersectionObserver(entries => {
-          if (entries[0].isIntersecting) {
-              setIntroductionStyle({transform: 'scale(1)'})
-          } else {
-              setIntroductionStyle({})
-          }
-      })
-    
-      if (node) {
-        observer.observe(node)
-        observerRef3.current = observer
-      }
-    }, [])
-
     useEffect(() => {
-      return () => {
-        observerRef1.current.disconnect()
-        observerRef2.current.disconnect()
-        observerRef3.current.disconnect()
+
+      const observer = new IntersectionObserver(entries => {
+
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+              entry.target.style.transform = 'scale(1)'
+          } else {
+              entry.target.style = ''
+          }
+        }
+      })
+
+      observerRef.current = observer
+
+      if (mainImgRef.current && menuImgRef.current && introductionRef.current) {
+        observer.observe(mainImgRef.current)
+        observer.observe(menuImgRef.current)
+        observer.observe(introductionRef.current)
       }
-    }, [])
+      
+      
+      return () => {
+        observerRef.current.disconnect()
+      }
+    }, [loading])
 
     return (
         <div className="Home">
@@ -86,15 +58,15 @@ export default function Home() {
                 </div>
 
                 <div className="firstPart">
-                  <img ref={mainImgRef} style={mainImgStyle} className="mainImage" src="mainImage.jpg" alt="" />
+                  <img className="mainImage" ref={mainImgRef} style={{transform: "scale(0)"}} src="mainImage.jpg" alt="" />
 
-                  <p ref={introductionRef} style={introductionStyle} className="introduction">
+                  <p className="introduction" ref={introductionRef} style={{transform: "scale(0)"}}>
                     A Party Pizzériát 1997-ben nyitottuk, többé-kevésbé családi vállalkozás keretében. Elsősorban a lakosság "pizzaigényeit" szerettük volna kielégíteni, de a környékbeli falvakból és a közelebbi városokból is sikerült már törzsvendékeket szereznünk az elmult másfél évtizedben. Gazdaságadta lehetőségekhez, és Kedves Vendégeink pénztárcájához igazodva megpróbáltunk az árszínvonal arany középútján maradni, természetesen maximális minőség mellett. Minden erőnkből azon dolgozunk, hogy aki tőlünk távozik, jó érzéssel- véleménnyel, és nem utolsó sorben tele hassal tegye!
                   </p>
                 </div>
 
                 <div className="secondPart">
-                  <img ref={menuImgRef} style={menuImgStyle} className="menuImage" src="menuImage.png" alt="" />
+                  <img className="menuImage" ref={menuImgRef} style={{transform: "scale(0)"}} src="menuImage.png" alt="" />
 
                   <div className="pizzasAndToppings">
         

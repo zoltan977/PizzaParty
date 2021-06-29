@@ -197,6 +197,7 @@
   .App .pizzasAndToppings .toppingsContainer {
     width: 25%;
     min-width: 280px;
+    background: none;
   }
 }
 
@@ -223,4 +224,10 @@
   margin: 0;
   margin-left: 0.5em;
   margin-bottom: 0.5em;
+}
+
+@media screen and (min-width: 1501px) {
+  .App .pizzasAndToppings h2 {
+    font-size: 3.5vw;
+  }
 }
