@@ -1,15 +1,11 @@
 import './NavBar.css';
-import { useContext, useState } from 'react';
-import CartContext from './../../context/cart/cartContext';
-import DataContext from './../../context/data/dataContext';
-import AuthContext from './../../context/auth/authContext';
+import { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import {logout} from '../../actions/authActions';
+import { PropTypes } from 'prop-types';
 
-export default function NavBar() {
-
-    const {cart} = useContext(CartContext)
-    const {data} = useContext(DataContext)
-    const {user, logout} = useContext(AuthContext)
+const NavBar = ({logout, user,cart,data}) => {
 
     const [rect1Class, setRect1Class] = useState("a");
     const [rect2Class, setRect2Class] = useState("b");
@@ -121,3 +117,17 @@ export default function NavBar() {
         </div>
     )
 }
+
+// NavBar.propTypes = {
+//     cart: PropTypes.object.isRequired,
+//     data: PropTypes.object.isRequired,
+//     user: PropTypes.string.isRequired
+// }
+
+const mapStateToProps = state => ({
+    cart: state.cart,
+    data: state.data.data,
+    user: state.auth.user
+})
+
+export default connect(mapStateToProps, {logout})(NavBar)

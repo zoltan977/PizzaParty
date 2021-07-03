@@ -1,18 +1,22 @@
-import React, { useContext, useRef, useEffect } from 'react';
+import React, { useRef, useEffect } from 'react';
 import Pizzas from './../Pizzas/Pizzas';
 import Toppings from './../Toppings/Toppings';
-import DataContext from './../../context/data/dataContext';
+import {connect} from 'react-redux';
+import {setData} from '../../actions/dataActions';
+import {loadUser} from '../../actions/authActions';
+
 import './Home.css';
+import { PropTypes } from 'prop-types';
 
-export default function Home() {
-
-    const {data, loading} = useContext(DataContext)
+const Home = ({setData, loadUser, loading, data}) => {
 
     const observerRef= useRef()
 
     const mainImgRef= useRef()
     const menuImgRef= useRef()
     const introductionRef= useRef()
+
+ 
     
     useEffect(() => {
 
@@ -40,6 +44,25 @@ export default function Home() {
         observerRef.current.disconnect()
       }
     }, [loading])
+
+
+    useEffect(() => {
+
+      fetch("/api/data")
+      .then(r => r.json())
+      .then(d => {
+        setData(d);
+        loadUser();
+      })
+      .catch(err => {
+          console.log(err);
+          setData(null);
+      })
+      .finally(() => {
+      });
+  
+    }, [])
+
 
     return (
         <div className="Home">
@@ -89,3 +112,15 @@ export default function Home() {
         </div>
     )
 }
+
+// Home.propTypes = {
+//   data: PropTypes.object.isRequired,
+//   loading: PropTypes.bool.isRequired
+// }
+
+const mapStateToProps = state => ({
+  data: state.data.data,
+  loading: state.data.loading
+})
+
+export default connect(mapStateToProps, {setData, loadUser})(Home)

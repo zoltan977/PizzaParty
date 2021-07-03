@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
-import AuthContext from '../../context/auth/authContext'
 import './Register.css';
+import { connect } from 'react-redux';
+import { register, clearErrors } from '../../actions/authActions'
 
-export default function Register(props) {
+const Register = ({clearErrors, register, error}) => {
 
     let formValid = true
     
@@ -15,8 +16,6 @@ export default function Register(props) {
    
     const {name, email, password, password2} = user;
 
-    const authContext = useContext(AuthContext)
-    const { register, error, clearErrors } = authContext
 
     useEffect(() => {
         clearErrors()
@@ -92,3 +91,9 @@ export default function Register(props) {
         </div>
     )
 }
+
+const mapStateToProps = state => ({
+    error: state.auth.error
+})
+
+export default connect(mapStateToProps, {register, clearErrors})(Register)

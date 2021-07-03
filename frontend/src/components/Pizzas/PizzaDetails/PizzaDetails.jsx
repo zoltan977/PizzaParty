@@ -1,12 +1,12 @@
 import React, {useContext, useState, useEffect} from 'react';
-import CartContext from '../../../context/cart/cartContext';
-import DataContext from '../../../context/data/dataContext';
+// import CartContext from '../../../context/cart/cartContext';
+// import DataContext from '../../../context/data/dataContext';
+import {modifyOrDeleteItem} from '../../../actions/cartActions';
+import {selectPizza} from '../../../actions/dataActions';
 import './PizzaDetails.css';
+import { connect } from 'react-redux';
 
-export default function PizzaDetails() {
-
-    const {cart, modifyOrDeleteItem} = useContext(CartContext)
-    const {selectedPizza, selectPizza} = useContext(DataContext)
+const PizzaDetails = ({selectPizza, modifyOrDeleteItem, cart, selectedPizza}) => {
 
     const [quantity, setQuantity] = useState(0);
     const [input, setInput] = useState(0);
@@ -117,3 +117,10 @@ export default function PizzaDetails() {
         </div>
     )
 }
+
+const mapStateToProps = state => ({
+    cart: state.cart,
+    selectedPizza: state.data.selectedPizza
+})
+
+export default connect(mapStateToProps, {selectPizza, modifyOrDeleteItem})(PizzaDetails)

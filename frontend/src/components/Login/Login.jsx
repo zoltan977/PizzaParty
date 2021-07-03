@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
-import AuthContext from '../../context/auth/authContext';
+import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
+import {login, clearErrors} from '../../actions/authActions';
 import './Login.css';
 
-export default function Login(props) {
+const Login = ({clearErrors, login, error}) => {
 
     let formValid = true
 
@@ -12,9 +13,6 @@ export default function Login(props) {
     });
 
     const {email, password} = user;
-
-    const authContext = useContext(AuthContext)
-    const { login, error, clearErrors } = authContext
 
     useEffect(() => {
         clearErrors()
@@ -77,3 +75,9 @@ export default function Login(props) {
         </div>
     )
 }
+
+const mapStateToProps = state => ({
+    error: state.auth.error
+})
+
+export default connect(mapStateToProps, {login, clearErrors})(Login)

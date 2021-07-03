@@ -2,10 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-import CartState from './context/cart/cartState';
-import DataState from './context/data/dataState';
-import AuthState from './context/auth/authState';
-
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
@@ -13,15 +9,9 @@ import {BrowserRouter} from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AuthState>
-    <DataState>
-    <CartState>
       <BrowserRouter>
         <App />
       </BrowserRouter>
-    </CartState>
-    </DataState>
-    </AuthState>
   </React.StrictMode>,
   document.getElementById('root')
 );

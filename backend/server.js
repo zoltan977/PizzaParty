@@ -298,7 +298,11 @@ app.get('/api/orders', auth, async function(req, res) {
         res.status(500).json({msg: 'Server Error'})
     }
 });
-  
+
+app.get('*',function(req,res){
+    res.sendFile(__dirname + "/public/index.html")
+});
+
 
 
 app.listen(PORT, function() {

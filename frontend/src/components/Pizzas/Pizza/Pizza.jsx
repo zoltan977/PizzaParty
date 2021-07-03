@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useContext } from 'react';
 import './Pizza.css';
-import CartContext from '../../../context/cart/cartContext';
-import DataContext from '../../../context/data/dataContext';
+import { putInCart } from '../../../actions/cartActions'
+import { selectPizza } from '../../../actions/dataActions'
+import { connect } from 'react-redux';
 
-export default function Pizza({pizza, key2}) {
+const Pizza = ({putInCart, selectPizza, pizza, key2}) => {
 
     const pizzaRef = useRef();
     const observerRef = useRef();
@@ -28,8 +29,6 @@ export default function Pizza({pizza, key2}) {
         }
     }, [])
 
-    const {putInCart} = useContext(CartContext)
-    const {selectPizza} = useContext(DataContext)
 
     return (
         <div ref={pizzaRef} className="pizza" data-id={key2}>
@@ -63,3 +62,5 @@ export default function Pizza({pizza, key2}) {
         </div>
     )
 }
+
+export default connect(null, {putInCart, selectPizza})(Pizza)

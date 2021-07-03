@@ -1,12 +1,10 @@
-import React, { useContext, useState, useEffect } from 'react';
-import CartContext from './../../context/cart/cartContext';
-import DataContext from './../../context/data/dataContext';
+import React, { useState, useEffect } from 'react';
+import {connect} from 'react-redux';
+import {modifyOrDeleteItem} from '../../actions/cartActions';
+import PropTypes from 'prop-types';
 import './cart.css';
 
-export default function Cart() {
-
-    const {cart, modifyOrDeleteItem} = useContext(CartContext);
-    const {data} = useContext(DataContext);
+const Cart = ({modifyOrDeleteItem, cart, data}) => {
 
     const [pizzas, setPizzas] = useState([]);
     const [toppings, setToppings] = useState([]);
@@ -143,3 +141,15 @@ export default function Cart() {
         </div>
     )
 }
+
+// Cart.propTypes = {
+//     cart: PropTypes.object.isRequired,
+//     data: PropTypes.object.isRequired
+// }
+
+const mapStateToProps = state => ({
+    cart: state.cart,
+    data: state.data.data
+})
+
+export default connect(mapStateToProps, {modifyOrDeleteItem})(Cart)

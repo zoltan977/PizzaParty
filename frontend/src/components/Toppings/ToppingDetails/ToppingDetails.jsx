@@ -1,12 +1,10 @@
-import React, {useContext, useState, useEffect} from 'react';
-import CartContext from '../../../context/cart/cartContext';
-import DataContext from '../../../context/data/dataContext';
+import React, {useState, useEffect} from 'react';
+import {modifyOrDeleteItem} from '../../../actions/cartActions';
+import {selectTopping} from '../../../actions/dataActions';
 import './ToppingDetails.css';
+import { connect } from 'react-redux';
 
-export default function ToppingDetails() {
-
-    const {cart, modifyOrDeleteItem} = useContext(CartContext)
-    const {selectedTopping, selectTopping} = useContext(DataContext)
+const ToppingDetails = ({modifyOrDeleteItem, selectTopping, cart, selectedTopping}) => {
 
     const [quantity, setQuantity] = useState(0);
     const [input, setInput] = useState(0);
@@ -118,3 +116,10 @@ export default function ToppingDetails() {
         </div>
     )
 }
+
+const mapStateToProps = state => ({
+    cart: state.cart,
+    selectedTopping: state.data.selectedTopping
+})
+
+export default connect(mapStateToProps, {modifyOrDeleteItem, selectTopping})(ToppingDetails)

@@ -3,7 +3,7 @@ import axios from 'axios';
 import OrderCard from './OrderCard/OrderCard';
 import './Orders.css';
 
-export default function Orders(props) {
+export default function Orders() {
 
     const [orders, setOrders] = useState([]);
 
@@ -11,8 +11,7 @@ export default function Orders(props) {
         const asyncFn = async () => {
             try {
     
-                const res = await axios.get("http://localhost:8000/api/orders")
-                console.log(res.data)
+                const res = await axios.get("/api/orders")
                 setOrders(res.data)
     
             } catch (err) {

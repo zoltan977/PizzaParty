@@ -1,12 +1,16 @@
-import {SET_DATA, SELECT_PIZZA, SELECT_TOPPING} from '../types';
+import {SET_DATA, SELECT_PIZZA, SELECT_TOPPING} from '../actions/types';
 
-const dataReducer = (state, action) => {
+const initialState = {data: {topping: [], pizza: []}, selectedPizza: null, selectedTopping: null, loading: true};
+
+const dataReducer = (state = initialState, action) => {
     switch (action.type) {
         case SET_DATA:
             return {
                 ...state,
-                pizza: [...action.payload.pizza],
-                topping: [...action.payload.topping],
+                data: {
+                    pizza: [...action.payload.pizza],
+                    topping: [...action.payload.topping],
+                },
                 loading: false
             }
 

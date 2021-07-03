@@ -1,9 +1,9 @@
-import React, { useState, useContext } from 'react';
-import CartContext from '../../context/cart/cartContext';
+import React, { useState } from 'react';
 import axios from 'axios';
 import './Order.css';
+import { connect } from 'react-redux';
 
-export default function Order(props) {
+const Order = ({cart, history}) => {
 
     let formValid = true
     
@@ -17,9 +17,6 @@ export default function Order(props) {
     const [error, setError] = useState(null);
    
     const {name, email, tel, address} = order;
-
-    const {cart} = useContext(CartContext)
-
 
 
     const onChange = e => setOrder({...order, [e.target.name]: e.target.value})
@@ -40,12 +37,12 @@ export default function Order(props) {
 
             setError(null)
             const res = await axios.post(
-                "http://localhost:8000/api/order", 
+                "/api/order", 
                 {...order, cart}, 
                 config)
 
             if (res.data && res.data.success === true)
-                props.history.push("/orders")
+                history.push("/orders")
 
         } catch (err) {
             console.log("error: ", err.response.data)
@@ -112,3 +109,9 @@ export default function Order(props) {
         </div>
     )
 }
+
+const mapStateToProps = state => ({
+    cart: state.cart
+})
+
+export default connect(mapStateToProps)(Order)

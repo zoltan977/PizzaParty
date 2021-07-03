@@ -6,9 +6,17 @@ import { LOGOUT,
         CLEAR_ERRORS,
         USER_LOADED,
         AUTH_ERROR
-} from '../types';
+} from '../actions/types';
 
-const authReducer = (state, action) => {
+const initialState = {
+    token: localStorage.getItem('token'),
+    isAuthenticated: false,
+    loading: true,
+    error: null,
+    user: null
+};
+
+const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:

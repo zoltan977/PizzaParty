@@ -1,10 +1,8 @@
-import React, {useContext} from 'react';
-import DataContext from './../../../context/data/dataContext';
+import React from 'react';
 import './OrderCard.css';
+import { connect } from 'react-redux';
 
-export default function OrderCard({order}) {
-
-    const {data} = useContext(DataContext)
+const OrderCard = ({order, data}) => {
 
     let totalSum = 0;
 
@@ -122,3 +120,9 @@ export default function OrderCard({order}) {
         </div>
     )
 }
+
+const mapStateToProps = state => ({
+    data: state.data.data
+})
+
+export default connect(mapStateToProps)(OrderCard)
