@@ -1,6 +1,4 @@
-import React, {useContext, useState, useEffect} from 'react';
-// import CartContext from '../../../context/cart/cartContext';
-// import DataContext from '../../../context/data/dataContext';
+import React, {useState, useEffect} from 'react';
 import {modifyOrDeleteItem} from '../../../actions/cartActions';
 import {selectPizza} from '../../../actions/dataActions';
 import './PizzaDetails.css';
@@ -16,7 +14,7 @@ const PizzaDetails = ({selectPizza, modifyOrDeleteItem, cart, selectedPizza}) =>
 
     useEffect(() => {
 
-        setQuantity(selectedPizza ? cart.pizza[selectedPizza.id] || 0 : 0);
+        setQuantity(selectedPizza ? cart.pizza[selectedPizza._id] || 0 : 0);
 
         if (selectedPizza)
             setPizzaDetailsStyle({transform: "scale(1)"})
@@ -98,7 +96,7 @@ const PizzaDetails = ({selectPizza, modifyOrDeleteItem, cart, selectedPizza}) =>
                                         
                                     <button onClick={
                                         (e) => {
-                                                modifyOrDeleteItem(true, selectedPizza.id, "pizza", 
+                                                modifyOrDeleteItem(true, selectedPizza._id, "pizza", 
                                                                     Number(input) + Number(quantity));
                                                 
                                                 setInput(0);

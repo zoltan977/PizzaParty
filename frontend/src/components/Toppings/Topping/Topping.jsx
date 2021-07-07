@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useContext} from 'react';
+import React, {useEffect, useRef} from 'react';
 import './Topping.css';
 import { putInCart } from './../../../actions/cartActions';
 import { selectTopping } from './../../../actions/dataActions';

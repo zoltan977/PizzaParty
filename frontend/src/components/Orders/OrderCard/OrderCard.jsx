@@ -11,7 +11,7 @@ const OrderCard = ({order, data}) => {
         let items = []
         for (const key in order.cart[category]) {
             items.push(
-                {...data[category].filter(p => p.id === Number(key))[0],
+                {...data[category].filter(p => p._id.toString() === key.toString())[0],
                     db: order.cart[category][key]
                 })
         }
@@ -66,7 +66,7 @@ const OrderCard = ({order, data}) => {
             </div>
             <div className="cart">
             {
-                    (Object.keys(order.cart.pizza).length !== 0 && data.pizza.length !== 0) ? 
+                    (order.cart.pizza && Object.keys(order.cart.pizza).length !== 0 && data.pizza.length !== 0) ? 
                     <div>
                         <h2>Pizzák</h2>
                         <table>
@@ -91,7 +91,7 @@ const OrderCard = ({order, data}) => {
                     </div> : <p>Nincsenek pizzák!</p>
                 }
                 {
-                    (Object.keys(order.cart.topping).length !== 0 && data.topping.length !== 0) ? 
+                    (order.cart.topping && Object.keys(order.cart.topping).length !== 0 && data.topping.length !== 0) ? 
                     <div>
                         <h2>Feltétek</h2>
                         <table>

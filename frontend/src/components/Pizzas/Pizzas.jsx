@@ -106,7 +106,7 @@ export default function Pizzas({pizzas}) {
             </div>
             <div className="content">
             {
-                filteredPizzas.slice(from, to).map((pizza, idx) => <Pizza key={pizza.id} key2={pizza.id} pizza={pizza}/>)
+                filteredPizzas.slice(from, to).map((pizza, idx) => <Pizza key={pizza._id} key2={pizza._id} pizza={pizza}/>)
             }
             </div>
             <div className="navigation">

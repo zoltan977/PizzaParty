@@ -1,14 +1,11 @@
+import './Home.css';
 import React, { useRef, useEffect } from 'react';
 import Pizzas from './../Pizzas/Pizzas';
 import Toppings from './../Toppings/Toppings';
 import {connect} from 'react-redux';
-import {setData} from '../../actions/dataActions';
-import {loadUser} from '../../actions/authActions';
-
-import './Home.css';
 import { PropTypes } from 'prop-types';
 
-const Home = ({setData, loadUser, loading, data}) => {
+const Home = ({loading, data}) => {
 
     const observerRef= useRef()
 
@@ -44,24 +41,6 @@ const Home = ({setData, loadUser, loading, data}) => {
         observerRef.current.disconnect()
       }
     }, [loading])
-
-
-    useEffect(() => {
-
-      fetch("/api/data")
-      .then(r => r.json())
-      .then(d => {
-        setData(d);
-        loadUser();
-      })
-      .catch(err => {
-          console.log(err);
-          setData(null);
-      })
-      .finally(() => {
-      });
-  
-    }, [])
 
 
     return (
@@ -123,4 +102,4 @@ const mapStateToProps = state => ({
   loading: state.data.loading
 })
 
-export default connect(mapStateToProps, {setData, loadUser})(Home)
+export default connect(mapStateToProps)(Home)

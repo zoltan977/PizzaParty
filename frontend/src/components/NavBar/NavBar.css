@@ -206,6 +206,32 @@
   }
 }
 
+.NavBar .linksAndUser .userInfo span.notLoggedIn {
+  color: red;
+  font-weight: bold;
+  display: inline;
+  font-size: 6vw;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 501px) and (max-width: 750px) {
+  .NavBar .linksAndUser .userInfo span.notLoggedIn {
+    font-size: 3vw;
+  }
+}
+
+@media screen and (min-width: 751px) {
+  .NavBar .linksAndUser .userInfo span.notLoggedIn {
+    font-size: 1.5vw;
+  }
+}
+
+.NavBar .linksAndUser .userInfo span.notLoggedIn img {
+  height: 1.5em;
+  width: auto;
+  margin-bottom: -0.5em;
+}
+
 .NavBar .linksAndUser .userInfo .logout {
   display: inline-block;
   height: 100%;

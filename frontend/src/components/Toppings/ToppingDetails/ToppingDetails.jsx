@@ -14,7 +14,7 @@ const ToppingDetails = ({modifyOrDeleteItem, selectTopping, cart, selectedToppin
 
 
     useEffect(() => {
-        setQuantity(selectedTopping ? cart.topping[selectedTopping.id] || 0 : 0);
+        setQuantity(selectedTopping ? cart.topping[selectedTopping._id] || 0 : 0);
 
         if (selectedTopping)
             setToppingDetailsStyle({transform: "scale(1)"})
@@ -97,7 +97,7 @@ const ToppingDetails = ({modifyOrDeleteItem, selectTopping, cart, selectedToppin
                                         
                                     <button onClick={
                                         (e) => {
-                                                modifyOrDeleteItem(true, selectedTopping.id, "topping", 
+                                                modifyOrDeleteItem(true, selectedTopping._id, "topping", 
                                                                     Number(input) + Number(quantity));
                                                 
                                                 setInput(0);

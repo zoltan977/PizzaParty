@@ -106,7 +106,7 @@ export default function Toppings({toppings}) {
             </div>
             <div className="content">
             {
-                filteredToppings.slice(from, to).map((topping, idx) => <Topping key={topping.id} key2={topping.id} topping={topping}/>)
+                filteredToppings.slice(from, to).map((topping, idx) => <Topping key={topping._id} key2={topping._id} topping={topping}/>)
             }
             </div>
             <div className="navigation">

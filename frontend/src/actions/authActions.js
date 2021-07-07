@@ -11,6 +11,7 @@ import {
 
 import axios from 'axios';
 import setAuthToken from './../utils/setAuthToken';
+import jwt_decode from "jwt-decode";
 
 
 export const register = formData => async dispatch => {
@@ -30,7 +31,18 @@ export const register = formData => async dispatch => {
                 type: REGISTER_SUCCESS,
                 payload: res.data
             })
-            loadUser()
+            //loadUser()
+            if (localStorage.token)
+                setAuthToken(localStorage.token)
+
+            const user = (jwt_decode(res.data.token)).user
+
+            console.log("register action user: ", user)
+
+            dispatch({
+                type: USER_LOADED,
+                payload: user
+            })
     } catch (error) {
         console.log(error.response.data)
         setAuthToken();
@@ -40,6 +52,35 @@ export const register = formData => async dispatch => {
         })
     }
 }    
+
+export const google = code => async dispatch => {
+    console.log("google action code:", code)
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    const res = await axios.post("/api/google", {code}, config)
+
+    console.log("google action /api/google res.data", res.data)
+
+    dispatch({
+        type: LOGIN_SUCCESS,
+        payload: res.data
+    })
+
+    if (localStorage.token)
+        setAuthToken(localStorage.token)
+
+    const user = (jwt_decode(res.data.token)).user
+
+    console.log("google action user: ", user)
+
+    dispatch({
+        type: USER_LOADED,
+        payload: user
+    })
+}
 
 export const login = formData => async dispatch => {
     const config = {
@@ -58,7 +99,19 @@ export const login = formData => async dispatch => {
                 type: LOGIN_SUCCESS,
                 payload: res.data
             })
-            loadUser()
+            //loadUser()
+            if (localStorage.token)
+                setAuthToken(localStorage.token)
+
+            const user = (jwt_decode(res.data.token)).user
+
+            console.log("login action user: ", user)
+
+            dispatch({
+                type: USER_LOADED,
+                payload: user
+            })
+
     } catch (error) {
         console.log(error.response.data)
         setAuthToken();
@@ -90,6 +143,7 @@ export const loadUser = () => async dispatch => {
             payload: res.data
         })
     } catch (error) {
+        console.log("auth actions load user error:", error.response.data)
         setAuthToken();
         dispatch({
             type: AUTH_ERROR

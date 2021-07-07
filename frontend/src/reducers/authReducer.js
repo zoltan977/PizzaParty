@@ -20,6 +20,7 @@ const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
+            console.log("auth reducer login success action payload:", action.payload)
             localStorage.setItem("token", action.payload.token)
             return {
                 ...state,
@@ -49,6 +50,7 @@ const authReducer = (state = initialState, action) => {
             }
 
         case USER_LOADED:
+            console.log("auth reducer user loaded action payload:", action.payload)
             return {
                 ...state,
                 user: action.payload,

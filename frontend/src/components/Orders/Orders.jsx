@@ -12,6 +12,7 @@ export default function Orders() {
             try {
     
                 const res = await axios.get("/api/orders")
+                console.log("orders: ", res.data)
                 setOrders(res.data)
     
             } catch (err) {
