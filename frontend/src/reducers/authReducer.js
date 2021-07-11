@@ -3,37 +3,61 @@ import { LOGOUT,
         LOGIN_SUCCESS,
         REGISTER_SUCCESS,
         REGISTER_FAIL,
+        CONFIRM_SUCCESS,
+        CONFIRM_FAIL,
         CLEAR_ERRORS,
         USER_LOADED,
-        AUTH_ERROR
+        AUTH_ERROR,
+        RESET_CONFIRM_SUCCESS
 } from '../actions/types';
+
+import setAuthToken from './../utils/setAuthToken';
+
 
 const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: false,
     loading: true,
     error: null,
-    user: null
+    user: null,
+    registration_success: false,
+    confirmation_success: false
 };
 
 const authReducer = (state = initialState, action) => {
     switch (action.type) {
         case REGISTER_SUCCESS:
+            return {
+                ...state,
+                registration_success: action.payload
+            }
+            
+        case RESET_CONFIRM_SUCCESS:
+            return {
+                ...state,
+                confirmation_success: false
+            }
+
+        case CONFIRM_SUCCESS:
         case LOGIN_SUCCESS:
             console.log("auth reducer login success action payload:", action.payload)
             localStorage.setItem("token", action.payload.token)
+            setAuthToken(localStorage.token)
             return {
                 ...state,
                 ...action.payload,
                 isAuthenticated: true,
-                loading: false
+                loading: false,
+                confirmation_success: true
             }
 
+        case CONFIRM_FAIL:
         case REGISTER_FAIL:
         case LOGIN_FAIL:
         case LOGOUT:
         case AUTH_ERROR:
             localStorage.removeItem("token")
+            setAuthToken();
             return {
                 ...state,
                 user: null,

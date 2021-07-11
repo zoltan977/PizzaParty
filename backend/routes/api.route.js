@@ -27,7 +27,20 @@ router.post("/register",
     UserController.register);
 
 router.post("/google", 
+    [
+        check('code', 'Please add code')
+        .not().isEmpty()
+    ], 
     UserController.google);
+
+router.post("/confirm", 
+    [
+        check('code', 'Please add name')
+        .not().isEmpty(),
+        check('email', 'Please add email')
+        .not().isEmpty()
+    ], 
+    UserController.confirm);
 
 router.get("/loaduser", 
     [

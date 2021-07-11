@@ -38,6 +38,7 @@
 }
 
 .Login .content h1 {
+  font-family: "Otomanopee One", sans-serif;
   font-size: 6vw;
 }
 
@@ -45,6 +46,10 @@
   .Login .content h1 {
     font-size: 3vw;
   }
+}
+
+.Login .content label {
+  font-family: "Teko", sans-serif;
 }
 
 .Login .content label,
@@ -99,5 +104,5 @@
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  margin-left: 1.5vw;
+  margin-left: 0.25em;
 }

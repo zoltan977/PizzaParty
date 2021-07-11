@@ -33,7 +33,7 @@ const Login = ({clearErrors, login, error}) => {
     return (
         <div className="Login">
             <div className="content">
-                <h1>Account Login</h1>
+                <h1>Log In!</h1>
                 <div className="alerts">
                 {
                     function() {

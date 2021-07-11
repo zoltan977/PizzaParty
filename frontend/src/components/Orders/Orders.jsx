@@ -1,9 +1,11 @@
+import './Orders.css';
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import OrderCard from './OrderCard/OrderCard';
-import './Orders.css';
+import { connect } from 'react-redux';
+import { logout } from '../../actions/authActions';
 
-export default function Orders() {
+const Orders = ({logout}) => {
 
     const [orders, setOrders] = useState([]);
 
@@ -17,6 +19,7 @@ export default function Orders() {
     
             } catch (err) {
                 console.log(err.response.data)
+                logout()
             }
         }
 
@@ -33,3 +36,5 @@ export default function Orders() {
         </div>
     )
 }
+
+export default connect(null, {logout})(Orders)

@@ -23,18 +23,36 @@ exports.register = asyncHandler(async (req, res) => {
       return res.status(400).json({ errors: errors.array() });
   }
 
-  const token = await UserService.register(req.body);
-  return res.json({ token });
+  // const token = await UserService.register(req.body);
+  // return res.json({ token });
+
+  const result = await UserService.register(req.body);
+  return res.json(result);
 });
 
 exports.google = asyncHandler(async (req, res) => {
   
-  if (!req.body || !req.body.code)
-      return res.json({error: "No code"})
+  const errors = validationResult(req)
+        
+  if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+  }
         
   const code = req.body.code;
 
   const token = await UserService.google(code);
+  return res.json({ token });
+});
+
+exports.confirm = asyncHandler(async (req, res) => {
+  
+  const errors = validationResult(req)
+        
+  if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+  }
+        
+  const token = await UserService.confirm(req.body);
   return res.json({ token });
 });
 

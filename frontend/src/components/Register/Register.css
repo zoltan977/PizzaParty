@@ -38,6 +38,7 @@
 }
 
 .Register .content h1 {
+  font-family: "Otomanopee One", sans-serif;
   font-size: 6vw;
 }
 
@@ -45,6 +46,10 @@
   .Register .content h1 {
     font-size: 3vw;
   }
+}
+
+.Register .content label {
+  font-family: "Teko", sans-serif;
 }
 
 .Register .content label,
@@ -99,5 +104,5 @@
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  margin-left: 1.5vw;
+  margin-left: 0.25em;
 }

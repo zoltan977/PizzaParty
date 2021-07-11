@@ -1,7 +1,16 @@
-import {SET_DATA, SELECT_PIZZA, SELECT_TOPPING} from './types'
+import {SET_DATA, SELECT_PIZZA, SELECT_TOPPING} from './types';
+import axios from 'axios';
 
-export const setData = (data) => {
-    return ({type: SET_DATA, payload: data});
+export const setData = _ => async dispatch => {
+
+    try {
+        const response = await axios("/api/data")
+
+        dispatch({type: SET_DATA, payload: response.data});
+            
+    } catch (error) {
+        dispatch({type: SET_DATA, payload: null});
+    }
 };
 
 export const selectPizza = (pizza) => {

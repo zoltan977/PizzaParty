@@ -20,6 +20,8 @@ const Home = ({loading, data}) => {
       const observer = new IntersectionObserver(entries => {
 
         for (const entry of entries) {
+          // console.log("entry.intersectionRatio: ", entry.intersectionRatio);
+          
           if (entry.isIntersecting) {
               entry.target.style.transform = 'scale(1)'
           } else {

@@ -1,4 +1,4 @@
-.Register {
+.Confirm {
   padding-top: calc(80px + 3.5vw);
   padding-bottom: 80px;
 
@@ -34,47 +34,6 @@
       font-size: 6vw;
       @media screen and (min-width: 751px) {
         font-size: 3vw;
-      }
-    }
-
-    label {
-      font-family: "Teko", sans-serif;
-    }
-
-    label,
-    input,
-    button {
-      font-size: 4vw;
-      @media screen and (min-width: 751px) {
-        font-size: 2vw;
-      }
-    }
-
-    form {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.75vw;
-
-      button {
-        width: 50%;
-
-        margin-top: 4.5vw;
-        margin-bottom: 4.5vw;
-        @media screen and (min-width: 751px) {
-          margin-top: 2.25vw;
-          margin-bottom: 2.25vw;
-        }
-      }
-
-      div {
-        width: 100%;
-        display: flex;
-
-        input {
-          flex: 1;
-          margin-left: 0.25em;
-        }
       }
     }
   }

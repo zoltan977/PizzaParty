@@ -11,6 +11,7 @@ import Login from './components/Login/Login';
 import Order from './components/Order/Order';
 import Orders from './components/Orders/Orders';
 import Callback from './components/Callback/Callback';
+import Confirm from './components/Confirm/Confirm';
 
 import PrivateRoute from './components/Routing/PrivateRoute';
 import UnAuthRoute from './components/Routing/UnAuthRoute';
@@ -19,25 +20,20 @@ import {connect} from 'react-redux';
 import {setData} from './actions/dataActions';
 import {loadUser} from './actions/authActions';
 
+import { useLocation } from 'react-router-dom'
 
 const App = ({setData, loadUser}) => {
-
-  useEffect(() => {
-
-      fetch("/api/data")
-      .then(r => r.json())
-      .then(d => {
-        setData(d);
-        loadUser();
-      })
-      .catch(err => {
-          console.log(err);
-          setData(null);
-      })
-      .finally(() => {
-      });
+  const location = useLocation();
   
-    }, [])
+  useEffect(() => {
+    console.log("app.js location.pathname: ", location.pathname);
+
+    setData();
+
+    if (location.pathname !== "/confirm")
+      loadUser();
+      
+  }, [])
  
   return (
       <div className="App" style={{backgroundImage: 'url("background.svg")', backgroundSize: 'contain'}}>
@@ -45,6 +41,7 @@ const App = ({setData, loadUser}) => {
           <Switch>
             <UnAuthRoute path="/register" component={Register} />
             <UnAuthRoute path="/login" component={Login} />
+            <Route path="/confirm" component={Confirm} />
             <Route path="/callback" component={Callback} />
             <PrivateRoute path="/order" component={Order} />
             <PrivateRoute path="/orders" component={Orders} />

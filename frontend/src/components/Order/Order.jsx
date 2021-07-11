@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './Order.css';
 import { connect } from 'react-redux';
+import {logout} from '../../actions/authActions';
 
-const Order = ({cart, history}) => {
+const Order = ({logout, cart, history}) => {
 
     let formValid = true
     
@@ -43,10 +44,13 @@ const Order = ({cart, history}) => {
 
             if (res.data && res.data.success === true)
                 history.push("/orders")
+            else
+                logout()
 
         } catch (err) {
             console.log("error: ", err.response.data)
             setError(err.response.data)
+            logout()
         }
 
     }
@@ -114,4 +118,4 @@ const mapStateToProps = state => ({
     cart: state.cart
 })
 
-export default connect(mapStateToProps)(Order)
+export default connect(mapStateToProps, {logout})(Order)
