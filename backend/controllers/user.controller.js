@@ -23,10 +23,31 @@ exports.register = asyncHandler(async (req, res) => {
       return res.status(400).json({ errors: errors.array() });
   }
 
-  // const token = await UserService.register(req.body);
-  // return res.json({ token });
-
   const result = await UserService.register(req.body);
+  return res.json(result);
+});
+
+exports.reset = asyncHandler(async (req, res) => {
+  
+  const errors = validationResult(req)
+        
+  if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+  }
+
+  const result = await UserService.reset(req.body);
+  return res.json(result);
+});
+
+exports.password = asyncHandler(async (req, res) => {
+  
+  const errors = validationResult(req)
+        
+  if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+  }
+
+  const result = await UserService.password(req.body);
   return res.json(result);
 });
 

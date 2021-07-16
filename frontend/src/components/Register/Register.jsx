@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Register.css';
+import '../Login/Login.css';
 import { connect } from 'react-redux';
 import { register, clearErrors, resetRegistrationSuccess } from '../../actions/authActions'
 
@@ -40,7 +40,7 @@ const Register = ({resetRegistrationSuccess, clearErrors, register, error, regis
             {
                 !registration_success ?
                 <div className="content">
-                    <h1>Sign Up!</h1>
+                    <h1>Regisztráció!</h1>
                     <div className="alerts">
                     {
                         function() {
@@ -48,11 +48,11 @@ const Register = ({resetRegistrationSuccess, clearErrors, register, error, regis
                             formValid = true
 
                             if (name === "" || email === "" || password === "") {
-                                alerts.push(<p key={alerts.length + 1}>Please fill every field!</p>)
+                                alerts.push(<p key={alerts.length + 1}>Tölts ki minden mezőt!</p>)
                                 formValid = false
                             }
                             if (password !== password2) {
-                                alerts.push(<p key={alerts.length + 1}>Passwords do not match!</p>)
+                                alerts.push(<p key={alerts.length + 1}>Jelszavak nem egyeznek!</p>)
                                 formValid = false
                             }
 
@@ -73,7 +73,7 @@ const Register = ({resetRegistrationSuccess, clearErrors, register, error, regis
                     </div>
                     <form>
                         <div>
-                            <label htmlFor="name">Name</label>
+                            <label htmlFor="name">Név</label>
                             <input type="text" name="name" value={name} onChange={onChange}/>
                         </div>
                         <div>
@@ -81,14 +81,14 @@ const Register = ({resetRegistrationSuccess, clearErrors, register, error, regis
                             <input type="email" name="email" value={email} onChange={onChange}/>
                         </div>
                         <div>
-                            <label htmlFor="password">Password</label>
+                            <label htmlFor="password">Jelszó</label>
                             <input type="password" name="password" value={password} onChange={onChange}/>
                         </div>
                         <div>
-                            <label htmlFor="password2">Confirm Password</label>
+                            <label htmlFor="password2">Jelszó megerősítés</label>
                             <input type="password" name="password2" value={password2} onChange={onChange}/>
                         </div>
-                        <button type="button" disabled={!formValid} onClick={submit}>Register</button>
+                        <button type="button" disabled={!formValid} onClick={submit}>Küldés</button>
                     </form>
                 </div>
                 :
@@ -97,7 +97,7 @@ const Register = ({resetRegistrationSuccess, clearErrors, register, error, regis
                         <h1>Registration Success!</h1>
                         <div className="alerts">
                             <p>
-                                A email has been sent to {email}
+                                A email has been sent to <span className="email">{email}</span>
                             </p>
                         </div>
                     </div>

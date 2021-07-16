@@ -26,6 +26,25 @@ router.post("/register",
     ], 
     UserController.register);
 
+router.post("/password", 
+    [
+        check('code', 'Please add code')
+        .not().isEmpty(),
+        check('email', 'Please include a valid email')
+        .isEmail(),
+        check('password', 'Please enter a password with 6 or more characters')
+        .isLength({ min: 6 })
+    ], 
+    UserController.password);
+
+router.post("/reset", 
+    [
+        check('email', 'Please include a valid email')
+        .isEmail()
+    ], 
+    UserController.reset);
+
+
 router.post("/google", 
     [
         check('code', 'Please add code')

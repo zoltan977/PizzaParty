@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './Order.css';
+import '../Login/Login.css';
 import { connect } from 'react-redux';
 import {logout} from '../../actions/authActions';
 

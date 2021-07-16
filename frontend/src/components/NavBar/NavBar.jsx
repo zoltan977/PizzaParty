@@ -45,13 +45,13 @@ const NavBar = ({logout, user,cart,data}) => {
                 {
                     user ?
                     <>
-                        <Link to="/order"><span>Order</span></Link>
-                        <Link to="/orders"><span>Orders</span></Link>
+                        <Link className="long" to="/order"><span>Új megrenelés</span></Link>
+                        <Link className="long" to="/orders"><span>Megrendelések</span></Link>
                     </>
                     :
                     <>
-                        <Link to="/register"><span>Register</span></Link>
-                        <Link to="/login"><span>Login</span></Link>
+                        <Link className="long" to="/register"><span>Regisztráció</span></Link>
+                        <Link to="/login"><span>Belépés</span></Link>
                     </>
                 }
             </div>
@@ -98,20 +98,20 @@ const NavBar = ({logout, user,cart,data}) => {
                     {
                         user ?
                         <>
-                            <NavLink to="/order">Order </NavLink>
-                            <NavLink to="/orders">Orders </NavLink>
+                            <NavLink to="/order">Új megrendelés</NavLink>
+                            <NavLink to="/orders">Megrendelések </NavLink>
                         </>
                         :
                         <>
-                            <NavLink to="/register">Register </NavLink>
-                            <NavLink to="/login">Login </NavLink>
+                            <NavLink to="/register">Regisztráció</NavLink>
+                            <NavLink to="/login">Belépés</NavLink>
                         </>
                     }
                 </div>
                 <div className="userInfo">
                     {user ? <span>{user.name}</span> 
                           : <span className="notLoggedIn" onClick={callGoogle}>
-                                Log in with<img src="google.png" alt="" />!
+                                Belépés<img src="google.png" alt="" />-al!
                             </span>}
                     {user && <div className="logout" onClick={() => logout()}>
                         <svg viewBox="0 0 512 512">

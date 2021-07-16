@@ -69,6 +69,93 @@ exports.login = async (loginData) => {
   return token;
 };
 
+exports.reset = async (postedData) => {
+  try {
+
+      const user = await User.findOne({...postedData})
+      if (!user)
+          return {error: "No user with this email in the database!"}
+
+      const buf = randomBytes(256);
+      
+      console.log("reset buf: ", buf)
+      console.log("reset user: ", user)
+
+      user.reset = {
+        code: buf.toString('hex'),
+        date: new Date()
+      }
+
+      await user.save()
+
+
+
+    
+      // send mail with defined transport object
+      const info = await transporter.sendMail({
+        from: `"Admin" ${process.env.email}`, // sender address
+        to: user.email, // list of receivers
+        subject: "Password reset", // Subject line
+        html: `<p>To reset your password please click on this <a href="http://localhost:3000/password_reset?code=${buf.toString('hex')}&email=${user.email}">reset</a> link!</p>`, // html body
+      });
+
+      console.log("reset info: ", info)
+
+
+      return {success: true}
+
+  } catch (error) {
+      console.log(error)
+      throw {status: 400, msg: "Password reset error!"}
+  }
+}
+
+exports.password = async (postedData) => {
+  try {
+      const user = await User.findOne({email: postedData.email})
+      if (!user)
+          throw {status: 401, msg: "No user registered with this email"}
+
+      const reset = user.reset
+
+      if (reset) {
+          const date = Date.now()
+          const resetDate = Date.parse(reset.date)
+
+          console.log("reset service:")
+          console.log("date:", date)
+          console.log("resetDate:", resetDate)
+
+          if (reset.code !== postedData.code)
+              throw {status: 400, msg: "Generated random codes do not match!"}
+
+          if ((date - resetDate) > 300000) {
+              user.reset = undefined
+              await user.save()
+
+              throw {status: 400, msg: "More than 5 minutes has passed since the reset!"}
+          }
+          else {
+              user.reset = undefined
+              await user.save()
+
+              const salt = await bcrypt.genSalt(10);
+              postedData.password = await bcrypt.hash(postedData.password, salt);
+
+              await user.updateOne({password: postedData.password})
+
+              return {success: true}
+          }
+      }
+      else
+          throw {status: 401, msg: "No user with this name is waiting for password reset"}
+      
+  } catch (error) {
+      throw {status: 401, msg: "Password change error!"}
+  }
+}
+
+
 exports.confirm = async (postedData) => {
   console.log("user service confirm posted data: ", postedData)
   const user = await User.findOne({ email: postedData.email })
@@ -119,8 +206,6 @@ exports.register = async (registrationData) => {
   
     const savedUser = await newUser.save()
     
-    // const token = createToken(savedUser)
-    
     const info = await transporter.sendMail({
       from: `"Admin" ${process.env.email}`, // sender address
       to: savedUser.email, // list of receivers
@@ -132,8 +217,6 @@ exports.register = async (registrationData) => {
     console.log("Error creating uesr: ", error)
     throw {status: 400, msg: 'Error creating user'}
   }
-
-  // return token;
 
   return {success: true}
 };

@@ -2,6 +2,7 @@ import './Toppings.css';
 import Topping from './Topping/Topping';
 import React, { useState } from 'react';
 import ToppingDetails from './ToppingDetails/ToppingDetails';
+import Navigation from '../Navigation/navigation';
 
 export default function Toppings({toppings}) {
     
@@ -94,31 +95,17 @@ export default function Toppings({toppings}) {
             <div className="search">
                 <input type="text" placeholder="search" onChange={(e) => search(e)} />
             </div>
-            <div className="navigation">
-                <span onClick={prev}>{"\u2190"}</span>
-                <span>
-                    {filteredToppings.length}{"("}<input value={quantityPerPage} onChange={change}/>{")"}/
-                    {Number(to) === 0 ? 0 : from + 1}-{to}
-                    <span onClick={increaseQuantityPerPage}>{"\u2bc5"}</span>
-                    <span onClick={decreaseQuantityPerPage}>{"\u2bc6"}</span>
-                </span>
-                <span onClick={next}>{"\u2192"}</span>
-            </div>
+            <Navigation props = {{prev, next, data: filteredToppings, 
+                quantityPerPage, change, to, from, 
+                increaseQuantityPerPage, decreaseQuantityPerPage}} />
             <div className="content">
             {
                 filteredToppings.slice(from, to).map((topping, idx) => <Topping key={topping._id} key2={topping._id} topping={topping}/>)
             }
             </div>
-            <div className="navigation">
-                <span onClick={prev}>{"\u2190"}</span>
-                <span>
-                    {filteredToppings.length}{"("}<input value={quantityPerPage} onChange={change}/>{")"}/
-                    {Number(to) === 0 ? 0 : from + 1}-{to}
-                    <span onClick={increaseQuantityPerPage}>{"\u2bc5"}</span>
-                    <span onClick={decreaseQuantityPerPage}>{"\u2bc6"}</span>
-                </span>
-                <span onClick={next}>{"\u2192"}</span>
-            </div>
+            <Navigation props = {{prev, next, data: filteredToppings, 
+                quantityPerPage, change, to, from, 
+                increaseQuantityPerPage, decreaseQuantityPerPage}} />
         </div>
     )
 }

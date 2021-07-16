@@ -43,8 +43,8 @@
 }
 
 .Home .head h1 {
-  white-space: normal;
   font-size: 8vw;
+  font-family: "Otomanopee One", sans-serif;
   color: white;
   background-color: rgba(0, 0, 0, 0.5);
   -webkit-box-flex: 1;
@@ -55,7 +55,7 @@
 
 @media screen and (min-width: 751px) {
   .Home .head h1 {
-    white-space: nowrap;
+    font-size: 6vw;
   }
 }
 
@@ -93,7 +93,7 @@
   transition: transform 2s, -webkit-transform 2s;
   padding: 2vw;
   font-size: 5vw;
-  font-family: "Archivo", sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   margin-bottom: 100px;
   text-align: justify;
   color: black;
@@ -118,8 +118,18 @@
   }
 }
 
-.Home img.mainImage {
+.Home div.mainImage {
   width: 95%;
+}
+
+@media screen and (min-width: 751px) {
+  .Home div.mainImage {
+    width: 80%;
+  }
+}
+
+.Home div.mainImage img {
+  width: 100%;
   -webkit-transform: scale(0);
           transform: scale(0);
   -webkit-transition: -webkit-transform 2s;
@@ -129,12 +139,6 @@
   border-radius: 5vw;
   -webkit-box-shadow: 0vw 1.5vw 2.25vw -0.75vw black;
           box-shadow: 0vw 1.5vw 2.25vw -0.75vw black;
-}
-
-@media screen and (min-width: 751px) {
-  .Home img.mainImage {
-    width: 80%;
-  }
 }
 
 .Home img.menuImage {
@@ -219,7 +223,7 @@
   width: -moz-fit-content;
   width: fit-content;
   font-size: 50px;
-  font-family: "Archivo", sans-serif;
+  font-family: "Otomanopee One", sans-serif;
   padding: 0.2em;
   margin: 0;
   margin-left: 0.5em;

@@ -1,0 +1,112 @@
+.navigation {
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.navigation div {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.navigation div:last-of-type span {
+  font-size: 15px;
+}
+
+@media screen and (min-width: 451px) and (max-width: 1000px) {
+  .navigation div:last-of-type span {
+    font-size: 3vw;
+  }
+}
+
+@media screen and (min-width: 1001px) {
+  .navigation div:last-of-type span {
+    font-size: 2.25vw;
+  }
+}
+
+.navigation input {
+  width: 2ch;
+  text-align: center;
+  color: #767676;
+  background-color: rgba(255, 255, 255, 0);
+  margin: 0;
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 20px;
+}
+
+@media screen and (min-width: 451px) and (max-width: 1000px) {
+  .navigation input {
+    font-size: 4vw;
+  }
+}
+
+@media screen and (min-width: 1001px) {
+  .navigation input {
+    font-size: 3vw;
+  }
+}
+
+.navigation span {
+  color: #767676;
+  font-size: 20px;
+}
+
+@media screen and (min-width: 451px) and (max-width: 1000px) {
+  .navigation span {
+    font-size: 4vw;
+  }
+}
+
+@media screen and (min-width: 1001px) {
+  .navigation span {
+    font-size: 3vw;
+  }
+}
+
+.navigation span:first-child, .navigation span:last-child {
+  cursor: pointer;
+}
+
+.navigation span:nth-child(2) {
+  position: relative;
+}
+
+.navigation span:nth-child(2) input,
+.navigation span:nth-child(2) em {
+  color: white;
+}
+
+.navigation span:nth-child(2) em {
+  margin-left: 0.35em;
+  font-style: normal;
+}
+
+.navigation span:nth-child(2):hover span {
+  display: inline;
+}
+
+.navigation span:nth-child(2) span {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  cursor: pointer;
+}
+
+.navigation span:nth-child(2) span:first-of-type {
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.navigation span:nth-child(2) span:last-of-type {
+  -webkit-transform: translate(-50%, 50%);
+          transform: translate(-50%, 50%);
+}

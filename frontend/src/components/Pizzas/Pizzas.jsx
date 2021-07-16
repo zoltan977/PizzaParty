@@ -2,6 +2,7 @@ import Pizza from './Pizza/Pizza.jsx';
 import './Pizzas.css';
 import React, { useState } from 'react';
 import PizzaDetails from './PizzaDetails/PizzaDetails.jsx';
+import Navigation from '../Navigation/navigation.jsx';
 
 export default function Pizzas({pizzas}) {
 
@@ -94,31 +95,17 @@ export default function Pizzas({pizzas}) {
             <div className="search">
                 <input type="text" placeholder="search" onChange={(e) => search(e)} />
             </div>
-            <div className="navigation">
-                <span onClick={prev}>{"\u2190"}</span>
-                <span>
-                    {filteredPizzas.length}{"("}<input value={quantityPerPage} onChange={change}/>{")"}/
-                    {Number(to) === 0 ? 0 : from + 1}-{to}
-                    <span onClick={increaseQuantityPerPage}>{"\u2bc5"}</span>
-                    <span onClick={decreaseQuantityPerPage}>{"\u2bc6"}</span>
-                </span>
-                <span onClick={next}>{"\u2192"}</span>
-            </div>
+            <Navigation props = {{prev, next, data: filteredPizzas, 
+                quantityPerPage, change, to, from, 
+                increaseQuantityPerPage, decreaseQuantityPerPage}} />
             <div className="content">
             {
                 filteredPizzas.slice(from, to).map((pizza, idx) => <Pizza key={pizza._id} key2={pizza._id} pizza={pizza}/>)
             }
             </div>
-            <div className="navigation">
-                <span onClick={prev}>{"\u2190"}</span>
-                <span>
-                    {filteredPizzas.length}{"("}<input value={quantityPerPage} onChange={change}/>{")"}/
-                    {Number(to) === 0 ? 0 : from + 1}-{to}
-                    <span onClick={increaseQuantityPerPage}>{"\u2bc5"}</span>
-                    <span onClick={decreaseQuantityPerPage}>{"\u2bc6"}</span>
-                </span>
-                <span onClick={next}>{"\u2192"}</span>
-            </div>
+            <Navigation props = {{prev, next, data: filteredPizzas, 
+                quantityPerPage, change, to, from, 
+                increaseQuantityPerPage, decreaseQuantityPerPage}} />
         </div>
 
     )

@@ -72,10 +72,14 @@
   font-size: 9vw;
   font-family: Arial, Helvetica, sans-serif;
   display: block;
-  width: 30vw;
   height: 0;
   overflow: visible;
   position: relative;
+  width: 30vw;
+}
+
+.NavBar .dropDownMenu a.long {
+  width: 45vw;
 }
 
 @media screen and (min-width: 451px) and (max-width: 750px) {
@@ -83,12 +87,18 @@
     font-size: 4.5vw;
     width: 15vw;
   }
+  .NavBar .dropDownMenu a.long {
+    width: 22.5vw;
+  }
 }
 
 @media screen and (min-width: 751px) {
   .NavBar .dropDownMenu a {
     font-size: 2.25vw;
     width: 7.5vw;
+  }
+  .NavBar .dropDownMenu a.long {
+    width: 11.25vw;
   }
 }
 
@@ -117,6 +127,7 @@
   top: 0;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
+  white-space: nowrap;
 }
 
 .NavBar .linksAndUser {
@@ -150,11 +161,11 @@
   width: fit-content;
   display: none;
   gap: 1.1vw;
-  font-size: 2.25vw;
 }
 
 @media screen and (min-width: 751px) {
   .NavBar .linksAndUser .links {
+    font-size: 2.25vw;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -220,7 +231,7 @@
 
 @media screen and (min-width: 501px) and (max-width: 750px) {
   .NavBar .linksAndUser .userInfo span.notLoggedIn {
-    font-size: 3vw;
+    font-size: 4.5vw;
   }
 }
 

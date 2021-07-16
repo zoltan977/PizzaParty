@@ -1,72 +1,216 @@
-.Login {
+.Confirm,
+.Callback,
+.Login,
+.Register,
+.Order,
+.ForgotPassword,
+.PasswordReset {
   padding-top: calc(80px + 3.5vw);
   padding-bottom: 80px;
 }
 
 @media screen and (min-width: 751px) {
-  .Login {
+  .Confirm,
+  .Callback,
+  .Login,
+  .Register,
+  .Order,
+  .ForgotPassword,
+  .PasswordReset {
     padding-top: calc(50px + 3.5vw);
   }
 }
 
-.Login .content {
+.Confirm .content,
+.Callback .content,
+.Login .content,
+.Register .content,
+.Order .content,
+.ForgotPassword .content,
+.PasswordReset .content {
   background-color: rgba(255, 255, 255, 0.5);
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   padding: 3vw;
+  max-width: 80%;
   text-align: center;
   margin: 0 auto;
 }
 
 @media screen and (min-width: 751px) {
-  .Login .content {
+  .Confirm .content,
+  .Callback .content,
+  .Login .content,
+  .Register .content,
+  .Order .content,
+  .ForgotPassword .content,
+  .PasswordReset .content {
     padding: 1.5vw;
+    max-width: 50%;
   }
 }
 
-.Login .content .alerts p {
+.Confirm .content .alerts p,
+.Callback .content .alerts p,
+.Login .content .alerts p,
+.Register .content .alerts p,
+.Order .content .alerts p,
+.ForgotPassword .content .alerts p,
+.PasswordReset .content .alerts p {
   color: red;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Teko", sans-serif;
   font-size: 4vw;
 }
 
 @media screen and (min-width: 751px) {
-  .Login .content .alerts p {
+  .Confirm .content .alerts p,
+  .Callback .content .alerts p,
+  .Login .content .alerts p,
+  .Register .content .alerts p,
+  .Order .content .alerts p,
+  .ForgotPassword .content .alerts p,
+  .PasswordReset .content .alerts p {
     font-size: 2vw;
   }
 }
 
-.Login .content h1 {
+.Confirm .content .alerts p span.email,
+.Callback .content .alerts p span.email,
+.Login .content .alerts p span.email,
+.Register .content .alerts p span.email,
+.Order .content .alerts p span.email,
+.ForgotPassword .content .alerts p span.email,
+.PasswordReset .content .alerts p span.email {
+  color: black;
+}
+
+.Confirm .content h1,
+.Callback .content h1,
+.Login .content h1,
+.Register .content h1,
+.Order .content h1,
+.ForgotPassword .content h1,
+.PasswordReset .content h1 {
   font-family: "Otomanopee One", sans-serif;
   font-size: 6vw;
 }
 
 @media screen and (min-width: 751px) {
-  .Login .content h1 {
+  .Confirm .content h1,
+  .Callback .content h1,
+  .Login .content h1,
+  .Register .content h1,
+  .Order .content h1,
+  .ForgotPassword .content h1,
+  .PasswordReset .content h1 {
     font-size: 3vw;
   }
 }
 
-.Login .content label {
+.Confirm .content label,
+.Callback .content label,
+.Login .content label,
+.Register .content label,
+.Order .content label,
+.ForgotPassword .content label,
+.PasswordReset .content label {
   font-family: "Teko", sans-serif;
 }
 
+.Confirm .content a,
+.Callback .content a,
+.Login .content a,
+.Register .content a,
+.Order .content a,
+.ForgotPassword .content a,
+.PasswordReset .content a {
+  text-decoration: none;
+  color: black;
+  font-family: "Teko", sans-serif;
+}
+
+.Confirm .content a:hover,
+.Callback .content a:hover,
+.Login .content a:hover,
+.Register .content a:hover,
+.Order .content a:hover,
+.ForgotPassword .content a:hover,
+.PasswordReset .content a:hover {
+  color: red;
+}
+
+.Confirm .content a,
+.Confirm .content label,
+.Confirm .content input,
+.Confirm .content button,
+.Callback .content a,
+.Callback .content label,
+.Callback .content input,
+.Callback .content button,
+.Login .content a,
 .Login .content label,
 .Login .content input,
-.Login .content button {
+.Login .content button,
+.Register .content a,
+.Register .content label,
+.Register .content input,
+.Register .content button,
+.Order .content a,
+.Order .content label,
+.Order .content input,
+.Order .content button,
+.ForgotPassword .content a,
+.ForgotPassword .content label,
+.ForgotPassword .content input,
+.ForgotPassword .content button,
+.PasswordReset .content a,
+.PasswordReset .content label,
+.PasswordReset .content input,
+.PasswordReset .content button {
   font-size: 4vw;
 }
 
 @media screen and (min-width: 751px) {
+  .Confirm .content a,
+  .Confirm .content label,
+  .Confirm .content input,
+  .Confirm .content button,
+  .Callback .content a,
+  .Callback .content label,
+  .Callback .content input,
+  .Callback .content button,
+  .Login .content a,
   .Login .content label,
   .Login .content input,
-  .Login .content button {
+  .Login .content button,
+  .Register .content a,
+  .Register .content label,
+  .Register .content input,
+  .Register .content button,
+  .Order .content a,
+  .Order .content label,
+  .Order .content input,
+  .Order .content button,
+  .ForgotPassword .content a,
+  .ForgotPassword .content label,
+  .ForgotPassword .content input,
+  .ForgotPassword .content button,
+  .PasswordReset .content a,
+  .PasswordReset .content label,
+  .PasswordReset .content input,
+  .PasswordReset .content button {
     font-size: 2vw;
   }
 }
 
-.Login .content form {
+.Confirm .content form,
+.Callback .content form,
+.Login .content form,
+.Register .content form,
+.Order .content form,
+.ForgotPassword .content form,
+.PasswordReset .content form {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -80,27 +224,51 @@
   gap: 0.75vw;
 }
 
-.Login .content form button {
+.Confirm .content form button,
+.Callback .content form button,
+.Login .content form button,
+.Register .content form button,
+.Order .content form button,
+.ForgotPassword .content form button,
+.PasswordReset .content form button {
   width: 50%;
   margin-top: 4.5vw;
   margin-bottom: 4.5vw;
 }
 
 @media screen and (min-width: 751px) {
-  .Login .content form button {
+  .Confirm .content form button,
+  .Callback .content form button,
+  .Login .content form button,
+  .Register .content form button,
+  .Order .content form button,
+  .ForgotPassword .content form button,
+  .PasswordReset .content form button {
     margin-top: 2.25vw;
     margin-bottom: 2.25vw;
   }
 }
 
-.Login .content form div {
+.Confirm .content form div,
+.Callback .content form div,
+.Login .content form div,
+.Register .content form div,
+.Order .content form div,
+.ForgotPassword .content form div,
+.PasswordReset .content form div {
   width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.Login .content form div input {
+.Confirm .content form div input,
+.Callback .content form div input,
+.Login .content form div input,
+.Register .content form div input,
+.Order .content form div input,
+.ForgotPassword .content form div input,
+.PasswordReset .content form div input {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;

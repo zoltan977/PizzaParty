@@ -20,12 +20,18 @@ const Home = ({loading, data}) => {
       const observer = new IntersectionObserver(entries => {
 
         for (const entry of entries) {
-          // console.log("entry.intersectionRatio: ", entry.intersectionRatio);
+          // console.log("entry.intersectionRatio: ", entry, entry.intersectionRatio);
+
+          let target
+          if (entry.target.className === "mainImage")
+            target = entry.target.querySelector("img")
+          else
+            target = entry.target
           
           if (entry.isIntersecting) {
-              entry.target.style.transform = 'scale(1)'
+              target.style.transform = 'scale(1)'
           } else {
-              entry.target.style = ''
+              target.style = ''
           }
         }
       })
@@ -62,7 +68,9 @@ const Home = ({loading, data}) => {
                 </div>
 
                 <div className="firstPart">
-                  <img className="mainImage" ref={mainImgRef} style={{transform: "scale(0)"}} src="mainImage.jpg" alt="" />
+                  <div className="mainImage" ref={mainImgRef}>
+                    <img src="mainImage.jpg" alt="" />
+                  </div>
 
                   <p className="introduction" ref={introductionRef} style={{transform: "scale(0)"}}>
                     A Party Pizzériát 1997-ben nyitottuk, többé-kevésbé családi vállalkozás keretében. Elsősorban a lakosság "pizzaigényeit" szerettük volna kielégíteni, de a környékbeli falvakból és a közelebbi városokból is sikerült már törzsvendékeket szereznünk az elmult másfél évtizedben. Gazdaságadta lehetőségekhez, és Kedves Vendégeink pénztárcájához igazodva megpróbáltunk az árszínvonal arany középútján maradni, természetesen maximális minőség mellett. Minden erőnkből azon dolgozunk, hogy aki tőlünk távozik, jó érzéssel- véleménnyel, és nem utolsó sorben tele hassal tegye!
@@ -75,12 +83,12 @@ const Home = ({loading, data}) => {
                   <div className="pizzasAndToppings">
         
                     <div className="pizzasContainer">
-                      <h2>Pizzas</h2>
+                      <h2>Pizzák</h2>
                       {data.pizza.length ? <Pizzas pizzas={data.pizza}/> : <p className="warning"> No pizzas </p>}
                     </div>
 
                     <div className="toppingsContainer">
-                      <h2>Toppings</h2>
+                      <h2>Feltétek</h2>
                       {data.topping.length ? <Toppings toppings={data.topping}/> : <p className="warning"> No toppings </p>}
                     </div>
                   </div>

@@ -12,6 +12,8 @@ import Order from './components/Order/Order';
 import Orders from './components/Orders/Orders';
 import Callback from './components/Callback/Callback';
 import Confirm from './components/Confirm/Confirm';
+import PasswordReset from './components/PasswordReset/PasswordReset';
+import ForgotPassword from './components/ForgotPassword/ForgotPassword';
 
 import PrivateRoute from './components/Routing/PrivateRoute';
 import UnAuthRoute from './components/Routing/UnAuthRoute';
@@ -41,10 +43,12 @@ const App = ({setData, loadUser}) => {
           <Switch>
             <UnAuthRoute path="/register" component={Register} />
             <UnAuthRoute path="/login" component={Login} />
-            <Route path="/confirm" component={Confirm} />
-            <Route path="/callback" component={Callback} />
             <PrivateRoute path="/order" component={Order} />
             <PrivateRoute path="/orders" component={Orders} />
+            <Route path="/confirm" component={Confirm} />
+            <Route path="/callback" component={Callback} />
+            <Route path="/password_reset" component={PasswordReset} />
+            <Route path="/forgot_password" component={ForgotPassword} />
             <Route path="/cart" component={Cart} />
             <Route exact path="/" component={Home} />
             <Redirect to="/" />

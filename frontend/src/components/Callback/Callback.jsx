@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useLocation, useHistory} from 'react-router-dom';
 import { google } from '../../actions/authActions';
 import { connect } from 'react-redux';
-import './Callback.css';
+import '../Login/Login.css';
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);

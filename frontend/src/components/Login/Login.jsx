@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {login, clearErrors} from '../../actions/authActions';
 import './Login.css';
@@ -41,7 +42,7 @@ const Login = ({clearErrors, login, error}) => {
                         formValid = true
 
                         if (email === "" || password === "") {
-                            alerts.push(<p key={alerts.length + 1}>Please fill every field!</p>)
+                            alerts.push(<p key={alerts.length + 1}>Tölts ki minden mezőt!</p>)
                             formValid = false
                         }
 
@@ -66,10 +67,11 @@ const Login = ({clearErrors, login, error}) => {
                         <input type="email" name="email" value={email} onChange={onChange}/>
                     </div>
                     <div>
-                        <label htmlFor="password">Password</label>
+                        <label htmlFor="password">Jelszó</label>
                         <input type="password" name="password" value={password} onChange={onChange}/>
                     </div>
-                    <button type="button" disabled={!formValid} onClick={submit}>Login</button>
+                    <button type="button" disabled={!formValid} onClick={submit}>Küldés</button>
+                    <Link to="/forgot_password">Elfelejtett jelszó</Link>
                 </form>
             </div>
         </div>

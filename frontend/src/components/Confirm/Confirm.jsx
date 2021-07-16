@@ -3,7 +3,7 @@ import {useLocation, useHistory} from 'react-router-dom';
 import { confirm } from '../../actions/authActions';
 import { resetConfirmationSuccess } from '../../actions/authActions';
 import { connect } from 'react-redux';
-import './Confirm.css';
+import '../Login/Login.css';
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
