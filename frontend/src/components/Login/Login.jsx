@@ -34,7 +34,7 @@ const Login = ({clearErrors, login, error}) => {
     return (
         <div className="Login">
             <div className="content">
-                <h1>Log In!</h1>
+                <h1>Belépés</h1>
                 <div className="alerts">
                 {
                     function() {

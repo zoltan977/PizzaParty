@@ -60,9 +60,9 @@
   top: 45px;
 }
 
-@media screen and (min-width: 1501px) {
+@media screen and (min-width: 751px) {
   .NavBar .dropDownMenu.show {
-    top: 4vw;
+    top: calc(15px + 2vw);
   }
 }
 
@@ -74,31 +74,17 @@
   display: block;
   height: 0;
   overflow: visible;
-  position: relative;
-  width: 30vw;
-}
-
-.NavBar .dropDownMenu a.long {
-  width: 45vw;
 }
 
 @media screen and (min-width: 451px) and (max-width: 750px) {
   .NavBar .dropDownMenu a {
     font-size: 4.5vw;
-    width: 15vw;
-  }
-  .NavBar .dropDownMenu a.long {
-    width: 22.5vw;
   }
 }
 
 @media screen and (min-width: 751px) {
   .NavBar .dropDownMenu a {
     font-size: 2.25vw;
-    width: 7.5vw;
-  }
-  .NavBar .dropDownMenu a.long {
-    width: 11.25vw;
   }
 }
 
@@ -122,150 +108,14 @@
 }
 
 .NavBar .dropDownMenu a span {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  display: block;
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
   white-space: nowrap;
 }
 
-.NavBar .linksAndUser {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  padding: 0 10px;
-  margin-left: calc(15px + 2vw);
-}
-
-@media screen and (max-width: 750px) {
-  .NavBar .linksAndUser {
-    -webkit-box-pack: end;
-        -ms-flex-pack: end;
-            justify-content: flex-end;
-  }
-}
-
-.NavBar .linksAndUser .links {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  display: none;
-  gap: 1.1vw;
-}
-
-@media screen and (min-width: 751px) {
-  .NavBar .linksAndUser .links {
-    font-size: 2.25vw;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-  }
-}
-
-.NavBar .linksAndUser .links a {
-  text-decoration: none;
-  color: black;
-  font-family: "Bebas Neue", cursive;
-  line-height: 1;
-  background-color: gray;
-  padding: 0.1em 0.25em 0 0.25em;
-  border-radius: 0.25em;
-}
-
-.NavBar .linksAndUser .links a:hover, .NavBar .linksAndUser .links a.active {
-  color: white;
-  background-color: black;
-}
-
-.NavBar .linksAndUser .userInfo {
+.NavBar .icons {
   height: 100%;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  gap: 0.75vw;
-  width: fit-content;
-  font-family: "Teko", sans-serif;
-}
-
-.NavBar .linksAndUser .userInfo span {
-  display: none;
-}
-
-@media screen and (min-width: 501px) and (max-width: 750px) {
-  .NavBar .linksAndUser .userInfo span {
-    display: inline;
-    font-size: 4.5vw;
-  }
-}
-
-@media screen and (min-width: 751px) {
-  .NavBar .linksAndUser .userInfo span {
-    display: inline;
-    font-size: 2.25vw;
-  }
-}
-
-.NavBar .linksAndUser .userInfo span.notLoggedIn {
-  color: red;
-  font-weight: bold;
-  display: inline;
-  font-size: 6vw;
-  cursor: pointer;
-}
-
-@media screen and (min-width: 501px) and (max-width: 750px) {
-  .NavBar .linksAndUser .userInfo span.notLoggedIn {
-    font-size: 4.5vw;
-  }
-}
-
-@media screen and (min-width: 751px) {
-  .NavBar .linksAndUser .userInfo span.notLoggedIn {
-    font-size: 1.5vw;
-  }
-}
-
-.NavBar .linksAndUser .userInfo span.notLoggedIn img {
-  height: 1.5em;
-  width: auto;
-  margin-bottom: -0.5em;
-}
-
-.NavBar .linksAndUser .userInfo .logout {
-  display: inline-block;
-  height: 100%;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  cursor: pointer;
-}
-
-.NavBar .linksAndUser .userInfo .logout:hover path {
-  fill: red;
-}
-
-.NavBar .linksAndUser .userInfo .logout svg {
-  height: 100%;
-}
-
-.NavBar .linksAndUser .userInfo .logout svg path {
-  fill: black;
 }
 
 .NavBar .icons .cart {
@@ -386,4 +236,163 @@
   transition: transform 1s, -webkit-transform 1s;
   -webkit-transform: translate(12px, 26px) rotate(-45deg);
           transform: translate(12px, 26px) rotate(-45deg);
+}
+
+.NavBar .linksAndUser {
+  height: 100%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 10px;
+  margin-left: calc(15px + 2vw);
+}
+
+@media screen and (max-width: 750px) {
+  .NavBar .linksAndUser {
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
+  }
+}
+
+.NavBar .linksAndUser .links {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: none;
+  gap: 1.1vw;
+}
+
+@media screen and (min-width: 751px) and (max-width: 1500px) {
+  .NavBar .linksAndUser .links {
+    font-size: calc(8px + 2vw);
+  }
+}
+
+@media screen and (min-width: 1501px) {
+  .NavBar .linksAndUser .links {
+    font-size: calc(2vw);
+  }
+}
+
+@media screen and (min-width: 751px) {
+  .NavBar .linksAndUser .links {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+}
+
+.NavBar .linksAndUser .links a {
+  text-decoration: none;
+  color: black;
+  font-family: "Bebas Neue", cursive;
+  line-height: 1;
+  background-color: gray;
+  padding: 0.1em 0.25em 0 0.25em;
+  border-radius: 0.25em;
+}
+
+.NavBar .linksAndUser .links a:hover, .NavBar .linksAndUser .links a.active {
+  color: white;
+  background-color: black;
+}
+
+.NavBar .linksAndUser .userInfo {
+  height: 100%;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 0.75vw;
+  width: fit-content;
+  font-family: "Teko", sans-serif;
+}
+
+.NavBar .linksAndUser .userInfo img {
+  height: 100%;
+  width: auto;
+}
+
+.NavBar .linksAndUser .userInfo span {
+  display: none;
+}
+
+@media screen and (min-width: 501px) and (max-width: 750px) {
+  .NavBar .linksAndUser .userInfo span {
+    display: inline;
+    font-size: 4.5vw;
+  }
+}
+
+@media screen and (min-width: 751px) {
+  .NavBar .linksAndUser .userInfo span {
+    display: inline;
+    font-size: 2.25vw;
+  }
+}
+
+.NavBar .linksAndUser .userInfo span.userName {
+  cursor: pointer;
+}
+
+.NavBar .linksAndUser .userInfo span.notLoggedIn {
+  color: red;
+  font-weight: bold;
+  display: inline;
+  font-size: 6vw;
+  cursor: pointer;
+}
+
+@media screen and (min-width: 501px) and (max-width: 750px) {
+  .NavBar .linksAndUser .userInfo span.notLoggedIn {
+    font-size: 4.5vw;
+  }
+}
+
+@media screen and (min-width: 751px) {
+  .NavBar .linksAndUser .userInfo span.notLoggedIn {
+    font-size: 1.5vw;
+  }
+}
+
+.NavBar .linksAndUser .userInfo span.notLoggedIn img {
+  height: 1.5em;
+  width: auto;
+  margin-bottom: -0.5em;
+}
+
+.NavBar .linksAndUser .userInfo .logout {
+  display: inline-block;
+  height: 100%;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.NavBar .linksAndUser .userInfo .logout:hover path {
+  fill: red;
+}
+
+.NavBar .linksAndUser .userInfo .logout svg {
+  height: 100%;
+}
+
+.NavBar .linksAndUser .userInfo .logout svg path {
+  fill: black;
 }

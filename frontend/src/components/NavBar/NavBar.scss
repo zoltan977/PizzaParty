@@ -47,8 +47,9 @@
 
     &.show {
       top: 45px;
-      @media screen and (min-width: 1501px) {
-        top: 4vw;
+
+      @media screen and (min-width: 751px) {
+        top: calc(15px + 2vw);
       }
     }
 
@@ -60,25 +61,12 @@
       display: block;
       height: 0;
       overflow: visible;
-      position: relative;
 
-      width: 30vw;
-      &.long {
-        width: 45vw;
-      }
       @media screen and (min-width: 451px) and (max-width: 750px) {
         font-size: 4.5vw;
-        width: 15vw;
-        &.long {
-          width: 22.5vw;
-        }
       }
       @media screen and (min-width: 751px) {
         font-size: 2.25vw;
-        width: 7.5vw;
-        &.long {
-          width: 11.25vw;
-        }
       }
 
       &:hover {
@@ -92,129 +80,16 @@
       }
 
       span {
-        position: absolute;
-        left: 50%;
-        top: 0;
-
-        transform: translate(-50%, -50%);
+        display: block;
+        transform: translate(0, -50%);
 
         white-space: nowrap;
       }
     }
   }
 
-  .linksAndUser {
-    flex: 1;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 10px;
-    margin-left: calc(15px + 2vw);
-
-    // border: 2px solid blue;
-
-    @media screen and (max-width: 750px) {
-      justify-content: flex-end;
-    }
-
-    .links {
-      width: fit-content;
-      display: none;
-      gap: 1.1vw;
-
-      // border: 1px solid red;
-
-      @media screen and (min-width: 751px) {
-        font-size: 2.25vw;
-        display: flex;
-      }
-
-      a {
-        text-decoration: none;
-        color: black;
-        font-family: "Bebas Neue", cursive;
-        line-height: 1;
-        background-color: gray;
-        padding: 0.1em 0.25em 0 0.25em;
-        border-radius: 0.25em;
-
-        &:hover,
-        &.active {
-          color: white;
-          background-color: black;
-        }
-      }
-    }
-
-    .userInfo {
-      height: 100%;
-      width: fit-content;
-      display: flex;
-      align-items: center;
-      gap: 0.75vw;
-
-      width: fit-content;
-      // border: 1px solid red;
-
-      font-family: "Teko", sans-serif;
-
-      span {
-        display: none;
-
-        @media screen and (min-width: 501px) and (max-width: 750px) {
-          display: inline;
-          font-size: 4.5vw;
-        }
-        @media screen and (min-width: 751px) {
-          display: inline;
-          font-size: 2.25vw;
-        }
-
-        &.notLoggedIn {
-          color: red;
-          font-weight: bold;
-
-          display: inline;
-          font-size: 6vw;
-          @media screen and (min-width: 501px) and (max-width: 750px) {
-            font-size: 4.5vw;
-          }
-          @media screen and (min-width: 751px) {
-            font-size: 1.5vw;
-          }
-          cursor: pointer;
-
-          img {
-            height: 1.5em;
-            width: auto;
-
-            margin-bottom: -0.5em;
-          }
-        }
-      }
-
-      .logout {
-        display: inline-block;
-        height: 100%;
-        width: fit-content;
-
-        cursor: pointer;
-        &:hover path {
-          fill: red;
-        }
-
-        svg {
-          height: 100%;
-
-          path {
-            fill: black;
-          }
-        }
-      }
-    }
-  }
-
   .icons {
+    height: 100%;
     .cart {
       display: inline-block;
       height: 100%;
@@ -301,6 +176,133 @@
           &.cx {
             transition: transform 1s;
             transform: translate(12px, 26px) rotate(-45deg);
+          }
+        }
+      }
+    }
+  }
+
+  .linksAndUser {
+    height: 100%;
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+    margin-left: calc(15px + 2vw);
+
+    // border: 2px solid blue;
+
+    @media screen and (max-width: 750px) {
+      justify-content: flex-end;
+    }
+
+    .links {
+      width: fit-content;
+      display: none;
+      gap: 1.1vw;
+
+      // border: 1px solid red;
+
+      @media screen and (min-width: 751px) and (max-width: 1500px) {
+        font-size: calc(8px + 2vw);
+      }
+      @media screen and (min-width: 1501px) {
+        font-size: calc(2vw);
+      }
+
+      @media screen and (min-width: 751px) {
+        display: flex;
+      }
+
+      a {
+        text-decoration: none;
+        color: black;
+        font-family: "Bebas Neue", cursive;
+        line-height: 1;
+        background-color: gray;
+        padding: 0.1em 0.25em 0 0.25em;
+        border-radius: 0.25em;
+
+        &:hover,
+        &.active {
+          color: white;
+          background-color: black;
+        }
+      }
+    }
+
+    .userInfo {
+      height: 100%;
+      width: fit-content;
+      display: flex;
+      align-items: center;
+      gap: 0.75vw;
+
+      width: fit-content;
+      // border: 1px solid red;
+
+      font-family: "Teko", sans-serif;
+
+      img {
+        height: 100%;
+        width: auto;
+      }
+
+      span {
+        display: none;
+
+        @media screen and (min-width: 501px) and (max-width: 750px) {
+          display: inline;
+          font-size: 4.5vw;
+        }
+        @media screen and (min-width: 751px) {
+          display: inline;
+          font-size: 2.25vw;
+        }
+
+        &.userName {
+          cursor: pointer;
+        }
+
+        &.notLoggedIn {
+          color: red;
+          font-weight: bold;
+
+          display: inline;
+          font-size: 6vw;
+          @media screen and (min-width: 501px) and (max-width: 750px) {
+            font-size: 4.5vw;
+          }
+          @media screen and (min-width: 751px) {
+            font-size: 1.5vw;
+          }
+          cursor: pointer;
+
+          img {
+            height: 1.5em;
+            width: auto;
+
+            margin-bottom: -0.5em;
+          }
+        }
+      }
+
+      .logout {
+        display: inline-block;
+        height: 100%;
+        width: fit-content;
+
+        cursor: pointer;
+        &:hover path {
+          fill: red;
+        }
+
+        svg {
+          height: 100%;
+
+          path {
+            fill: black;
           }
         }
       }

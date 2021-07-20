@@ -1,227 +1,239 @@
 const User = require("../models/User");
-const jwt = require('jsonwebtoken');
+const jwt = require("jsonwebtoken");
 const fetch = require("node-fetch");
-const bcrypt = require('bcryptjs');
-const { randomBytes } = require('crypto');
+const bcrypt = require("bcryptjs");
+const { randomBytes } = require("crypto");
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  service: "gmail",
   auth: {
     user: process.env.EMAIL,
-    pass: process.env.PASSWORD
-  }
+    pass: process.env.PASSWORD,
+  },
 });
 
-const createToken = user => {
+const createToken = (user) => {
   const payload = {
-      "user": {
-          name: user.name,
-          email: user.email,
-          photo: user.photo
-      }
-  }
+    user: {
+      name: user.name,
+      email: user.email,
+      photo: user.photo,
+    },
+  };
 
-  const token = jwt.sign(payload,
-      process.env.JWT_SECRET, 
-      {
-          expiresIn: 3600
-      })
+  const token = jwt.sign(payload, process.env.JWT_SECRET, {
+    expiresIn: 3600,
+  });
 
   return token;
-}
+};
 
+exports.nameChange = async (newName, user) => {
+  const userInDatabase = await User.findOne({ email: user.email });
+
+  if (!userInDatabase) throw { status: 400, msg: "user not exists" };
+
+  try {
+    userInDatabase.name = newName;
+    await userInDatabase.save();
+  } catch (error) {
+    throw { status: 400, msg: "save user error" };
+  }
+
+  return { success: true };
+};
 
 exports.login = async (loginData) => {
   const { email, password } = loginData;
-    
-  const user = await User.findOne({ email })
+
+  const user = await User.findOne({ email });
 
   if (!user) {
-      throw {status: 400, msg: 'Invalid credentials'}
+    throw { status: 400, msg: "Hibás email vagy jelszó" };
   }
 
   if (user.confirmation) {
-    const date = Date.now()
-    const confirmDate = Date.parse(user.confirmation.date)
+    const date = Date.now();
+    const confirmDate = Date.parse(user.confirmation.date);
 
-    if ((date - confirmDate) > 300000) {
-      await user.delete()
-      throw {status: 400, msg: 'You have to sign up again!'}
-    } else {
-      throw {status: 400, msg: 'You have to confirm your sign up first!'}
+    //More than 5 minutes has passed since registration
+    //User will be deleted
+    if (date - confirmDate > 300000) {
+      await user.delete();
+      throw { status: 400, msg: "Újra regisztrálnod kell!" };
     }
 
+    throw {
+      status: 400,
+      msg: "Meg kell erősítened az emailben kapott linken a regisztrációt!",
+    };
   }
 
   if (!user.password) {
-      throw {status: 400, msg: 'No password. Maybe you registered with google'}
+    throw {
+      status: 400,
+      msg: "Nincs jelszó. Valószínű google-al regisztráltál. Elfelejtett jelszó linken tudsz kérni jelszót ehhez az email címhez is",
+    };
   }
 
-  const isMatch = await bcrypt.compare(password, user.password)
+  const isMatch = await bcrypt.compare(password, user.password);
 
   if (!isMatch) {
-      throw {status: 400, msg: 'Invalid credentials'}
+    throw { status: 400, msg: "Hibás email vagy jelszó" };
   }
 
-  const token = createToken(user)
+  const token = createToken(user);
 
-  return token;
+  return { token };
 };
 
 exports.reset = async (postedData) => {
-  try {
+  const { email } = postedData;
+  const user = await User.findOne({ email });
+  if (!user)
+    throw { status: 401, msg: "Ezzel az email címmel nincs felhasználó!" };
 
-      const user = await User.findOne({...postedData})
-      if (!user)
-          return {error: "No user with this email in the database!"}
+  const buf = randomBytes(256);
 
-      const buf = randomBytes(256);
-      
-      console.log("reset buf: ", buf)
-      console.log("reset user: ", user)
+  user.reset = {
+    code: buf.toString("hex"),
+    date: new Date(),
+  };
 
-      user.reset = {
-        code: buf.toString('hex'),
-        date: new Date()
-      }
+  await user.save();
 
-      await user.save()
+  // send mail with defined transport object
+  await transporter.sendMail({
+    from: `"Admin" ${process.env.email}`, // sender address
+    to: user.email, // list of receivers
+    subject: "Jelszó változtatás", // Subject line
+    html: `<p>Jelszóváltoztatáshoz kattints <a href="http://localhost:3000/password_reset?code=${buf.toString(
+      "hex"
+    )}&email=${user.email}">erre</a> a linkre!</p>`, // html body
+  });
 
-
-
-    
-      // send mail with defined transport object
-      const info = await transporter.sendMail({
-        from: `"Admin" ${process.env.email}`, // sender address
-        to: user.email, // list of receivers
-        subject: "Password reset", // Subject line
-        html: `<p>To reset your password please click on this <a href="http://localhost:3000/password_reset?code=${buf.toString('hex')}&email=${user.email}">reset</a> link!</p>`, // html body
-      });
-
-      console.log("reset info: ", info)
-
-
-      return {success: true}
-
-  } catch (error) {
-      console.log(error)
-      throw {status: 400, msg: "Password reset error!"}
-  }
-}
+  return { success: true };
+};
 
 exports.password = async (postedData) => {
-  try {
-      const user = await User.findOne({email: postedData.email})
-      if (!user)
-          throw {status: 401, msg: "No user registered with this email"}
+  const { email, code, password } = postedData;
 
-      const reset = user.reset
+  const user = await User.findOne({ email });
+  if (!user) throw { status: 401, msg: "Nincs felhasználó ezzel az email-el!" };
 
-      if (reset) {
-          const date = Date.now()
-          const resetDate = Date.parse(reset.date)
+  if (!user.reset)
+    throw {
+      status: 401,
+      msg: "Ezzel az email címmel nem kértek jelszóváltoztatást!",
+    };
 
-          console.log("reset service:")
-          console.log("date:", date)
-          console.log("resetDate:", resetDate)
+  const date = Date.now();
+  const resetDate = Date.parse(user.reset.date);
 
-          if (reset.code !== postedData.code)
-              throw {status: 400, msg: "Generated random codes do not match!"}
+  if (user.reset.code !== code)
+    throw { status: 400, msg: "A gernerált kódok nem egyeznek!" };
 
-          if ((date - resetDate) > 300000) {
-              user.reset = undefined
-              await user.save()
+  //More than five minutes has passed since the password change request
+  //User.reset object will be deleted
+  if (date - resetDate > 300000) {
+    user.reset = undefined;
+    await user.save();
 
-              throw {status: 400, msg: "More than 5 minutes has passed since the reset!"}
-          }
-          else {
-              user.reset = undefined
-              await user.save()
-
-              const salt = await bcrypt.genSalt(10);
-              postedData.password = await bcrypt.hash(postedData.password, salt);
-
-              await user.updateOne({password: postedData.password})
-
-              return {success: true}
-          }
-      }
-      else
-          throw {status: 401, msg: "No user with this name is waiting for password reset"}
-      
-  } catch (error) {
-      throw {status: 401, msg: "Password change error!"}
+    throw {
+      status: 400,
+      msg: "Több min öt perce telt el a jelszóváltoztatási kérés óta!",
+    };
   }
-}
 
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
+
+  user.reset = undefined;
+  user.password = hashedPassword;
+  await user.save();
+
+  return { success: true };
+};
 
 exports.confirm = async (postedData) => {
-  console.log("user service confirm posted data: ", postedData)
-  const user = await User.findOne({ email: postedData.email })
-  if (!user) 
-    throw {status: 400, msg: 'No user with this email'}
+  const { code, email } = postedData;
+
+  const user = await User.findOne({ email });
+  if (!user)
+    throw { status: 400, msg: "Nincs felhasználó ezzel az email címmel!" };
 
   if (!user.confirmation)
-    throw {status: 400, msg: 'No user with this email waiting for confirmation'}
+    throw {
+      status: 400,
+      msg: "Ezzel az email címmel nincs megerősítésre váró felhasználó!",
+    };
 
-  const date = Date.now()
-  const confirmDate = Date.parse(user.confirmation.date)
+  const date = Date.now();
+  const confirmDate = Date.parse(user.confirmation.date);
 
-  if (user.confirmation.code !== postedData.code)
-    throw {status: 400, msg: 'Generated random codes do not match!'}
+  if (user.confirmation.code !== code)
+    throw { status: 400, msg: "Generált kódok nem egyeznek!" };
 
-  if ((date - confirmDate) > 300000) {
-      console.log("confirmation date-confirmDate:", (date - confirmDate))
-      await user.delete()
-      throw {status: 400, msg: 'More than 5 minutes has passed since the registration!'}
+  //More than 5 minutes has passed since the confirmation email was sent
+  //So the user will be deleted
+  if (date - confirmDate > 300000) {
+    await user.delete();
+    throw {
+      status: 400,
+      msg: "Több mint öt perc telt el a regisztráció óta!",
+    };
   }
-  else {
-      user.confirmation = undefined
-      const savedUser = await user.save()
-      console.log("confirmation saved user: ", savedUser)
-      const token = createToken(savedUser)
-      return token
-  }
+
+  user.confirmation = undefined;
+  const savedUser = await user.save();
+  const token = createToken(savedUser);
+  return { token };
 };
 
 exports.register = async (registrationData) => {
-
   const { name, email, password } = registrationData;
-  const user = await User.findOne({ email })
+
+  const user = await User.findOne({ email });
 
   if (user) {
-      throw {status: 400, msg: 'User already exists'}
+    throw {
+      status: 400,
+      msg: "Ezzel az email címmel már létezik felhasználó!",
+    };
   }
 
   try {
-    const newUser = new User({name, email, password})
+    const newUser = new User({ name, email, password });
     const salt = await bcrypt.genSalt(10);
     newUser.password = await bcrypt.hash(password, salt);
     const buf = randomBytes(256);
     newUser.confirmation = {
-      code: buf.toString('hex'),
-      date: new Date()
-    }
-  
-    const savedUser = await newUser.save()
-    
-    const info = await transporter.sendMail({
+      code: buf.toString("hex"),
+      date: new Date(),
+    };
+
+    const savedUser = await newUser.save();
+
+    //Sending confirmation email
+    await transporter.sendMail({
       from: `"Admin" ${process.env.email}`, // sender address
       to: savedUser.email, // list of receivers
-      subject: "Confirm your email address", // Subject line
-      html: `<p>To confirm your registration please click on this <a href="http://localhost:3000/confirm?code=${buf.toString('hex')}&email=${savedUser.email}">confirm</a> link!</p>`
+      subject: "Regisztráció megerősítés", // Subject line
+      html: `<p>A regisztráció megerősítéséhez kattints <a href="http://localhost:3000/confirm?code=${buf.toString(
+        "hex"
+      )}&email=${savedUser.email}">erre</a> a linkre!</p>`,
     });
-
   } catch (error) {
-    console.log("Error creating uesr: ", error)
-    throw {status: 400, msg: 'Error creating user'}
+    console.log("Error creating user: ", error);
+    throw { status: 400, msg: "Felhasználó létrehozási hiba!" };
   }
 
-  return {success: true}
+  return { success: true };
 };
 
-exports.google = async (code) => {
+exports.google = async (postedData) => {
+  const { code } = postedData;
 
   const response = await fetch("https://oauth2.googleapis.com/token", {
     method: "POST",
@@ -229,42 +241,45 @@ exports.google = async (code) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-        code,
-        client_id: process.env.CLIENT_ID,
-        client_secret: process.env.CLIENT_SECRET,
-        redirect_uri: process.env.REDIRECT_URI,
-        grant_type: process.env.GRANT_TYPE
-    })
-  })
+      code,
+      client_id: process.env.CLIENT_ID,
+      client_secret: process.env.CLIENT_SECRET,
+      redirect_uri: process.env.REDIRECT_URI,
+      grant_type: process.env.GRANT_TYPE,
+    }),
+  });
 
   if (!response.ok) {
-      console.log("error getting token!")
-      throw {status: 400, msg: 'Error getting token!'}
-  } else {
-
-      const data = await response.json()
-
-      // console.log("google által visszaadott adatok: ", jwt.decode(data.id_token))
-
-      const { email, name, picture: photo } = jwt.decode(data.id_token);
-
-      const user = await User.findOneAndUpdate(
-          { email },
-          {
-            name,
-            email,
-            photo,
-          },
-          { upsert: true, setDefaultsOnInsert: true, new: true }
-      );
-
-      if (user.confirmation) {
-        user.confirmation = undefined
-        await user.save()
-      }
-
-      const token = createToken(user)
-
-      return token;
+    console.log("error getting token!");
+    throw { status: 400, msg: "Hiba a token kéréskor!" };
   }
+
+  const data = await response.json();
+
+  const { email, name, picture: photo } = jwt.decode(data.id_token);
+
+  let user = await User.findOne({ email: email });
+
+  //If the user exists already then the google image will be added to it
+  //else new user will be created
+  if (user) {
+    if (!user.photo || user.photo === "no-image.png") {
+      user.photo = photo;
+      await user.save();
+    }
+  } else {
+    const newUser = new User({ email, name, photo });
+    user = await newUser.save();
+  }
+
+  //If the user is waiting for confirmation then after the google registration
+  //confirmation will be deleted
+  if (user.confirmation) {
+    user.confirmation = undefined;
+    await user.save();
+  }
+
+  const token = createToken(user);
+
+  return { token };
 };

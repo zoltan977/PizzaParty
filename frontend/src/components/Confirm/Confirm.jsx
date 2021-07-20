@@ -33,7 +33,7 @@ const Confirm = ({confirm, error, confirmation_success, resetConfirmationSuccess
     return (
         <div className="Confirm">
             <div className="content">
-                <h1>Registration confirmation!</h1>
+                <h1>Regisztráció megerősítés!</h1>
                 <div className="alerts">
                     {
                         function() {
@@ -49,7 +49,7 @@ const Confirm = ({confirm, error, confirmation_success, resetConfirmationSuccess
                                     }   
                                 }
                             } else {
-                                alerts.push(<p key={alerts.length + 1}>Your registration has been confirmed!</p>)
+                                alerts.push(<p key={alerts.length + 1}>A regisztrációd megerősítésre került!</p>)
                             }
 
                             return alerts;

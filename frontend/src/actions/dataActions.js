@@ -1,22 +1,27 @@
-import {SET_DATA, SELECT_PIZZA, SELECT_TOPPING} from './types';
-import axios from 'axios';
+import { SET_DATA, SELECT_PIZZA, SELECT_TOPPING, CHECK_CART } from "./types";
+import axios from "axios";
 
-export const setData = _ => async dispatch => {
+export const setData = () => async (dispatch) => {
+  try {
+    const response = await axios("/api/data");
 
-    try {
-        const response = await axios("/api/data")
-
-        dispatch({type: SET_DATA, payload: response.data});
-            
-    } catch (error) {
-        dispatch({type: SET_DATA, payload: null});
-    }
+    dispatch({ type: SET_DATA, payload: response.data });
+    dispatch({
+      type: CHECK_CART,
+      payload: {
+        pizza: response.data.pizza.map((p) => p._id.toString()),
+        topping: response.data.topping.map((p) => p._id.toString()),
+      },
+    });
+  } catch (error) {
+    dispatch({ type: SET_DATA, payload: null });
+  }
 };
 
 export const selectPizza = (pizza) => {
-    return ({type: SELECT_PIZZA, payload: pizza});
+  return { type: SELECT_PIZZA, payload: pizza };
 };
 
 export const selectTopping = (topping) => {
-    return ({type: SELECT_TOPPING, payload: topping});
+  return { type: SELECT_TOPPING, payload: topping };
 };

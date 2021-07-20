@@ -1,18 +1,63 @@
 .Orders {
   // border: 2px solid blue;
+  padding-top: 90px;
+  @media screen and (min-width: 751px) {
+    padding-top: calc(3 * (15px + 2vw));
+  }
 
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 5vw;
+  .title {
+    width: fit-content;
+    height: 0;
 
-  padding-top: 100px;
+    overflow: visible;
+    margin: 0 auto;
+    box-shadow: 0 0 7.6vw 4.3vw white;
+    @media screen and (min-width: 501px) and (max-width: 750px) {
+      box-shadow: 0 0 7.6vw 4.3vw white;
+    }
+    @media screen and (min-width: 751px) {
+      box-shadow: 0 0 7.6vw 4.3vw white;
+    }
 
-  p.info {
-    color: white;
-    background-color: black;
-    font-size: 30px;
-    text-align: center;
-    padding: 20px;
+    h1 {
+      transform: translate(0, -50%);
+
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      font-family: "Otomanopee One", sans-serif;
+      color: rgb(41, 38, 38);
+
+      font-size: 7.5vw;
+      text-shadow: 0.4vw 0.3vw 0 #fff, 0.9vw 0.8vw 0 rgba(0, 0, 0, 0.15);
+      @media screen and (min-width: 501px) and (max-width: 750px) {
+        font-size: 5vw;
+        text-shadow: 0.3vw 0.225vw 0 #fff, 0.675vw 0.6vw 0 rgba(0, 0, 0, 0.15);
+      }
+      @media screen and (min-width: 751px) {
+        font-size: 5vw;
+        text-shadow: 0.3vw 0.225vw 0 #fff, 0.675vw 0.6vw 0 rgba(0, 0, 0, 0.15);
+      }
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5vw;
+
+    padding-top: calc(40px + 7.5vw);
+    @media screen and (min-width: 751px) {
+      padding-top: 7.5vw;
+    }
+
+    p.info {
+      color: white;
+      background-color: black;
+      font-size: 30px;
+      text-align: center;
+      padding: 20px;
+    }
   }
 }

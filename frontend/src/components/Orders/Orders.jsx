@@ -29,10 +29,17 @@ const Orders = ({logout}) => {
 
     return (
         <div className="Orders">
-            {
-                orders.length ? orders.map((ord, idx) => <OrderCard key={idx} order={ord}/>)
-                                : <p className="info">Nincsenek megrendelések</p>
-            }
+            <div className="title">
+                <h1>
+                    Megrendelések
+                </h1>
+            </div>
+            <div className="content">
+                {
+                    orders.length ? orders.map((ord, idx) => <OrderCard key={idx} order={ord}/>)
+                                    : <p className="info">Nincsenek megrendelések</p>
+                }
+            </div>
         </div>
     )
 }

@@ -1,8 +1,10 @@
 import './NavBar.css';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {logout} from '../../actions/authActions';
+import ContentEditable from '../ContentEditable/ContentEditable';
+import axios from 'axios';
 import { PropTypes } from 'prop-types';
 
 const NavBar = ({logout, user,cart,data}) => {
@@ -37,6 +39,42 @@ const NavBar = ({logout, user,cart,data}) => {
         window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=581910913527-bte82bsk8dpd68tdv1q3eo4af77edjsk.apps.googleusercontent.com&prompt=select_account&scope=openid%20profile%20email%20https://www.googleapis.com/auth/calendar&redirect_uri=http%3A//localhost%3A3000/callback`
     }
 
+    const sendNameChangeRequest = async newName => {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        try {
+
+            const res = await axios.post(
+                "/api/name_change", 
+                {newName}, 
+                config)
+
+            if (!res.data.success) 
+                logout()
+            else
+                console.log("name change happened: ", newName)
+
+        } catch (err) {
+            console.log("error: ", err.response.data)
+            logout()
+        }
+
+    }
+
+    const currentTimeout = useRef()
+    const nameChange = (value) => {
+        clearTimeout(currentTimeout.current);
+
+        currentTimeout.current = setTimeout(() => {
+            
+            sendNameChangeRequest(value)        
+        }, 2000);
+    };
+
     return (
         <div className="NavBar">
 
@@ -45,12 +83,12 @@ const NavBar = ({logout, user,cart,data}) => {
                 {
                     user ?
                     <>
-                        <Link className="long" to="/order"><span>Új megrenelés</span></Link>
-                        <Link className="long" to="/orders"><span>Megrendelések</span></Link>
+                        <Link to="/order"><span>Új megrenelés</span></Link>
+                        <Link to="/orders"><span>Megrendelések</span></Link>
                     </>
                     :
                     <>
-                        <Link className="long" to="/register"><span>Regisztráció</span></Link>
+                        <Link to="/register"><span>Regisztráció</span></Link>
                         <Link to="/login"><span>Belépés</span></Link>
                     </>
                 }
@@ -109,7 +147,12 @@ const NavBar = ({logout, user,cart,data}) => {
                     }
                 </div>
                 <div className="userInfo">
-                    {user ? <span>{user.name}</span> 
+                    {user && <img src={user.photo} alt="" />}
+                    {user ? <ContentEditable onChange={nameChange}>
+                                <span className="userName">
+                                    {user.name}
+                                </span>
+                            </ContentEditable>
                           : <span className="notLoggedIn" onClick={callGoogle}>
                                 Belépés<img src="google.png" alt="" />-al!
                             </span>}

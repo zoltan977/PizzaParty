@@ -1,4 +1,4 @@
-import './Toppings.css';
+import '../Pizzas/Pizzas.css';
 import Topping from './Topping/Topping';
 import React, { useState } from 'react';
 import ToppingDetails from './ToppingDetails/ToppingDetails';

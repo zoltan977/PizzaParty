@@ -1,12 +1,73 @@
 .cartRoute {
-  padding: calc(40px + 7.5vw) 3vw 0;
-  font-family: "Times New Roman", Times, serif;
+  padding-top: 90px;
+  font-family: "Teko", sans-serif;
   padding-bottom: 3.7vw;
 }
 
 @media screen and (min-width: 751px) {
   .cartRoute {
-    padding: 7.5vw;
+    padding-top: calc(3 * (15px + 2vw));
+  }
+}
+
+.cartRoute .title {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: 0;
+  overflow: visible;
+  margin: 0 auto;
+  -webkit-box-shadow: 0 0 15.2vw 8.6vw white;
+          box-shadow: 0 0 15.2vw 8.6vw white;
+}
+
+@media screen and (min-width: 501px) and (max-width: 750px) {
+  .cartRoute .title {
+    -webkit-box-shadow: 0 0 15.2vw 8.6vw white;
+            box-shadow: 0 0 15.2vw 8.6vw white;
+  }
+}
+
+@media screen and (min-width: 751px) {
+  .cartRoute .title {
+    -webkit-box-shadow: 0 0 7.6vw 4.3vw white;
+            box-shadow: 0 0 7.6vw 4.3vw white;
+  }
+}
+
+.cartRoute .title h1 {
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-family: "Otomanopee One", sans-serif;
+  color: #292626;
+  font-size: 10vw;
+  text-shadow: 0.6vw 0.45vw 0 #fff, 1.35vw 1.2vw 0 rgba(0, 0, 0, 0.15);
+}
+
+@media screen and (min-width: 501px) and (max-width: 750px) {
+  .cartRoute .title h1 {
+    font-size: 10vw;
+    text-shadow: 0.6vw 0.45vw 0 #fff, 1.35vw 1.2vw 0 rgba(0, 0, 0, 0.15);
+  }
+}
+
+@media screen and (min-width: 751px) {
+  .cartRoute .title h1 {
+    font-size: 5vw;
+    text-shadow: 0.3vw 0.225vw 0 #fff, 0.675vw 0.6vw 0 rgba(0, 0, 0, 0.15);
+  }
+}
+
+.cartRoute .content {
+  padding-top: calc(40px + 7.5vw);
+}
+
+@media screen and (min-width: 751px) {
+  .cartRoute .content {
+    padding-top: 7.5vw;
   }
 }
 
@@ -17,7 +78,14 @@
   background-color: rgba(255, 255, 255, 0.5);
   margin: 0 auto 7.6vw auto;
   padding: 0;
-  border-radius: 3vw;
+  border-top-right-radius: 3vw;
+  border-top-left-radius: 3vw;
+}
+
+@media screen and (max-width: 750px) {
+  .cartRoute div.backdrop:last-child {
+    border-radius: 0;
+  }
 }
 
 @media screen and (min-width: 751px) {
@@ -40,7 +108,7 @@
   font-size: 6.6vw;
   font-weight: 900;
   padding: 0;
-  margin: 0;
+  margin: 0 0 0 1em;
   font-family: "Otomanopee One", sans-serif;
 }
 
@@ -63,6 +131,10 @@
   }
 }
 
+.cartRoute table th {
+  font-weight: 900;
+}
+
 .cartRoute table td,
 .cartRoute table th {
   padding: 1.5vw;
@@ -80,6 +152,7 @@
 
 .cartRoute table td input,
 .cartRoute table th input {
+  font-family: "Teko", sans-serif;
   font-size: 4.5vw;
   width: 5ch;
   text-align: center;
@@ -131,4 +204,8 @@
     font-size: 2.25vw;
     border: 0.3vw solid green;
   }
+}
+
+.cartRoute p span.sum {
+  font-weight: 900;
 }

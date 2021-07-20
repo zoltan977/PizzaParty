@@ -1,9 +1,18 @@
-.pizzas {
+.pizzas,
+.toppings {
   background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 20px;
+  border-radius: 28px;
 }
 
-.pizzas .content {
+@media screen and (min-width: 1501px) {
+  .pizzas,
+  .toppings {
+    border-radius: 2vw;
+  }
+}
+
+.pizzas .content,
+.toppings .content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -21,17 +30,23 @@
 }
 
 @media screen and (min-width: 751px) {
-  .pizzas .content {
+  .pizzas .content,
+  .toppings .content {
     gap: 2vw;
   }
 }
 
-.pizzas .search {
+.pizzas .search,
+.toppings .search {
   padding-top: 20px;
   text-align: center;
 }
 
-.pizzas .search input {
+.pizzas .search input,
+.toppings .search input {
+  font-family: "Teko", sans-serif;
+  height: 1em;
+  padding: 0;
   min-width: 200px;
   width: 50%;
   color: white;
@@ -41,17 +56,19 @@
   border-top: none;
   border-bottom: 2px solid inset;
   outline: none;
-  font-size: 20px;
+  font-size: 40px;
 }
 
-@media screen and (min-width: 451px) and (max-width: 1000px) {
-  .pizzas .search input {
-    font-size: 4vw;
+@media screen and (min-width: 501px) and (max-width: 750px) {
+  .pizzas .search input,
+  .toppings .search input {
+    font-size: 8vw;
   }
 }
 
-@media screen and (min-width: 1001px) {
-  .pizzas .search input {
+@media screen and (min-width: 751px) {
+  .pizzas .search input,
+  .toppings .search input {
     font-size: 3vw;
   }
 }

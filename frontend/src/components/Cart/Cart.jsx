@@ -85,58 +85,65 @@ const Cart = ({modifyOrDeleteItem, cart, data}) => {
 
     return (
         <div className="cartRoute">
-            {
-                pizzas.length &&
-                <div className="backdrop">
-                    <h2>Pizzák</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Egységár</th>
-                                <th>db</th>
-                                <th>Ár</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                function() {
-                                    totalSum = 0;
+            <div className="title">
+                <h1>
+                    Kosár
+                </h1>
+            </div>
+            <div className="content">
+                {
+                    pizzas.length &&
+                    <div className="backdrop">
+                        <h2>Pizzák</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Név</th>
+                                    <th>Egységár</th>
+                                    <th>db</th>
+                                    <th>Ár</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    function() {
+                                        totalSum = 0;
 
-                                    return renderTableBody(pizzas, "pizza")
-                                }()
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            }
-            {
-                toppings.length &&
+                                        return renderTableBody(pizzas, "pizza")
+                                    }()
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                {
+                    toppings.length &&
+                    <div className="backdrop">
+                        <h2>Feltétek</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Név</th>
+                                    <th>Egységár</th>
+                                    <th>db</th>
+                                    <th>Ár</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    function() {
+                                        return renderTableBody(toppings, "topping")
+                                    }()
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
                 <div className="backdrop">
-                    <h2>Feltétek</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Egységár</th>
-                                <th>db</th>
-                                <th>Ár</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                function() {
-                                    return renderTableBody(toppings, "topping")
-                                }()
-                            }
-                        </tbody>
-                    </table>
+                    <p>Összesen fizetendő: <span className="sum">{totalSum}</span></p>
                 </div>
-            }
-            <div className="backdrop">
-                <p>Összesen fizetendő: {totalSum}</p>
             </div>
         </div>
     )

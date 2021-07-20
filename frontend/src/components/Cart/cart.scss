@@ -1,19 +1,69 @@
 .cartRoute {
-  padding: calc(40px + 7.5vw) 3vw 0;
+  padding-top: 90px;
   @media screen and (min-width: 751px) {
-    padding: 7.5vw;
+    padding-top: calc(3 * (15px + 2vw));
   }
 
-  font-family: "Times New Roman", Times, serif;
+  font-family: "Teko", sans-serif;
 
   padding-bottom: 3.7vw;
+
+  .title {
+    width: fit-content;
+    height: 0;
+
+    overflow: visible;
+    margin: 0 auto;
+    box-shadow: 0 0 15.2vw 8.6vw white;
+    @media screen and (min-width: 501px) and (max-width: 750px) {
+      box-shadow: 0 0 15.2vw 8.6vw white;
+    }
+    @media screen and (min-width: 751px) {
+      box-shadow: 0 0 7.6vw 4.3vw white;
+    }
+
+    h1 {
+      transform: translate(0, -50%);
+
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      font-family: "Otomanopee One", sans-serif;
+      color: rgb(41, 38, 38);
+
+      font-size: 10vw;
+      text-shadow: 0.6vw 0.45vw 0 #fff, 1.35vw 1.2vw 0 rgba(0, 0, 0, 0.15);
+      @media screen and (min-width: 501px) and (max-width: 750px) {
+        font-size: 10vw;
+        text-shadow: 0.6vw 0.45vw 0 #fff, 1.35vw 1.2vw 0 rgba(0, 0, 0, 0.15);
+      }
+      @media screen and (min-width: 751px) {
+        font-size: 5vw;
+        text-shadow: 0.3vw 0.225vw 0 #fff, 0.675vw 0.6vw 0 rgba(0, 0, 0, 0.15);
+      }
+    }
+  }
+
+  .content {
+    padding-top: calc(40px + 7.5vw);
+    @media screen and (min-width: 751px) {
+      padding-top: 7.5vw;
+    }
+  }
 
   div.backdrop {
     width: fit-content;
     background-color: rgba($color: #fff, $alpha: 0.5);
     margin: 0 auto 7.6vw auto;
     padding: 0;
-    border-radius: 3vw;
+    border-top-right-radius: 3vw;
+    border-top-left-radius: 3vw;
+
+    @media screen and (max-width: 750px) {
+      &:last-child {
+        border-radius: 0;
+      }
+    }
 
     @media screen and (min-width: 751px) {
       margin: 0 auto 3.8vw auto;
@@ -37,7 +87,7 @@
       font-weight: 900;
 
       padding: 0;
-      margin: 0;
+      margin: 0 0 0 1em;
 
       font-family: "Otomanopee One", sans-serif;
     }
@@ -53,6 +103,10 @@
       border: 0.3vw solid green;
     }
 
+    th {
+      font-weight: 900;
+    }
+
     td,
     th {
       padding: 1.5vw;
@@ -62,8 +116,8 @@
         border: 0.15vw solid green;
       }
       text-align: center;
-
       input {
+        font-family: "Teko", sans-serif;
         font-size: 4.5vw;
         @media screen and (min-width: 751px) {
           font-size: 2.25vw;
@@ -106,6 +160,10 @@
       padding: 1.5vw;
       font-size: 2.25vw;
       border: 0.3vw solid green;
+    }
+
+    span.sum {
+      font-weight: 900;
     }
   }
 }

@@ -1,13 +1,35 @@
+.pizza {
+  width: 280px;
+  height: 280px;
+
+  @media screen and (min-width: 1501px) {
+    width: 20vw;
+    height: 20vw;
+  }
+
+  border-radius: 28px;
+  border: 3px white solid;
+
+  @media screen and (min-width: 1501px) {
+    border-radius: 2vw;
+    border: 0.2vw white solid;
+  }
+}
+
 .topping {
   width: 280px;
   height: 180px;
 
+  border-radius: 28px;
+  border: 3px white solid;
+}
+
+.pizza,
+.topping {
   transform: scale(0);
   transition: transform 2s;
 
-  background-color: green;
-  border-radius: 20px;
-  border: 3px white solid;
+  background-color: grey;
 
   position: relative;
   overflow: hidden;
@@ -18,6 +40,7 @@
     transition: transform 1s;
   }
 
+  &:hover .pizza_info,
   &:hover .topping_info {
     transform: translateY(100%);
 
@@ -28,11 +51,10 @@
     width: 100%;
     height: 100%;
 
-    border-radius: 20px;
-
     object-fit: cover;
   }
 
+  .pizza_info,
   .topping_info {
     display: flex;
     flex-direction: column;
@@ -60,6 +82,12 @@
       text-align: center;
       padding: 0;
       margin: 0;
+    }
+  }
+
+  .pizza_info {
+    @media screen and (min-width: 1500px) {
+      font-size: 3vw;
     }
   }
 

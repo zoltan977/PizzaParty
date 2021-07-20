@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from 'react';
-import './Topping.css';
+import '../../Pizzas/Pizza/pizza_topping.css';
 import { putInCart } from './../../../actions/cartActions';
 import { selectTopping } from './../../../actions/dataActions';
 import { connect } from 'react-redux';

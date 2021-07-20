@@ -50,7 +50,8 @@ const Order = ({logout, cart, history}) => {
         } catch (err) {
             console.log("error: ", err.response.data)
             setError(err.response.data)
-            logout()
+            if (err.response.data.msg && err.response.data.msg.includes("Authentication error"))
+                logout()
         }
 
     }
@@ -58,7 +59,7 @@ const Order = ({logout, cart, history}) => {
     return (
         <div className="Order">
             <div className="content">
-                <h1>Order</h1>
+                <h1>Új megrendelés</h1>
                 <div className="alerts">
                 {
                     function() {
@@ -66,12 +67,12 @@ const Order = ({logout, cart, history}) => {
                         formValid = true
 
                         if (name === "" || email === "" || tel === "" || address === "") {
-                            alerts.push(<p key={alerts.length + 1}>Please fill every field!</p>)
+                            alerts.push(<p key={alerts.length + 1}>Tölts ki minden mezőt!</p>)
                             formValid = false
                         }
 
                         if (!Object.keys(cart.pizza).length && !Object.keys(cart.topping).length) {
-                            alerts.push(<p key={alerts.length + 1}>Cart is empty!</p>)
+                            alerts.push(<p key={alerts.length + 1}>A kosár üres!</p>)
                             formValid = false
                         }
 
@@ -92,7 +93,7 @@ const Order = ({logout, cart, history}) => {
                 </div>
                 <form>
                     <div>
-                        <label htmlFor="name">Name</label>
+                        <label htmlFor="name">Név</label>
                         <input type="text" name="name" value={name} onChange={onChange}/>
                     </div>
                     <div>
@@ -100,14 +101,14 @@ const Order = ({logout, cart, history}) => {
                         <input type="email" name="email" value={email} onChange={onChange}/>
                     </div>
                     <div>
-                        <label htmlFor="tel">Phone Number</label>
+                        <label htmlFor="tel">Telefon</label>
                         <input type="tel" name="tel" value={tel} onChange={onChange}/>
                     </div>
                     <div>
-                        <label htmlFor="address">Address</label>
+                        <label htmlFor="address">Cím</label>
                         <input type="text" name="address" value={address} onChange={onChange}/>
                     </div>
-                    <button type="button" disabled={!formValid} onClick={submit}>Order</button>
+                    <button type="button" disabled={!formValid} onClick={submit}>Küldés</button>
                 </form>
             </div>
         </div>

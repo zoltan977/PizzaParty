@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {modifyOrDeleteItem} from '../../../actions/cartActions';
 import {selectTopping} from '../../../actions/dataActions';
-import './ToppingDetails.css';
+import '../../Pizzas/PizzaDetails/PizzaDetails.css';
 import { connect } from 'react-redux';
 
 const ToppingDetails = ({modifyOrDeleteItem, selectTopping, cart, selectedTopping}) => {

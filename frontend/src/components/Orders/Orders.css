@@ -1,4 +1,65 @@
 .Orders {
+  padding-top: 90px;
+}
+
+@media screen and (min-width: 751px) {
+  .Orders {
+    padding-top: calc(3 * (15px + 2vw));
+  }
+}
+
+.Orders .title {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: 0;
+  overflow: visible;
+  margin: 0 auto;
+  -webkit-box-shadow: 0 0 7.6vw 4.3vw white;
+          box-shadow: 0 0 7.6vw 4.3vw white;
+}
+
+@media screen and (min-width: 501px) and (max-width: 750px) {
+  .Orders .title {
+    -webkit-box-shadow: 0 0 7.6vw 4.3vw white;
+            box-shadow: 0 0 7.6vw 4.3vw white;
+  }
+}
+
+@media screen and (min-width: 751px) {
+  .Orders .title {
+    -webkit-box-shadow: 0 0 7.6vw 4.3vw white;
+            box-shadow: 0 0 7.6vw 4.3vw white;
+  }
+}
+
+.Orders .title h1 {
+  -webkit-transform: translate(0, -50%);
+          transform: translate(0, -50%);
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-family: "Otomanopee One", sans-serif;
+  color: #292626;
+  font-size: 7.5vw;
+  text-shadow: 0.4vw 0.3vw 0 #fff, 0.9vw 0.8vw 0 rgba(0, 0, 0, 0.15);
+}
+
+@media screen and (min-width: 501px) and (max-width: 750px) {
+  .Orders .title h1 {
+    font-size: 5vw;
+    text-shadow: 0.3vw 0.225vw 0 #fff, 0.675vw 0.6vw 0 rgba(0, 0, 0, 0.15);
+  }
+}
+
+@media screen and (min-width: 751px) {
+  .Orders .title h1 {
+    font-size: 5vw;
+    text-shadow: 0.3vw 0.225vw 0 #fff, 0.675vw 0.6vw 0 rgba(0, 0, 0, 0.15);
+  }
+}
+
+.Orders .content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -8,10 +69,16 @@
       -ms-flex-pack: center;
           justify-content: center;
   gap: 5vw;
-  padding-top: 100px;
+  padding-top: calc(40px + 7.5vw);
 }
 
-.Orders p.info {
+@media screen and (min-width: 751px) {
+  .Orders .content {
+    padding-top: 7.5vw;
+  }
+}
+
+.Orders .content p.info {
   color: white;
   background-color: black;
   font-size: 30px;

@@ -1,21 +1,67 @@
 const mongoose = require("mongoose");
 
 const ConfirmSchema = mongoose.Schema({
-  date:{
-    type: Date
+  date: {
+    type: Date,
   },
   code: {
-    type: String
-  }
+    type: String,
+  },
 });
 
 const ResetSchema = mongoose.Schema({
-  date:{
-    type: Date
+  date: {
+    type: Date,
   },
   code: {
-    type: String
-  }
+    type: String,
+  },
+});
+
+const CartItemSchema = mongoose.Schema({
+  id: {
+    type: String,
+  },
+  name: {
+    type: String,
+  },
+  quantity: {
+    type: Number,
+  },
+  price: {
+    type: Number,
+  },
+});
+
+const OrderSchema = mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  tel: {
+    type: String,
+    required: true,
+  },
+  address: {
+    type: String,
+    required: true,
+  },
+  date: {
+    type: Date,
+    default: Date.now(),
+  },
+  cart: {
+    pizza: {
+      type: [CartItemSchema],
+    },
+    topping: {
+      type: [CartItemSchema],
+    },
+  },
 });
 
 const UserSchema = mongoose.Schema({
@@ -29,50 +75,21 @@ const UserSchema = mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   photo: {
     type: String,
-    default: 'default_profile.jpg'
+    default: "no-image.png",
   },
   confirmation: {
-    type: ConfirmSchema
+    type: ConfirmSchema,
   },
   reset: {
-    type: ResetSchema
+    type: ResetSchema,
   },
-  orders: [
-    {
-      name: {
-        type: String,
-        required: true,
-      },
-      email: {
-        type: String,
-        required: true,
-      },
-      tel: {
-        type: String,
-        required: true,
-      },
-      address: {
-        type: String,
-        required: true,
-      },
-      date: {
-        type: Date,
-        default: Date.now(),
-      },
-      cart: {
-        pizza: {
-          type: Object
-        },
-        topping: {
-          type: Object
-        }
-      }
-    }
-  ]
+  orders: {
+    type: [OrderSchema],
+  },
 });
 
 module.exports = mongoose.model("users", UserSchema);

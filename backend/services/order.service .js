@@ -2,53 +2,66 @@ const User = require("../models/User");
 const Pizza = require("../models/Pizza");
 const Topping = require("../models/Topping");
 
+const checkingAndConvertingData = async (cart) => {
+  const categories = ["pizza", "topping"];
+  const cartForDatabase = {
+    pizza: [],
+    topping: [],
+  };
+  const errorsArray = [];
 
-exports.order = async (orderData, user) => {
-  const order = orderData
-  const cart = order.cart
-  // console.log("order cart: ", cart)
-  
-  const currentUser = await User.findOne({email: user.email})
-  
-  // console.log("order order:", order)
+  for (const category of categories) {
+    //Loops through pizzas/toppings in the database
+    for (const key in cart[category]) {
+      const itemToModify =
+        category === "pizza"
+          ? await Pizza.findOne({ _id: key.toString() })
+          : await Topping.findOne({ _id: key.toString() });
 
-  currentUser.orders.push(order)
+      if (!itemToModify) throw { status: 400, msg: "Hiba a kosár adataiban" };
 
-  // console.log("order current user", currentUser)
+      //converts the datastructure of the cart
+      cartForDatabase[category].push({
+        id: key,
+        name: itemToModify.name,
+        price: itemToModify.price,
+        quantity: parseInt(cart[category][key]),
+      });
 
-  const errorsArray = []
-  for (const key in cart.pizza) {
-      const pizzaToModify = await Pizza.findOne({_id: key.toString()})
-
-      const newStock = pizzaToModify.stock - parseInt(cart.pizza[key])
+      //If stock minus ordered quantity is less than zero
+      const newStock = itemToModify.stock - parseInt(cart[category][key]);
       if (newStock < 0) {
-          errorsArray.push({msg: `${pizzaToModify.name} készlet: ${pizzaToModify.stock} db !`})
+        //then put a message in the errorsArray
+        errorsArray.push({
+          msg: `${itemToModify.name} készlet: ${itemToModify.stock} db !`,
+        });
       } else {
-
-          pizzaToModify.stock = newStock
-          await pizzaToModify.save()
+        //else modify the stock of the pizza
+        itemToModify.stock = newStock;
+        await itemToModify.save();
       }
-  }
-  for (const key in cart.topping) {
-      const toppingToModify = await Topping.findOne({_id: key.toString()})
-
-      const newStock = toppingToModify.stock - parseInt(cart.topping[key])
-      if (newStock < 0) {
-          errorsArray.push({msg: `${toppingToModify.name} készlet: ${toppingToModify.stock} db !`})
-      } else {
-
-          toppingToModify.stock = newStock
-          await toppingToModify.save()
-      }
+    }
   }
 
-  if (!errorsArray.length) {
-
-      const savedUser = await currentUser.save()
-      // console.log("order saved user:", savedUser)
-      return {success: true};
-  } else {
-      return { errors: errorsArray };
-  }
+  return { errorsArray, cartForDatabase };
 };
 
+exports.order = async (orderData, user) => {
+  const { cart } = orderData;
+
+  const currentUser = await User.findOne({ email: user.email });
+  if (!currentUser) throw { status: 400, msg: "Hiba a kosár adataiban" };
+
+  const { errorsArray, cartForDatabase } = await checkingAndConvertingData(
+    cart
+  );
+
+  //If there is any stock shortage then sends a message
+  if (errorsArray.length) throw { status: 401, errors: errorsArray };
+
+  //else saves the order of the user
+  orderData.cart = cartForDatabase;
+  currentUser.orders.push(orderData);
+  await currentUser.save();
+  return { success: true };
+};

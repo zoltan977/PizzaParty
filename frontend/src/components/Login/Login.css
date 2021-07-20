@@ -109,13 +109,37 @@
 }
 
 .Confirm .content label,
+.Confirm .content a,
+.Confirm .content input,
 .Callback .content label,
+.Callback .content a,
+.Callback .content input,
 .Login .content label,
+.Login .content a,
+.Login .content input,
 .Register .content label,
+.Register .content a,
+.Register .content input,
 .Order .content label,
+.Order .content a,
+.Order .content input,
 .ForgotPassword .content label,
-.PasswordReset .content label {
+.ForgotPassword .content a,
+.ForgotPassword .content input,
+.PasswordReset .content label,
+.PasswordReset .content a,
+.PasswordReset .content input {
   font-family: "Teko", sans-serif;
+}
+
+.Confirm .content input,
+.Callback .content input,
+.Login .content input,
+.Register .content input,
+.Order .content input,
+.ForgotPassword .content input,
+.PasswordReset .content input {
+  padding: 0 0.25em;
 }
 
 .Confirm .content a,
@@ -127,7 +151,6 @@
 .PasswordReset .content a {
   text-decoration: none;
   color: black;
-  font-family: "Teko", sans-serif;
 }
 
 .Confirm .content a:hover,

@@ -6,7 +6,11 @@
 
   font-size: 5vw;
 
-  @media screen and (min-width: 750px) {
+  @media screen and (min-width: 501px) and (max-width: 750px) {
+    width: 60%;
+    font-size: 3vw;
+  }
+  @media screen and (min-width: 751px) {
     width: 30%;
     font-size: 1.5vw;
     border: 0.3vw solid green;
@@ -14,24 +18,25 @@
 
   .totalSum {
     background-color: rgba($color: #fff, $alpha: 0.5);
-    margin-top: 1.5vw;
-    padding: 1.5vw;
+    margin-top: 1em;
+    padding: 1em;
 
-    border-radius: 1.5vw;
+    border-radius: 1em;
 
     text-align: center;
   }
 
   .personalData {
     background-color: rgba($color: #fff, $alpha: 0.5);
-    margin-bottom: 1.5vw;
-    padding: 1.5vw;
+    margin-bottom: 1em;
+    padding: 1em;
 
-    border-radius: 1.5vw;
+    border-radius: 1em;
 
     table {
       td:first-child {
-        padding-right: 0.4vw;
+        padding-right: 1em;
+
         font-weight: 900;
         font-family: "Teko", sans-serif;
       }
@@ -44,11 +49,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5vw;
+    gap: 1em;
 
-    padding: 1.5vw;
+    padding: 1em;
 
-    border-radius: 1.5vw;
+    border-radius: 1em;
 
     div {
       width: 100%;
@@ -59,7 +64,10 @@
         text-align: center;
         font-size: 8vw;
         font-family: "Otomanopee One", sans-serif;
-        @media screen and (min-width: 750px) {
+        @media screen and (min-width: 501px) and (max-width: 750px) {
+          font-size: 4vw;
+        }
+        @media screen and (min-width: 751px) {
           font-size: 2vw;
         }
       }
@@ -70,9 +78,19 @@
 
         border: 0.15vw solid green;
         border-collapse: collapse;
+
+        th {
+          font-weight: 900;
+          font-family: "Teko", sans-serif;
+        }
+
         th,
         td {
           border: 0.08vw solid green;
+          padding: 0 0.5em;
+        }
+        td:first-child {
+          font-family: "Teko", sans-serif;
         }
 
         tr:last-child {

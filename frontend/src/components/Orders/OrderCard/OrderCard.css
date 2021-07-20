@@ -5,7 +5,14 @@
   font-size: 5vw;
 }
 
-@media screen and (min-width: 750px) {
+@media screen and (min-width: 501px) and (max-width: 750px) {
+  .OrderCard {
+    width: 60%;
+    font-size: 3vw;
+  }
+}
+
+@media screen and (min-width: 751px) {
   .OrderCard {
     width: 30%;
     font-size: 1.5vw;
@@ -15,21 +22,21 @@
 
 .OrderCard .totalSum {
   background-color: rgba(255, 255, 255, 0.5);
-  margin-top: 1.5vw;
-  padding: 1.5vw;
-  border-radius: 1.5vw;
+  margin-top: 1em;
+  padding: 1em;
+  border-radius: 1em;
   text-align: center;
 }
 
 .OrderCard .personalData {
   background-color: rgba(255, 255, 255, 0.5);
-  margin-bottom: 1.5vw;
-  padding: 1.5vw;
-  border-radius: 1.5vw;
+  margin-bottom: 1em;
+  padding: 1em;
+  border-radius: 1em;
 }
 
 .OrderCard .personalData table td:first-child {
-  padding-right: 0.4vw;
+  padding-right: 1em;
   font-weight: 900;
   font-family: "Teko", sans-serif;
 }
@@ -46,9 +53,9 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  gap: 1.5vw;
-  padding: 1.5vw;
-  border-radius: 1.5vw;
+  gap: 1em;
+  padding: 1em;
+  border-radius: 1em;
 }
 
 .OrderCard .cart div {
@@ -62,7 +69,13 @@
   font-family: "Otomanopee One", sans-serif;
 }
 
-@media screen and (min-width: 750px) {
+@media screen and (min-width: 501px) and (max-width: 750px) {
+  .OrderCard .cart div h2 {
+    font-size: 4vw;
+  }
+}
+
+@media screen and (min-width: 751px) {
   .OrderCard .cart div h2 {
     font-size: 2vw;
   }
@@ -74,9 +87,19 @@
   border-collapse: collapse;
 }
 
+.OrderCard .cart div table th {
+  font-weight: 900;
+  font-family: "Teko", sans-serif;
+}
+
 .OrderCard .cart div table th,
 .OrderCard .cart div table td {
   border: 0.08vw solid green;
+  padding: 0 0.5em;
+}
+
+.OrderCard .cart div table td:first-child {
+  font-family: "Teko", sans-serif;
 }
 
 .OrderCard .cart div table tr:last-child td {

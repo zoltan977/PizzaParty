@@ -5,7 +5,7 @@ export default function Navigation({props}) {
     return (
         <div className="navigation">
             <div>
-                <span onClick={props.prev}>{"\u2190"}</span>
+                <span onClick={props.prev}>{"\u21e6"}</span>
                 <span>
                     <input value={props.quantityPerPage} onChange={props.change}/> 
                     of 
@@ -15,7 +15,7 @@ export default function Navigation({props}) {
                     <span onClick={props.increaseQuantityPerPage}>{"\u2bc5"}</span>
                     <span onClick={props.decreaseQuantityPerPage}>{"\u2bc6"}</span>
                 </span>
-                <span onClick={props.next}>{"\u2192"}</span>
+                <span onClick={props.next}>{"\u21e8"}</span>
             </div>
             <div>
                 <span>

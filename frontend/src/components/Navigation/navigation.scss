@@ -4,19 +4,31 @@
   padding-top: 20px;
   padding-bottom: 20px;
 
+  font-family: "Teko", sans-serif;
+
   div {
     width: 100%;
     display: flex;
     justify-content: space-around;
 
     &:last-of-type {
+      margin-top: -15px;
+      @media screen and (min-width: 501px) and (max-width: 750px) {
+        margin-top: -2.5vw;
+      }
+
+      @media screen and (min-width: 751px) {
+        margin-top: -1vw;
+      }
+
       span {
-        font-size: 15px;
-        @media screen and (min-width: 451px) and (max-width: 1000px) {
-          font-size: 3vw;
+        font-size: 30px;
+        @media screen and (min-width: 501px) and (max-width: 750px) {
+          font-size: 5vw;
         }
-        @media screen and (min-width: 1001px) {
-          font-size: 2.25vw;
+
+        @media screen and (min-width: 751px) {
+          font-size: 2vw;
         }
       }
     }
@@ -35,26 +47,26 @@
     border: none;
     cursor: pointer;
 
-    font-family: "Times New Roman", Times, serif;
+    font-family: "Teko", sans-serif;
 
-    font-size: 20px;
-    @media screen and (min-width: 451px) and (max-width: 1000px) {
-      font-size: 4vw;
+    font-size: 40px;
+    @media screen and (min-width: 501px) and (max-width: 750px) {
+      font-size: 8vw;
     }
-    @media screen and (min-width: 1001px) {
+
+    @media screen and (min-width: 751px) {
       font-size: 3vw;
     }
   }
 
   span {
     color: #767676;
-    font-size: 20px;
-
-    @media screen and (min-width: 451px) and (max-width: 1000px) {
-      font-size: 4vw;
+    font-size: 40px;
+    @media screen and (min-width: 501px) and (max-width: 750px) {
+      font-size: 8vw;
     }
 
-    @media screen and (min-width: 1001px) {
+    @media screen and (min-width: 751px) {
       font-size: 3vw;
     }
 
@@ -72,7 +84,7 @@
       }
 
       em {
-        margin-left: 0.35em;
+        margin-left: 0.25em;
         font-style: normal;
       }
 

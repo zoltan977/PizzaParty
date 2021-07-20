@@ -1,19 +1,45 @@
+.pizza {
+  width: 280px;
+  height: 280px;
+  border-radius: 28px;
+  border: 3px white solid;
+}
+
+@media screen and (min-width: 1501px) {
+  .pizza {
+    width: 20vw;
+    height: 20vw;
+  }
+}
+
+@media screen and (min-width: 1501px) {
+  .pizza {
+    border-radius: 2vw;
+    border: 0.2vw white solid;
+  }
+}
+
 .topping {
   width: 280px;
   height: 180px;
+  border-radius: 28px;
+  border: 3px white solid;
+}
+
+.pizza,
+.topping {
   -webkit-transform: scale(0);
           transform: scale(0);
   -webkit-transition: -webkit-transform 2s;
   transition: -webkit-transform 2s;
   transition: transform 2s;
   transition: transform 2s, -webkit-transform 2s;
-  background-color: green;
-  border-radius: 20px;
-  border: 3px white solid;
+  background-color: grey;
   position: relative;
   overflow: hidden;
 }
 
+.pizza:hover .dashboard,
 .topping:hover .dashboard {
   -webkit-transform: translateY(-100%);
           transform: translateY(-100%);
@@ -23,6 +49,9 @@
   transition: transform 1s, -webkit-transform 1s;
 }
 
+.pizza:hover .pizza_info,
+.pizza:hover .topping_info,
+.topping:hover .pizza_info,
 .topping:hover .topping_info {
   -webkit-transform: translateY(100%);
           transform: translateY(100%);
@@ -32,14 +61,17 @@
   transition: transform 1s, -webkit-transform 1s;
 }
 
+.pizza img,
 .topping img {
   width: 100%;
   height: 100%;
-  border-radius: 20px;
   -o-object-fit: cover;
      object-fit: cover;
 }
 
+.pizza .pizza_info,
+.pizza .topping_info,
+.topping .pizza_info,
 .topping .topping_info {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -69,12 +101,23 @@
   margin: 0;
 }
 
+.pizza .pizza_info p,
+.pizza .topping_info p,
+.topping .pizza_info p,
 .topping .topping_info p {
   text-align: center;
   padding: 0;
   margin: 0;
 }
 
+@media screen and (min-width: 1500px) {
+  .pizza .pizza_info,
+  .topping .pizza_info {
+    font-size: 3vw;
+  }
+}
+
+.pizza .dashboard,
 .topping .dashboard {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -91,6 +134,7 @@
   transition: transform 1s, -webkit-transform 1s;
 }
 
+.pizza .dashboard div,
 .topping .dashboard div {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -108,15 +152,18 @@
   color: white;
 }
 
+.pizza .dashboard div svg,
 .topping .dashboard div svg {
   height: 100%;
 }
 
+.pizza .dashboard div svg:hover,
 .topping .dashboard div svg:hover {
   cursor: pointer;
   color: green;
 }
 
+.pizza .dashboard div:first-child,
 .topping .dashboard div:first-child {
   border-right: 3px solid white;
 }

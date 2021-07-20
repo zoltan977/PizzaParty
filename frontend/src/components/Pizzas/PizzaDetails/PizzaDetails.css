@@ -1,4 +1,5 @@
-.PizzaDetails {
+.PizzaDetails,
+.ToppingDetails {
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -12,14 +13,16 @@
   transition: transform 1s, -webkit-transform 1s;
 }
 
-.PizzaDetails img {
+.PizzaDetails img,
+.ToppingDetails img {
   width: 100%;
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
 }
 
-.PizzaDetails .close {
+.PizzaDetails .close,
+.ToppingDetails .close {
   position: absolute;
   right: 0;
   top: 0;
@@ -36,13 +39,15 @@
 }
 
 @media screen and (min-width: 1501px) {
-  .PizzaDetails .close {
+  .PizzaDetails .close,
+  .ToppingDetails .close {
     font-size: 2.25vw;
     padding: 0.38vw 0.95vw;
   }
 }
 
-.PizzaDetails .content {
+.PizzaDetails .content,
+.ToppingDetails .content {
   z-index: 3;
   position: absolute;
   width: 80vw;
@@ -60,18 +65,21 @@
   padding: 0;
 }
 
-.PizzaDetails .content.hide {
+.PizzaDetails .content.hide,
+.ToppingDetails .content.hide {
   -webkit-transform: translate(-50%, -50%) scale(0);
           transform: translate(-50%, -50%) scale(0);
 }
 
 @media screen and (min-width: 751px) {
-  .PizzaDetails .content {
+  .PizzaDetails .content,
+  .ToppingDetails .content {
     width: 50vw;
   }
 }
 
-.PizzaDetails .info {
+.PizzaDetails .info,
+.ToppingDetails .info {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -87,7 +95,8 @@
   color: wheat;
 }
 
-.PizzaDetails .info .closeInfo {
+.PizzaDetails .info .closeInfo,
+.ToppingDetails .info .closeInfo {
   position: absolute;
   right: 0;
   top: 0;
@@ -102,14 +111,18 @@
 }
 
 @media screen and (min-width: 1501px) {
-  .PizzaDetails .info .closeInfo {
+  .PizzaDetails .info .closeInfo,
+  .ToppingDetails .info .closeInfo {
     font-size: 2.25vw;
     padding: 0.38vw 0.95vw;
     margin: 0.75vw;
   }
 }
 
-.PizzaDetails .info .pizzaInfo {
+.PizzaDetails .info .pizzaInfo,
+.PizzaDetails .info .toppingInfo,
+.ToppingDetails .info .pizzaInfo,
+.ToppingDetails .info .toppingInfo {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 1fr;
@@ -126,31 +139,46 @@
 }
 
 @media screen and (min-width: 501px) {
-  .PizzaDetails .info .pizzaInfo {
+  .PizzaDetails .info .pizzaInfo,
+  .PizzaDetails .info .toppingInfo,
+  .ToppingDetails .info .pizzaInfo,
+  .ToppingDetails .info .toppingInfo {
     -ms-grid-columns: auto 1fr;
         grid-template-columns: auto 1fr;
   }
 }
 
 @media screen and (min-width: 1401px) {
-  .PizzaDetails .info .pizzaInfo {
+  .PizzaDetails .info .pizzaInfo,
+  .PizzaDetails .info .toppingInfo,
+  .ToppingDetails .info .pizzaInfo,
+  .ToppingDetails .info .toppingInfo {
     padding: 2vw;
   }
 }
 
-.PizzaDetails .info .pizzaInfo div {
+.PizzaDetails .info .pizzaInfo div,
+.PizzaDetails .info .toppingInfo div,
+.ToppingDetails .info .pizzaInfo div,
+.ToppingDetails .info .toppingInfo div {
   font-size: 20px;
-  text-align: justify;
+  word-break: break-all;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 @media screen and (min-width: 1401px) {
-  .PizzaDetails .info .pizzaInfo div {
+  .PizzaDetails .info .pizzaInfo div,
+  .PizzaDetails .info .toppingInfo div,
+  .ToppingDetails .info .pizzaInfo div,
+  .ToppingDetails .info .toppingInfo div {
     font-size: 2vw;
   }
 }
 
-.PizzaDetails .info .pizzaInfo .firstColumn {
+.PizzaDetails .info .pizzaInfo .firstColumn,
+.PizzaDetails .info .toppingInfo .firstColumn,
+.ToppingDetails .info .pizzaInfo .firstColumn,
+.ToppingDetails .info .toppingInfo .firstColumn {
   display: none;
   font-size: 30px;
   font-family: Arial, Helvetica, sans-serif;
@@ -158,24 +186,34 @@
 }
 
 @media screen and (min-width: 1401px) {
-  .PizzaDetails .info .pizzaInfo .firstColumn {
+  .PizzaDetails .info .pizzaInfo .firstColumn,
+  .PizzaDetails .info .toppingInfo .firstColumn,
+  .ToppingDetails .info .pizzaInfo .firstColumn,
+  .ToppingDetails .info .toppingInfo .firstColumn {
     font-size: 3vw;
   }
 }
 
 @media screen and (min-width: 501px) {
-  .PizzaDetails .info .pizzaInfo .firstColumn {
+  .PizzaDetails .info .pizzaInfo .firstColumn,
+  .PizzaDetails .info .toppingInfo .firstColumn,
+  .ToppingDetails .info .pizzaInfo .firstColumn,
+  .ToppingDetails .info .toppingInfo .firstColumn {
     display: block;
   }
 }
 
-.PizzaDetails .info .pizzaInfo .firstColumn:nth-child(5) {
+.PizzaDetails .info .pizzaInfo .firstColumn:nth-child(5),
+.PizzaDetails .info .toppingInfo .firstColumn:nth-child(5),
+.ToppingDetails .info .pizzaInfo .firstColumn:nth-child(5),
+.ToppingDetails .info .toppingInfo .firstColumn:nth-child(5) {
   -ms-flex-item-align: start;
       -ms-grid-row-align: start;
       align-self: start;
 }
 
-.PizzaDetails .info .cartInfo {
+.PizzaDetails .info .cartInfo,
+.ToppingDetails .info .cartInfo {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -185,32 +223,38 @@
 }
 
 @media screen and (min-width: 1401px) {
-  .PizzaDetails .info .cartInfo {
+  .PizzaDetails .info .cartInfo,
+  .ToppingDetails .info .cartInfo {
     font-size: 2vw;
     padding: 2vw;
   }
 }
 
-.PizzaDetails .info .cartInfo p {
+.PizzaDetails .info .cartInfo p,
+.ToppingDetails .info .cartInfo p {
   line-height: 2;
   margin: 0;
 }
 
-.PizzaDetails .info .cartInfo p span.db {
+.PizzaDetails .info .cartInfo p span.db,
+.ToppingDetails .info .cartInfo p span.db {
   margin-right: 20px;
 }
 
-.PizzaDetails .info .cartInfo svg {
+.PizzaDetails .info .cartInfo svg,
+.ToppingDetails .info .cartInfo svg {
   height: 100px;
 }
 
 @media screen and (min-width: 501px) {
-  .PizzaDetails .info .cartInfo svg {
+  .PizzaDetails .info .cartInfo svg,
+  .ToppingDetails .info .cartInfo svg {
     height: 8vw;
   }
 }
 
-.PizzaDetails .info .cartInfo div:first-child {
+.PizzaDetails .info .cartInfo div:first-child,
+.ToppingDetails .info .cartInfo div:first-child {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -218,18 +262,21 @@
 }
 
 @media screen and (min-width: 501px) {
-  .PizzaDetails .info .cartInfo div:first-child {
+  .PizzaDetails .info .cartInfo div:first-child,
+  .ToppingDetails .info .cartInfo div:first-child {
     display: block;
   }
 }
 
-.PizzaDetails .info .cartInfo div:last-child {
+.PizzaDetails .info .cartInfo div:last-child,
+.ToppingDetails .info .cartInfo div:last-child {
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
 }
 
-.PizzaDetails .info .cartInfo input {
+.PizzaDetails .info .cartInfo input,
+.ToppingDetails .info .cartInfo input {
   width: 3ch;
   font-size: 20px;
   text-align: center;
@@ -243,17 +290,20 @@
 }
 
 @media screen and (min-width: 1401px) {
-  .PizzaDetails .info .cartInfo input {
+  .PizzaDetails .info .cartInfo input,
+  .ToppingDetails .info .cartInfo input {
     font-size: 2vw;
   }
 }
 
-.PizzaDetails .info .cartInfo button {
+.PizzaDetails .info .cartInfo button,
+.ToppingDetails .info .cartInfo button {
   font-size: 20px;
 }
 
 @media screen and (min-width: 1401px) {
-  .PizzaDetails .info .cartInfo button {
+  .PizzaDetails .info .cartInfo button,
+  .ToppingDetails .info .cartInfo button {
     font-size: 2vw;
   }
 }

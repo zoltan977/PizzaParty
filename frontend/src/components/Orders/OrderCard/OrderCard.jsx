@@ -1,36 +1,27 @@
 import React from 'react';
 import './OrderCard.css';
-import { connect } from 'react-redux';
 
-const OrderCard = ({order, data}) => {
+const OrderCard = ({order}) => {
 
     let totalSum = 0;
 
     const renderTable = (category) => {
 
-        let items = []
-        for (const key in order.cart[category]) {
-            items.push(
-                {...data[category].filter(p => p._id.toString() === key.toString())[0],
-                    db: order.cart[category][key]
-                })
-        }
-
         let sum = 0;
-        let rows = items.map((p, idx) => {
+        let rows = order.cart[category].map((item, idx) => {
 
-            sum += p.db * p.price
+            sum += item.quantity * item.price
 
             return (<tr key={idx}>
-            <td>{p.name}</td>
-            <td>{p.price}</td>
-            <td>{p.db}</td>
-            <td>{p.db * p.price}</td>
+            <td>{item.name}</td>
+            <td>{item.price}</td>
+            <td>{item.quantity}</td>
+            <td>{item.quantity * item.price}</td>
         </tr>)
         })
 
         rows.push(
-            <tr key={items.length}>
+            <tr key={order.cart[category].length}>
                 <td colSpan="3"></td>
                 <td>{sum}</td>
             </tr>)
@@ -66,13 +57,13 @@ const OrderCard = ({order, data}) => {
             </div>
             <div className="cart">
             {
-                    (order.cart.pizza && Object.keys(order.cart.pizza).length !== 0 && data.pizza.length !== 0) ? 
+                    (order.cart.pizza && order.cart.pizza.length) ? 
                     <div>
                         <h2>Pizzák</h2>
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Name</th>
+                                    <th>Név</th>
                                     <th>Egységár</th>
                                     <th>db</th>
                                     <th>Ár</th>
@@ -91,13 +82,13 @@ const OrderCard = ({order, data}) => {
                     </div> : <p>Nincsenek pizzák!</p>
                 }
                 {
-                    (order.cart.topping && Object.keys(order.cart.topping).length !== 0 && data.topping.length !== 0) ? 
+                    (order.cart.topping && order.cart.topping.length) ? 
                     <div>
                         <h2>Feltétek</h2>
                         <table>
                             <thead>
                                 <tr>
-                                    <th>Name</th>
+                                    <th>Név</th>
                                     <th>Egységár</th>
                                     <th>db</th>
                                     <th>Ár</th>
@@ -121,8 +112,4 @@ const OrderCard = ({order, data}) => {
     )
 }
 
-const mapStateToProps = state => ({
-    data: state.data.data
-})
-
-export default connect(mapStateToProps)(OrderCard)
+export default OrderCard

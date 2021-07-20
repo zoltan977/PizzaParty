@@ -40,7 +40,7 @@ const Register = ({resetRegistrationSuccess, clearErrors, register, error, regis
             {
                 !registration_success ?
                 <div className="content">
-                    <h1>Regisztráció!</h1>
+                    <h1>Regisztráció</h1>
                     <div className="alerts">
                     {
                         function() {
