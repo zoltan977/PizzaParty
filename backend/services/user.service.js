@@ -1,9 +1,10 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
-const fetch = require("node-fetch");
 const bcrypt = require("bcryptjs");
 const { randomBytes } = require("crypto");
 const nodemailer = require("nodemailer");
+const createToken = require("../utils/createToken");
+const httpClient = require("axios");
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -12,22 +13,6 @@ const transporter = nodemailer.createTransport({
     pass: process.env.PASSWORD,
   },
 });
-
-const createToken = (user) => {
-  const payload = {
-    user: {
-      name: user.name,
-      email: user.email,
-      photo: user.photo,
-    },
-  };
-
-  const token = jwt.sign(payload, process.env.JWT_SECRET, {
-    expiresIn: 3600,
-  });
-
-  return token;
-};
 
 exports.nameChange = async (newName, user) => {
   const userInDatabase = await User.findOne({ email: user.email });
@@ -172,8 +157,10 @@ exports.confirm = async (postedData) => {
   const date = Date.now();
   const confirmDate = Date.parse(user.confirmation.date);
 
-  if (user.confirmation.code !== code)
+  if (user.confirmation.code !== code) {
+    await user.delete();
     throw { status: 400, msg: "Generált kódok nem egyeznek!" };
+  }
 
   //More than 5 minutes has passed since the confirmation email was sent
   //So the user will be deleted
@@ -235,26 +222,21 @@ exports.register = async (registrationData) => {
 exports.google = async (postedData) => {
   const { code } = postedData;
 
-  const response = await fetch("https://oauth2.googleapis.com/token", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
+  let response;
+  try {
+    response = await httpClient.post("https://oauth2.googleapis.com/token", {
       code,
       client_id: process.env.CLIENT_ID,
       client_secret: process.env.CLIENT_SECRET,
       redirect_uri: process.env.REDIRECT_URI,
       grant_type: process.env.GRANT_TYPE,
-    }),
-  });
-
-  if (!response.ok) {
+    });
+  } catch (error) {
     console.log("error getting token!");
     throw { status: 400, msg: "Hiba a token kéréskor!" };
   }
 
-  const data = await response.json();
+  const data = response.data;
 
   const { email, name, picture: photo } = jwt.decode(data.id_token);
 

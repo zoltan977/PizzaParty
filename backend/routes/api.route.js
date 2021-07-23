@@ -9,8 +9,8 @@ const { check } = require("express-validator");
 router.post(
   "/login",
   [
-    check("email", "Please include a valid email").isEmail(),
-    check("password", "Password is required").exists(),
+    check("email", "Valós email-t adj meg!").isEmail(),
+    check("password", "Meg kell adni a jelszót!").exists(),
   ],
   UserController.userAccount("login")
 );
@@ -18,12 +18,11 @@ router.post(
 router.post(
   "/register",
   [
-    check("name", "Please add name").not().isEmpty(),
-    check("email", "Please include a valid email").isEmail(),
-    check(
-      "password",
-      "Please enter a password with 6 or more characters"
-    ).isLength({ min: 6 }),
+    check("name", "Meg kell adni egy nevet!").not().isEmpty(),
+    check("email", "Valós email-t adj meg!").isEmail(),
+    check("password", "Legalább 6 karakter hosszú jelszó kell!").isLength({
+      min: 6,
+    }),
   ],
   UserController.userAccount("register")
 );
@@ -31,33 +30,32 @@ router.post(
 router.post(
   "/password",
   [
-    check("code", "Please add code").not().isEmpty(),
-    check("email", "Please include a valid email").isEmail(),
-    check(
-      "password",
-      "Please enter a password with 6 or more characters"
-    ).isLength({ min: 6 }),
+    check("code", "Hiányzik a generált kód").not().isEmpty(),
+    check("email", "Valós email címet adj meg!").isEmail(),
+    check("password", "Legalább 6 karkterből álló jelszó kell!").isLength({
+      min: 6,
+    }),
   ],
   UserController.userAccount("password")
 );
 
 router.post(
   "/reset",
-  [check("email", "Please include a valid email").isEmail()],
+  [check("email", "Valós email címet adj meg!").isEmail()],
   UserController.userAccount("reset")
 );
 
 router.post(
   "/google",
-  [check("code", "Please add code").not().isEmpty()],
+  [check("code", "Hiányzik a kód").not().isEmpty()],
   UserController.userAccount("google")
 );
 
 router.post(
   "/confirm",
   [
-    check("code", "Please add name").not().isEmpty(),
-    check("email", "Please add email").not().isEmpty(),
+    check("code", "Hiányzik az ellenőrző kód").not().isEmpty(),
+    check("email", "Valós email címet kell megadni!").isEmail(),
   ],
   UserController.userAccount("confirm")
 );
@@ -70,10 +68,10 @@ router.post(
   "/order",
   [
     auth,
-    check("email", "Please include a valid email").isEmail(),
-    check("name", "Name is required").exists(),
-    check("tel", "Phone number is required").exists(),
-    check("address", "Address is required").exists(),
+    check("email", "Valós email-t adj meg!").isEmail(),
+    check("name", "Meg kell adni egy nevet!").exists(),
+    check("tel", "Meg kell adni egy telefonszámot!").exists(),
+    check("address", "Meg kell adni egy címet!").exists(),
   ],
   OrderController.order
 );

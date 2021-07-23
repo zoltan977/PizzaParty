@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
@@ -25,6 +26,15 @@
     "nodemailer": "^6.6.2"
   },
   "devDependencies": {
-    "concurrently": "^6.1.0"
+    "axios-mock-adapter": "^1.19.0",
+    "concurrently": "^6.1.0",
+    "jest": "^27.0.6",
+    "mongodb-memory-server": "^7.3.4",
+    "supertest": "^6.1.4"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "util"
+    ]
   }
 }

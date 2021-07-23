@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
-module.exports = function (req, res, next) {
+module.exports = async function (req, res, next) {
   const token = req.header("x-auth-token");
 
   if (!token) {
@@ -20,7 +20,7 @@ module.exports = function (req, res, next) {
   }
 
   try {
-    const userExists = User.findOne({ email: decoded.user.email });
+    const userExists = await User.findOne({ email: decoded.user.email });
     if (!userExists)
       return res
         .status(401)
