@@ -1,14 +1,15 @@
+import '../Login/Login.css';
 import React, {useEffect} from 'react';
 import {useLocation, useHistory} from 'react-router-dom';
 import { google } from '../../actions/authActions';
 import { connect } from 'react-redux';
-import '../Login/Login.css';
+import LoadingMask from './../LoadingMask/LoadingMask.component';
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
 
-const Callback = ({google}) => {
+const Callback = ({google, waitingForServerResponse}) => {
         
     const query = useQuery();
     const history = useHistory();
@@ -29,13 +30,15 @@ const Callback = ({google}) => {
 
     return (
         <div className="Callback">
-            
+            {
+                waitingForServerResponse && <LoadingMask/>
+            }
         </div>
     )
 }
 
-// const mapStateToProps = state => ({
-//     loading: state.data.loading
-// })
+const mapStateToProps = state => ({
+    waitingForServerResponse: state.auth.waitingForServerResponse
+})
 
-export default connect(null, {google})(Callback)
+export default connect(mapStateToProps, {google})(Callback)

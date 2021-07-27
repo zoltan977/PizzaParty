@@ -4,15 +4,18 @@ import axios from 'axios';
 import OrderCard from './OrderCard/OrderCard';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/authActions';
+import LoadingMask from '../LoadingMask/LoadingMask.component';
 
 const Orders = ({logout}) => {
 
     const [orders, setOrders] = useState([]);
+    const [waitingForServer, setWaitingForServer] = useState(false);
+
 
     useEffect(() => {
         const asyncFn = async () => {
             try {
-    
+                setWaitingForServer(true)
                 const res = await axios.get("/api/orders")
                 console.log("orders: ", res.data)
                 setOrders(res.data)
@@ -20,6 +23,8 @@ const Orders = ({logout}) => {
             } catch (err) {
                 console.log(err.response.data)
                 logout()
+            } finally {
+                setWaitingForServer(false)
             }
         }
 
@@ -29,17 +34,22 @@ const Orders = ({logout}) => {
 
     return (
         <div className="Orders">
-            <div className="title">
-                <h1>
-                    Megrendelések
-                </h1>
-            </div>
-            <div className="content">
-                {
-                    orders.length ? orders.map((ord, idx) => <OrderCard key={idx} order={ord}/>)
-                                    : <p className="info">Nincsenek megrendelések</p>
-                }
-            </div>
+            {
+                waitingForServer ? <LoadingMask/> :
+                <>
+                    <div className="title">
+                        <h1>
+                            Megrendelések
+                        </h1>
+                    </div>
+                    <div className="content">
+                        {
+                            orders.length ? orders.map((ord, idx) => <OrderCard key={idx} order={ord}/>)
+                                            : <p className="info">Nincsenek megrendelések</p>
+                        }
+                    </div>
+                </>
+            }
         </div>
     )
 }

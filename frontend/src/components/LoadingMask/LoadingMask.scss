@@ -1,0 +1,23 @@
+div.LoadingMask {
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  //   border: 2px solid red;
+  position: fixed;
+  left: 0;
+  top: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  img {
+    height: 80%;
+    width: auto;
+    @media (max-aspect-ratio: 1 / 1) {
+      width: 80%;
+      height: auto;
+    }
+  }
+}

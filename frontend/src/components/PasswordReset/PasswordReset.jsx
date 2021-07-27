@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import {useLocation, useHistory} from 'react-router-dom';
 import '../Login/Login.css';
+import LoadingMask from '../LoadingMask/LoadingMask.component';
 
 
 function useQuery() {
@@ -18,6 +19,8 @@ export default function PasswordReset() {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [success, setSuccess] = useState(false);
+    const [waitingForServer, setWaitingForServer] = useState(false);
+
 
     const passwordChanged = e => setPassword(e.target.value)
     
@@ -31,6 +34,7 @@ export default function PasswordReset() {
             }
 
             try {
+                setWaitingForServer(true)
                 await axios.post("/api/password", {
                     email: query.get("email"),
                     code: query.get("code"),
@@ -45,6 +49,8 @@ export default function PasswordReset() {
                 
             } catch (error) {
                 setError(error.response.data)
+            } finally {
+                setWaitingForServer(false)
             }
         }
 
@@ -55,6 +61,7 @@ export default function PasswordReset() {
     return (
         <div className="PasswordReset">
             {
+                waitingForServer ? <LoadingMask/> :
                 !success ?
 
                 <div className="content">

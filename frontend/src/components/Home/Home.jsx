@@ -53,7 +53,7 @@ const Home = ({loading, data}) => {
 
     return (
         <div className="Home">
-        { loading ? <p>Loading</p>
+        { loading ? <p>Loading...</p>
           : data === null ? 
               <h3>Data fetch error</h3>
               :  

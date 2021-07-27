@@ -1,6 +1,7 @@
+import '../Login/Login.css';
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../Login/Login.css';
+import LoadingMask from '../LoadingMask/LoadingMask.component';
 
 
 export default function ForgotPassword() {
@@ -10,6 +11,7 @@ export default function ForgotPassword() {
     const [email, setEmail] = useState("");
     const [error, setError] = useState("");
     const [success, setSuccess] = useState(false);
+    const [waitingForServer, setWaitingForServer] = useState(false);
 
     const emailChanged = e => setEmail(e.target.value)
     
@@ -23,12 +25,16 @@ export default function ForgotPassword() {
             }
 
             try {
+                setWaitingForServer(true)
+
                 await axios.post("/api/reset", {email}, config)
 
                 setSuccess(true)
                 
             } catch (error) {
                 setError(error.response.data)
+            } finally {
+                setWaitingForServer(false)
             }
         }
 
@@ -39,6 +45,7 @@ export default function ForgotPassword() {
     return (
         <div className="ForgotPassword">
             {
+                waitingForServer ? <LoadingMask/> : 
                 !success ?
 
                 <div className="content">

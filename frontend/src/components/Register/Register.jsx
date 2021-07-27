@@ -2,8 +2,15 @@ import React, { useState, useEffect } from 'react';
 import '../Login/Login.css';
 import { connect } from 'react-redux';
 import { register, clearErrors, resetRegistrationSuccess } from '../../actions/authActions'
+import LoadingMask from '../LoadingMask/LoadingMask.component';
 
-const Register = ({resetRegistrationSuccess, clearErrors, register, error, registration_success}) => {
+const Register = ({
+    resetRegistrationSuccess, 
+    registration_success, 
+    clearErrors, 
+    error, 
+    register, 
+    waitingForServerResponse}) => {
 
     let formValid = true
     
@@ -38,6 +45,7 @@ const Register = ({resetRegistrationSuccess, clearErrors, register, error, regis
     return (
         <div className="Register">
             {
+                waitingForServerResponse ? <LoadingMask/> :
                 !registration_success ?
                 <div className="content">
                     <h1>Regisztráció</h1>
@@ -109,7 +117,8 @@ const Register = ({resetRegistrationSuccess, clearErrors, register, error, regis
 
 const mapStateToProps = state => ({
     error: state.auth.error,
-    registration_success: state.auth.registration_success
+    registration_success: state.auth.registration_success,
+    waitingForServerResponse: state.auth.waitingForServerResponse
 })
 
 export default connect(mapStateToProps, {register, clearErrors, resetRegistrationSuccess})(Register)

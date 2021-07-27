@@ -3,6 +3,7 @@ import axios from 'axios';
 import '../Login/Login.css';
 import { connect } from 'react-redux';
 import {logout} from '../../actions/authActions';
+import LoadingMask from '../LoadingMask/LoadingMask.component';
 
 const Order = ({logout, cart, history}) => {
 
@@ -16,7 +17,11 @@ const Order = ({logout, cart, history}) => {
     });
 
     const [error, setError] = useState(null);
+    
+    const [waitingForServer, setWaitingForServer] = useState(false);
    
+    
+    
     const {name, email, tel, address} = order;
 
 
@@ -37,6 +42,7 @@ const Order = ({logout, cart, history}) => {
         try {
 
             setError(null)
+            setWaitingForServer(true)
             const res = await axios.post(
                 "/api/order", 
                 {...order, cart}, 
@@ -52,65 +58,70 @@ const Order = ({logout, cart, history}) => {
             setError(err.response.data)
             if (err.response.data.msg && err.response.data.msg.includes("Authentication error"))
                 logout()
+        } finally {
+            setWaitingForServer(false)
         }
 
     }
 
     return (
         <div className="Order">
-            <div className="content">
-                <h1>Új megrendelés</h1>
-                <div className="alerts">
-                {
-                    function() {
-                        let alerts = []
-                        formValid = true
+            {
+                waitingForServer ? <LoadingMask/> :
+                <div className="content">
+                    <h1>Új megrendelés</h1>
+                    <div className="alerts">
+                    {
+                        function() {
+                            let alerts = []
+                            formValid = true
 
-                        if (name === "" || email === "" || tel === "" || address === "") {
-                            alerts.push(<p key={alerts.length + 1}>Tölts ki minden mezőt!</p>)
-                            formValid = false
-                        }
-
-                        if (!Object.keys(cart.pizza).length && !Object.keys(cart.topping).length) {
-                            alerts.push(<p key={alerts.length + 1}>A kosár üres!</p>)
-                            formValid = false
-                        }
-
-                        if (error) {
-                            if (error.msg)
-                                alerts.push(<p key={alerts.length + 1}>{error.msg}</p>)
-
-                            if (error.errors) {
-                                for (const err of error.errors) {
-                                    alerts.push(<p key={alerts.length + 1}>{err.msg}</p>)
-                                }   
+                            if (name === "" || email === "" || tel === "" || address === "") {
+                                alerts.push(<p key={alerts.length + 1}>Tölts ki minden mezőt!</p>)
+                                formValid = false
                             }
-                        }
 
-                        return alerts
-                    }()
-                }
+                            if (!Object.keys(cart.pizza).length && !Object.keys(cart.topping).length) {
+                                alerts.push(<p key={alerts.length + 1}>A kosár üres!</p>)
+                                formValid = false
+                            }
+
+                            if (error) {
+                                if (error.msg)
+                                    alerts.push(<p key={alerts.length + 1}>{error.msg}</p>)
+
+                                if (error.errors) {
+                                    for (const err of error.errors) {
+                                        alerts.push(<p key={alerts.length + 1}>{err.msg}</p>)
+                                    }   
+                                }
+                            }
+
+                            return alerts
+                        }()
+                    }
+                    </div>
+                    <form>
+                        <div>
+                            <label htmlFor="name">Név</label>
+                            <input type="text" name="name" value={name} onChange={onChange}/>
+                        </div>
+                        <div>
+                            <label htmlFor="email">Email</label>
+                            <input type="email" name="email" value={email} onChange={onChange}/>
+                        </div>
+                        <div>
+                            <label htmlFor="tel">Telefon</label>
+                            <input type="tel" name="tel" value={tel} onChange={onChange}/>
+                        </div>
+                        <div>
+                            <label htmlFor="address">Cím</label>
+                            <input type="text" name="address" value={address} onChange={onChange}/>
+                        </div>
+                        <button type="button" disabled={!formValid} onClick={submit}>Küldés</button>
+                    </form>
                 </div>
-                <form>
-                    <div>
-                        <label htmlFor="name">Név</label>
-                        <input type="text" name="name" value={name} onChange={onChange}/>
-                    </div>
-                    <div>
-                        <label htmlFor="email">Email</label>
-                        <input type="email" name="email" value={email} onChange={onChange}/>
-                    </div>
-                    <div>
-                        <label htmlFor="tel">Telefon</label>
-                        <input type="tel" name="tel" value={tel} onChange={onChange}/>
-                    </div>
-                    <div>
-                        <label htmlFor="address">Cím</label>
-                        <input type="text" name="address" value={address} onChange={onChange}/>
-                    </div>
-                    <button type="button" disabled={!formValid} onClick={submit}>Küldés</button>
-                </form>
-            </div>
+            }
         </div>
     )
 }

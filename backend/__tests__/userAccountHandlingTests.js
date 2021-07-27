@@ -29,9 +29,14 @@ describe("Account handling tests", () => {
     //given axios POSTs to https://oauth2.googleapis.com/token are mocked out
     const mock = new MockAdapter(axios);
 
-    //and a JWT encoded json is returned with user data when a POST is sent
+    //and a JWT encoded json is returned with this user data when a POST is sent
     const googleToken = jwt.sign(
-      { email: "test@email.hu", name: "zoli", picture: "image" },
+      {
+        email: "test@email.hu",
+        email_verified: true,
+        name: "zoli",
+        picture: "image",
+      },
       process.env.JWT_SECRET,
       {
         expiresIn: 3600,
@@ -57,13 +62,49 @@ describe("Account handling tests", () => {
     expect(user.email).toBe("test@email.hu");
   });
 
+  test("/api/google POST should give back an error message when the user email is not verified at google", async () => {
+    //given axios POSTs to https://oauth2.googleapis.com/token are mocked out
+    const mock = new MockAdapter(axios);
+
+    //and a JWT encoded json is returned with this user data when a POST is sent
+    const googleToken = jwt.sign(
+      {
+        email: "test@email.hu",
+        email_verified: false,
+        name: "zoli",
+        picture: "image",
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: 3600,
+      }
+    );
+
+    mock.onPost("https://oauth2.googleapis.com/token").reply(200, {
+      id_token: googleToken,
+    });
+
+    //when we send a POST request to the /api/google endpoint with a dummy code in the body
+    const resp = await request
+      .post("/api/google")
+      .set("Accept", "application/json")
+      .expect("Content-Type", /json/)
+      .send({ code: "alma" });
+
+    const user = await User.findOne();
+    //then an error message should come back with a 401 status
+    expect(resp.status).toBe(401);
+    expect(resp.body.msg).toBe("Email not verified!");
+    expect(user).toBeFalsy();
+  });
+
   test("/api/google POST sends back an error message when there is no code in the POST request", async () => {
     //when we send a POST request to the /api/google endpoint without a code in the body
     const resp = await request
       .post("/api/google")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
-      .send({});
+      .send();
 
     //then an error message is sent with 400 status
     expect(resp.status).toBe(400);
@@ -153,10 +194,10 @@ describe("Account handling tests", () => {
       .expect("Content-Type", /json/)
       .send({ email: "email@email.hu", password: "jelszo" });
 
+    const user = await User.findOne();
     //then the user should be deleted
     expect(res2.status).toBe(400);
     expect(res2.body.msg).toBe("Újra regisztrálnod kell!");
-    const user = await User.findOne();
     expect(user).toBeFalsy();
   });
 

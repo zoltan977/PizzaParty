@@ -238,7 +238,14 @@ exports.google = async (postedData) => {
 
   const data = response.data;
 
-  const { email, name, picture: photo } = jwt.decode(data.id_token);
+  const {
+    email_verified,
+    email,
+    name,
+    picture: photo,
+  } = jwt.decode(data.id_token);
+
+  if (!email_verified) throw { status: 401, msg: "Email not verified!" };
 
   let user = await User.findOne({ email: email });
 
