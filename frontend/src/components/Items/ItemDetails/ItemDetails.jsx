@@ -1,65 +1,71 @@
+import './ItemDetails.css';
 import React, {useState, useEffect} from 'react';
 import {modifyOrDeleteItem} from '../../../actions/cartActions';
-import {selectPizza} from '../../../actions/dataActions';
-import './PizzaDetails.css';
+import {selectPizza, selectTopping} from '../../../actions/dataActions';
 import { connect } from 'react-redux';
 
-const PizzaDetails = ({selectPizza, modifyOrDeleteItem, cart, selectedPizza}) => {
+const ItemDetails = ({selectPizza, selectTopping, modifyOrDeleteItem, cart, selectedPizza, selectedTopping, itemType}) => {
 
     const [quantity, setQuantity] = useState(0);
     const [input, setInput] = useState(0);
 
-    const [pizzaDetailsStyle, setPizzaDetailsStyle] = useState({transform: "scale(0)"});
+    const [itemDetailsStyle, setItemDetailsStyle] = useState({transform: "scale(0)"});
     const [contentClass, setContentClass] = useState("content");
 
     useEffect(() => {
 
-        setQuantity(selectedPizza ? cart.pizza[selectedPizza._id] || 0 : 0);
+        itemType === "pizza" ?
+            setQuantity(selectedPizza ? cart.pizza[selectedPizza._id] || 0 : 0)
+            :
+            setQuantity(selectedTopping ? cart.topping[selectedTopping._id] || 0 : 0)
 
-        if (selectedPizza)
-            setPizzaDetailsStyle({transform: "scale(1)"})
+        if (itemType === "pizza" && selectedPizza)
+            setItemDetailsStyle({transform: "scale(1)"})
+
+        if (itemType === "topping" && selectedTopping)
+            setItemDetailsStyle({transform: "scale(1)"})
 
         setContentClass("content")
 
-    }, [selectedPizza, cart]);
+    }, [selectedPizza, selectedTopping, cart]);
 
     return (
-        <div className="PizzaDetails" style={pizzaDetailsStyle}>
+        <div className={itemType === "pizza" ? "PizzaDetails" : "ToppingDetails"} style={itemDetailsStyle}>
             {
-                selectedPizza &&
+                ((itemType === "pizza" && selectedPizza) || (itemType === "topping" && selectedTopping)) &&
                 <>
                     <span className="close" onClick={() => {
-                            setPizzaDetailsStyle({transform: "scale(0)"})
+                            setItemDetailsStyle({transform: "scale(0)"})
                             setTimeout(() => {
-                                selectPizza(null)
+                                itemType === "pizza" ? selectPizza(null) : selectTopping(null)
                             }, 1000);
                         }
                     }>
                         X
                     </span>
             
-                    <img src={"/images/pizzas/" + selectedPizza.image} alt="" />
+                    <img src={"/images/" + itemType + "s/" + (itemType === "pizza" ? selectedPizza.image : selectedTopping.image)} alt="" />
             
                     <div className={contentClass}>
                         <div className="info">
                             <span className="closeInfo" onClick={() => 
                                 setContentClass("content hide")}>X</span>
-                            <div className="pizzaInfo">
+                            <div className={itemType + "Info"}>
                                 <div className="firstColumn">Név:</div>
                                 <div>
-                                    {selectedPizza.name}
+                                    {itemType === "pizza" ? selectedPizza.name : selectedTopping.name}
                                 </div>   
                                 <div className="firstColumn">
                                     Ár:
                                 </div>
                                 <div>
-                                    {selectedPizza.price} Ft
+                                    {itemType === "pizza" ? selectedPizza.price : selectedTopping.price} Ft
                                 </div>
                                 <div className="firstColumn">
                                     Leírás:
                                 </div>
                                 <div>
-                                    {selectedPizza.description}
+                                    {itemType === "pizza" ? selectedPizza.description : selectedTopping.description}
                                 </div>
                             </div>
                             <div className="cartInfo">
@@ -96,7 +102,7 @@ const PizzaDetails = ({selectPizza, modifyOrDeleteItem, cart, selectedPizza}) =>
                                         
                                     <button onClick={
                                         (e) => {
-                                                modifyOrDeleteItem(true, selectedPizza._id, "pizza", 
+                                                modifyOrDeleteItem(true, itemType === "pizza" ? selectedPizza._id : selectedTopping._id, itemType, 
                                                                     Number(input) + Number(quantity));
                                                 
                                                 setInput(0);
@@ -118,7 +124,8 @@ const PizzaDetails = ({selectPizza, modifyOrDeleteItem, cart, selectedPizza}) =>
 
 const mapStateToProps = state => ({
     cart: state.cart,
-    selectedPizza: state.data.selectedPizza
+    selectedPizza: state.data.selectedPizza,
+    selectedTopping: state.data.selectedTopping
 })
 
-export default connect(mapStateToProps, {selectPizza, modifyOrDeleteItem})(PizzaDetails)
+export default connect(mapStateToProps, {selectPizza, selectTopping, modifyOrDeleteItem})(ItemDetails)

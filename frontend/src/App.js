@@ -33,7 +33,8 @@ const App = ({ loadingData, setData, loadUser }) => {
 
     setData();
 
-    if (location.pathname !== "/confirm") loadUser();
+    if (location.pathname !== "/confirm" && location.pathname !== "/callback")
+      loadUser();
   }, []);
 
   return (

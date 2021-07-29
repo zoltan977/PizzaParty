@@ -1,40 +1,74 @@
-import React, { useEffect } from 'react';
-import {useLocation, useHistory} from 'react-router-dom';
-import { confirm } from '../../actions/authActions';
-import { resetConfirmationSuccess } from '../../actions/authActions';
-import { connect } from 'react-redux';
 import '../Login/Login.css';
+import React, { useEffect, useState } from 'react';
+import {useLocation, useHistory} from 'react-router-dom';
+import { logout, setToken } from '../../actions/authActions';
+import { connect } from 'react-redux';
 import LoadingMask from '../LoadingMask/LoadingMask.component';
+import httpClient from 'axios';
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
 
-const Confirm = ({confirm, error, confirmation_success, resetConfirmationSuccess, waitingForServerResponse}) => {
+const Confirm = ({logout, setToken}) => {
 
     const query = useQuery();
     const history = useHistory();
 
+    const [waitingForServer, setWaitingForServer] = useState(false);
+    const [error, setError] = useState(null);
+
+
     useEffect(() => {
-        resetConfirmationSuccess()
 
-        console.log("confirm email: ", query.get("email"));
-        console.log("confirm code: ", query.get("code"));
+        const asyncFn = async () => {
 
-        confirm(query.get("code"), query.get("email"))
+            const email = query.get("email")
+            const code = query.get("code")
+            console.log("confirm email: ", query.get("email"));
+            console.log("confirm code: ", query.get("code"));
+    
+            try {
+    
+                setWaitingForServer(true)
+                const config = {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                };
+                const res = await httpClient.post(
+                "/api/confirm",
+                {
+                    email,
+                    code,
+                },
+                config
+                );
+    
+                console.log("confirm action res.data: ", res.data);
+
+                setWaitingForServer(false)
+    
+                setToken(res.data.token)
+
+                history.push("/");
+    
+            } catch (error) {
+                console.log("confirm action error.response.data: ", error.response.data);
+                setWaitingForServer(false)
+                setError(error.response.data)
+                logout()
+            } 
+        }
+
+        asyncFn()
         
     }, [])
-
-    useEffect(() => {
-        if (confirmation_success)
-            history.push("/");
-    }, [confirmation_success])
-
 
     return (
         <div className="Confirm">
             {
-                waitingForServerResponse ? 
+                waitingForServer ? 
                     <LoadingMask/>
                     : 
                     <>
@@ -70,10 +104,5 @@ const Confirm = ({confirm, error, confirmation_success, resetConfirmationSuccess
     )
 }
 
-const mapStateToProps = state => ({
-    error: state.auth.error,
-    confirmation_success: state.auth.confirmation_success,
-    waitingForServerResponse: state.auth.waitingForServerResponse
-})
 
-export default connect(mapStateToProps, {confirm, resetConfirmationSuccess})(Confirm)
+export default connect(null, {logout, setToken})(Confirm)

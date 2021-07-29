@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from 'react';
 import '../Login/Login.css';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { register, clearErrors, resetRegistrationSuccess } from '../../actions/authActions'
 import LoadingMask from '../LoadingMask/LoadingMask.component';
+import httpClient from 'axios';
+import { logout } from './../../actions/authActions';
 
-const Register = ({
-    resetRegistrationSuccess, 
-    registration_success, 
-    clearErrors, 
-    error, 
-    register, 
-    waitingForServerResponse}) => {
+const Register = ({logout}) => {
 
     let formValid = true
     
+    const [error, setError] = useState(null);
+    const [registration_success, setRegistration_success] = useState(false);
+    const [waitingForServer, setWaitingForServer] = useState(false);
     const [user, setUser] = useState({
         name: "",
         email: "",
@@ -24,28 +22,43 @@ const Register = ({
     const {name, email, password, password2} = user;
 
 
-    useEffect(() => {
-        clearErrors()
-        resetRegistrationSuccess()
-    }, []);
-
     const onChange = e => setUser({...user, [e.target.name]: e.target.value})
 
 
-    const submit = () => {
+    const submit = async () => {
 
-        if (formValid)
-            register({
-                name,
-                email,
-                password
-            })
+        if (formValid) {
+                  const config = {
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                  };
+                
+                  try {
+
+                    setWaitingForServer(true)
+
+                    const res = await httpClient.post("/api/register", {name, email, password}, config);
+                
+                    console.log("register action res.data: ", res.data);
+
+                    setWaitingForServer(false)
+                
+                    setRegistration_success(true)
+                  } catch (error) {
+                    console.log(error.response.data);
+                    setWaitingForServer(false)
+                    setError(error.response.data)
+                    logout()
+                  } 
+                
+        }
     }
 
     return (
         <div className="Register">
             {
-                waitingForServerResponse ? <LoadingMask/> :
+                waitingForServer ? <LoadingMask/> :
                 !registration_success ?
                 <div className="content">
                     <h1>Regisztráció</h1>
@@ -115,10 +128,4 @@ const Register = ({
     )
 }
 
-const mapStateToProps = state => ({
-    error: state.auth.error,
-    registration_success: state.auth.registration_success,
-    waitingForServerResponse: state.auth.waitingForServerResponse
-})
-
-export default connect(mapStateToProps, {register, clearErrors, resetRegistrationSuccess})(Register)
+export default connect(null, {logout})(Register)

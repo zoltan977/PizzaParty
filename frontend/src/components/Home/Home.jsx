@@ -1,7 +1,6 @@
 import './Home.css';
 import React, { useRef, useEffect } from 'react';
-import Pizzas from './../Pizzas/Pizzas';
-import Toppings from './../Toppings/Toppings';
+import Items from './../Items/Items';
 import {connect} from 'react-redux';
 import { PropTypes } from 'prop-types';
 
@@ -84,12 +83,12 @@ const Home = ({loading, data}) => {
         
                     <div className="pizzasContainer">
                       <h2>Pizzák</h2>
-                      {data.pizza.length ? <Pizzas pizzas={data.pizza}/> : <p className="warning"> No pizzas </p>}
+                      {data.pizza.length ? <Items items={data.pizza} itemType="pizza" /> : <p className="warning"> No pizzas </p>}
                     </div>
 
                     <div className="toppingsContainer">
                       <h2>Feltétek</h2>
-                      {data.topping.length ? <Toppings toppings={data.topping}/> : <p className="warning"> No toppings </p>}
+                      {data.topping.length ? <Items items={data.topping} itemType="topping" /> : <p className="warning"> No toppings </p>}
                     </div>
                   </div>
                 </div>

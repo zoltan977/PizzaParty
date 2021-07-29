@@ -1,25 +1,61 @@
 import '../Login/Login.css';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useLocation, useHistory} from 'react-router-dom';
-import { google } from '../../actions/authActions';
+import { setToken, logout } from '../../actions/authActions';
 import { connect } from 'react-redux';
 import LoadingMask from './../LoadingMask/LoadingMask.component';
+import httpClient from 'axios';
+
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
 }
 
-const Callback = ({google, waitingForServerResponse}) => {
+const Callback = ({setToken, logout}) => {
         
     const query = useQuery();
     const history = useHistory();
+
+    const [waitingForServer, setWaitingForServer] = useState(false);
 
     useEffect(() => {
         const asyncFn = async _ => {
             const code = query.get("code")
 
             console.log("Callback component code:", code);
-            google(code)
+                
+
+
+            /////////////////////
+            console.log("google action code:", code);
+            try {
+
+                setWaitingForServer(true)
+                    
+                const config = {
+                    headers: {
+                    "Content-Type": "application/json",
+                    },
+                };
+                const res = await httpClient.post("/api/google", { code }, config);
+                
+                console.log("google action /api/google res.data", res.data);
+
+                setWaitingForServer(false)
+                
+                setToken(res.data.token)
+
+            } catch (error) {
+                console.log(error);
+
+                setWaitingForServer(false)
+            
+                logout()
+            } 
+            
+            /////////////////////
+
+
 
             history.push("/")
         }
@@ -31,14 +67,11 @@ const Callback = ({google, waitingForServerResponse}) => {
     return (
         <div className="Callback">
             {
-                waitingForServerResponse && <LoadingMask/>
+                waitingForServer && <LoadingMask/>
             }
         </div>
     )
 }
 
-const mapStateToProps = state => ({
-    waitingForServerResponse: state.auth.waitingForServerResponse
-})
 
-export default connect(mapStateToProps, {google})(Callback)
+export default connect(null, {setToken, logout})(Callback)

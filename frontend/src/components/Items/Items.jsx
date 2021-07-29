@@ -1,25 +1,25 @@
-import Pizza from './Pizza/Pizza.jsx';
-import './Pizzas.css';
+import './Items.css';
+import Item from './Item/Item.jsx';
 import React, { useState } from 'react';
-import PizzaDetails from './PizzaDetails/PizzaDetails.jsx';
+import ItemDetails from './ItemDetails/ItemDetails.jsx';
 import Navigation from '../Navigation/navigation.jsx';
 
-export default function Pizzas({pizzas}) {
+export default function Items({items, itemType}) {
 
-    const [quantityPerPage, setQuantityPerPage] = useState(6 <= pizzas.length ? 6 : pizzas.length);
+    const [quantityPerPage, setQuantityPerPage] = useState(6 <= items.length ? 6 : items.length);
     const [from, setFrom] = useState(0);
     const [to, setTo] = useState(quantityPerPage);
-    const [filteredPizzas, setFilteredPizzas] = useState(pizzas);
+    const [filteredItems, setFilteredItems] = useState(items);
 
     const search = (e) => {
-        const filtered = pizzas.filter((p => {
+        const filtered = items.filter((p => {
             if (p.name.toUpperCase().includes(e.target.value.toUpperCase()) || e.target.value === "")
                 return true
             else 
                 return false
         }))
 
-        setFilteredPizzas(filtered)
+        setFilteredItems(filtered)
 
         setQuantityPerPage(filtered.length)
 
@@ -39,13 +39,13 @@ export default function Pizzas({pizzas}) {
     }
     
     const next = () => {
-        if (to + quantityPerPage <= filteredPizzas.length) {
+        if (to + quantityPerPage <= filteredItems.length) {
             setTo(to + quantityPerPage)
             setFrom(from + quantityPerPage)
         }
         else {
-            setTo(filteredPizzas.length)
-            setFrom(filteredPizzas.length - quantityPerPage)
+            setTo(filteredItems.length)
+            setFrom(filteredItems.length - quantityPerPage)
         }
     }
     
@@ -60,8 +60,8 @@ export default function Pizzas({pizzas}) {
         if (Number(e.target.value) < 1)
             e.target.value = 1;
 
-        if (Number(e.target.value) > filteredPizzas.length)
-            e.target.value = filteredPizzas.length;
+        if (Number(e.target.value) > filteredItems.length)
+            e.target.value = filteredItems.length;
 
         e.target.value = Number(e.target.value)
 
@@ -71,7 +71,7 @@ export default function Pizzas({pizzas}) {
     }
 
     const increaseQuantityPerPage = () => {
-        if (quantityPerPage <= filteredPizzas.length -1) {
+        if (quantityPerPage <= filteredItems.length -1) {
             setFrom(0);
             setTo(quantityPerPage + 1);
             
@@ -90,20 +90,20 @@ export default function Pizzas({pizzas}) {
 
     return (
 
-        <div className="pizzas">
-            <PizzaDetails />
+        <div className={itemType + "s"}>
+            <ItemDetails itemType={itemType} />
             <div className="search">
                 <input type="text" placeholder="search" onChange={(e) => search(e)} />
             </div>
-            <Navigation props = {{prev, next, data: filteredPizzas, 
+            <Navigation props = {{prev, next, data: filteredItems, 
                 quantityPerPage, change, to, from, 
                 increaseQuantityPerPage, decreaseQuantityPerPage}} />
             <div className="content">
             {
-                filteredPizzas.slice(from, to).map((pizza, idx) => <Pizza key={pizza._id} key2={pizza._id} pizza={pizza}/>)
+                filteredItems.slice(from, to).map(item => <Item key={item._id} key2={item._id} item={item} itemType={itemType}/>)
             }
             </div>
-            <Navigation props = {{prev, next, data: filteredPizzas, 
+            <Navigation props = {{prev, next, data: filteredItems, 
                 quantityPerPage, change, to, from, 
                 increaseQuantityPerPage, decreaseQuantityPerPage}} />
         </div>

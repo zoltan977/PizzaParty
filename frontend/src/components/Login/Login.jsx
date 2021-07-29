@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import './Login.css';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {login, clearErrors} from '../../actions/authActions';
-import './Login.css';
+import {logout, setToken} from '../../actions/authActions';
 import LoadingMask from './../LoadingMask/LoadingMask.component';
+import httpClient from 'axios';
 
-const Login = ({clearErrors, login, error, waitingForServerResponse}) => {
+const Login = ({logout, setToken}) => {
 
     let formValid = true
 
+    const [error, setError] = useState(null);
+    const [waitingForServer, setWaitingForServer] = useState(false);
     const [user, setUser] = useState({
         email: '',
         password: '',
@@ -16,26 +19,41 @@ const Login = ({clearErrors, login, error, waitingForServerResponse}) => {
 
     const {email, password} = user;
 
-    useEffect(() => {
-        clearErrors()
-    }, []);
-
-
     const onChange = e => setUser({...user, [e.target.name]: e.target.value})
     
-    const submit = () => {
+    const submit = async () => {
 
-        if (formValid)
-            login({
-                email,
-                password
-            })
+        if (formValid) {
+
+            const config = {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            };
+            
+            try {
+              setWaitingForServer(true)
+            
+              const res = await httpClient.post("/api/login", user, config);
+              console.log(res.data);
+              setWaitingForServer(false)
+              setToken(res.data.token)
+
+            } catch (error) {
+              console.log(error.response.data);
+              setWaitingForServer(false)
+              setError(error.response.data)
+              logout()
+            } 
+                
+        }
+            
     }
 
     return (
         <div className="Login">
             {
-                waitingForServerResponse ? <LoadingMask/> :
+                waitingForServer ? <LoadingMask/> :
                 <div className="content">
                     <h1>Belépés</h1>
                     <div className="alerts">
@@ -82,9 +100,4 @@ const Login = ({clearErrors, login, error, waitingForServerResponse}) => {
     )
 }
 
-const mapStateToProps = state => ({
-    error: state.auth.error,
-    waitingForServerResponse: state.auth.waitingForServerResponse
-})
-
-export default connect(mapStateToProps, {login, clearErrors})(Login)
+export default connect(null, {logout, setToken})(Login)
