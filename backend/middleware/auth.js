@@ -29,6 +29,6 @@ module.exports = async function (req, res, next) {
     req.user = decoded.user;
     next();
   } catch (error) {
-    return res.status(501).json({ msg: "Authentication error" });
+    return res.status(500).json({ msg: "Authentication error" });
   }
 };

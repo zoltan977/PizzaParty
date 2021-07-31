@@ -30,7 +30,7 @@ const ItemDetails = ({selectPizza, selectTopping, modifyOrDeleteItem, cart, sele
     }, [selectedPizza, selectedTopping, cart]);
 
     return (
-        <div className={itemType === "pizza" ? "PizzaDetails" : "ToppingDetails"} style={itemDetailsStyle}>
+        <div className="ItemDetails" style={itemDetailsStyle}>
             {
                 ((itemType === "pizza" && selectedPizza) || (itemType === "topping" && selectedTopping)) &&
                 <>

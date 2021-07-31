@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react'
+import React, { useRef } from 'react'
 
 export default function ContentEditable(props) {
     const { onChange } = props;

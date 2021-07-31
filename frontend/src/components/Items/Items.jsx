@@ -6,7 +6,8 @@ import Navigation from '../Navigation/navigation.jsx';
 
 export default function Items({items, itemType}) {
 
-    const [quantityPerPage, setQuantityPerPage] = useState(6 <= items.length ? 6 : items.length);
+    const defaultQuantityPerPage = itemType === "pizza" ? 6 : 4;
+    const [quantityPerPage, setQuantityPerPage] = useState(defaultQuantityPerPage <= items.length ? defaultQuantityPerPage : items.length);
     const [from, setFrom] = useState(0);
     const [to, setTo] = useState(quantityPerPage);
     const [filteredItems, setFilteredItems] = useState(items);

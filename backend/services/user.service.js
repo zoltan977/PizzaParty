@@ -77,7 +77,7 @@ exports.reset = async (postedData) => {
   const { email } = postedData;
   const user = await User.findOne({ email });
   if (!user)
-    throw { status: 401, msg: "Ezzel az email címmel nincs felhasználó!" };
+    throw { status: 400, msg: "Ezzel az email címmel nincs felhasználó!" };
 
   const buf = randomBytes(256);
 
@@ -105,11 +105,11 @@ exports.password = async (postedData) => {
   const { email, code, password } = postedData;
 
   const user = await User.findOne({ email });
-  if (!user) throw { status: 401, msg: "Nincs felhasználó ezzel az email-el!" };
+  if (!user) throw { status: 400, msg: "Nincs felhasználó ezzel az email-el!" };
 
   if (!user.reset)
     throw {
-      status: 401,
+      status: 400,
       msg: "Ezzel az email címmel nem kértek jelszóváltoztatást!",
     };
 
@@ -245,7 +245,7 @@ exports.google = async (postedData) => {
     picture: photo,
   } = jwt.decode(data.id_token);
 
-  if (!email_verified) throw { status: 401, msg: "Email not verified!" };
+  if (!email_verified) throw { status: 400, msg: "Email not verified!" };
 
   let user = await User.findOne({ email: email });
 

@@ -17,8 +17,8 @@ exports.userAccount = (service) =>
 
 exports.loadUser = asyncHandler(async (req, res) => {
   const user = await User.findOne({ email: req.user.email });
-  if (!user) return res.status(401).json({ msg: "Nincs ilyen felhasználó" });
-  else return res.json(user);
+  if (!user) return res.status(400).json({ msg: "Nincs ilyen felhasználó" });
+  else return res.json({ name: user.name, photo: user.photo });
 });
 
 exports.nameChange = asyncHandler(async (req, res) => {

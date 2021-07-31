@@ -23,7 +23,9 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.2",
     "node-fetch": "^2.6.1",
-    "nodemailer": "^6.6.2"
+    "nodemailer": "^6.6.2",
+    "swagger-ui-express": "^4.1.6",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
     "axios-mock-adapter": "^1.19.0",

@@ -57,7 +57,7 @@ exports.order = async (orderData, user) => {
   );
 
   //If there is any stock shortage then sends a message
-  if (errorsArray.length) throw { status: 401, errors: errorsArray };
+  if (errorsArray.length) throw { status: 400, errors: errorsArray };
 
   //else saves the order of the user
   orderData.cart = cartForDatabase;

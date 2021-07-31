@@ -118,7 +118,7 @@ const Register = ({logout}) => {
                         <h1>Registration Success!</h1>
                         <div className="alerts">
                             <p>
-                                A email has been sent to <span className="email">{email}</span>
+                                Egy jóváhagyó email-t küldtünk a <span className="email">{email}</span> címre
                             </p>
                         </div>
                     </div>
