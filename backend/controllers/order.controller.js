@@ -10,11 +10,11 @@ exports.order = asyncHandler(async (req, res) => {
     return res.status(400).json({ errors: errors.array() });
   }
 
-  const response = await OrderService.order(req.body, req.user);
+  const response = await OrderService.order(req.body, res.locals.user);
   return res.json(response);
 });
 
 exports.orders = asyncHandler(async (req, res) => {
-  const currentUser = await User.findOne({ email: req.user.email });
+  const currentUser = await User.findOne({ email: res.locals.user.email });
   return res.json(currentUser.orders);
 });

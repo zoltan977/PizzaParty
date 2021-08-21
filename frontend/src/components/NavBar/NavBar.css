@@ -24,13 +24,13 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -ms-flex-pack: distribute;
-      justify-content: space-around;
+  justify-content: space-around;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   position: absolute;
   top: -90vw;
   left: 0;
@@ -90,27 +90,27 @@
 
 .NavBar .dropDownMenu a:hover {
   -webkit-box-shadow: 0 0 15.2vw 4.4vw white;
-          box-shadow: 0 0 15.2vw 4.4vw white;
+  box-shadow: 0 0 15.2vw 4.4vw white;
 }
 
 @media screen and (min-width: 451px) and (max-width: 750px) {
   .NavBar .dropDownMenu a:hover {
     -webkit-box-shadow: 0 0 7.6vw 2.2vw white;
-            box-shadow: 0 0 7.6vw 2.2vw white;
+    box-shadow: 0 0 7.6vw 2.2vw white;
   }
 }
 
 @media screen and (min-width: 751px) {
   .NavBar .dropDownMenu a:hover {
     -webkit-box-shadow: 0 0 3.8vw 1.1vw white;
-            box-shadow: 0 0 3.8vw 1.1vw white;
+    box-shadow: 0 0 3.8vw 1.1vw white;
   }
 }
 
 .NavBar .dropDownMenu a span {
   display: block;
   -webkit-transform: translate(0, -50%);
-          transform: translate(0, -50%);
+  transform: translate(0, -50%);
   white-space: nowrap;
 }
 
@@ -140,7 +140,7 @@
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   padding: 2px;
   color: white;
   background-color: red;
@@ -193,14 +193,14 @@
   transition: transform 1s;
   transition: transform 1s, -webkit-transform 1s;
   -webkit-transform: translate(10px, 12px);
-          transform: translate(10px, 12px);
+  transform: translate(10px, 12px);
 }
 
 .NavBar .icons .hamburger svg rect.b {
   -webkit-transition: opacity 1s;
   transition: opacity 1s;
   -webkit-transform: translate(10px, 19px);
-          transform: translate(10px, 19px);
+  transform: translate(10px, 19px);
 }
 
 .NavBar .icons .hamburger svg rect.c {
@@ -209,7 +209,7 @@
   transition: transform 1s;
   transition: transform 1s, -webkit-transform 1s;
   -webkit-transform: translate(10px, 26px);
-          transform: translate(10px, 26px);
+  transform: translate(10px, 26px);
 }
 
 .NavBar .icons .hamburger svg rect.ax {
@@ -218,14 +218,14 @@
   transition: transform 1s;
   transition: transform 1s, -webkit-transform 1s;
   -webkit-transform: translate(12px, 12px) rotate(45deg);
-          transform: translate(12px, 12px) rotate(45deg);
+  transform: translate(12px, 12px) rotate(45deg);
 }
 
 .NavBar .icons .hamburger svg rect.bx {
   -webkit-transition: opacity 1s;
   transition: opacity 1s;
   -webkit-transform: translate(10px, 19px);
-          transform: translate(10px, 19px);
+  transform: translate(10px, 19px);
   opacity: 0;
 }
 
@@ -235,23 +235,23 @@
   transition: transform 1s;
   transition: transform 1s, -webkit-transform 1s;
   -webkit-transform: translate(12px, 26px) rotate(-45deg);
-          transform: translate(12px, 26px) rotate(-45deg);
+  transform: translate(12px, 26px) rotate(-45deg);
 }
 
 .NavBar .linksAndUser {
   height: 100%;
   -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  -ms-flex: 1;
+  flex: 1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   padding: 0 10px;
   margin-left: calc(15px + 2vw);
 }
@@ -259,8 +259,8 @@
 @media screen and (max-width: 750px) {
   .NavBar .linksAndUser {
     -webkit-box-pack: end;
-        -ms-flex-pack: end;
-            justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
   }
 }
 
@@ -302,7 +302,8 @@
   border-radius: 0.25em;
 }
 
-.NavBar .linksAndUser .links a:hover, .NavBar .linksAndUser .links a.active {
+.NavBar .linksAndUser .links a:hover,
+.NavBar .linksAndUser .links a.active {
   color: white;
   background-color: black;
 }
@@ -316,8 +317,8 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   gap: 0.75vw;
   width: fit-content;
   font-family: "Teko", sans-serif;
@@ -328,26 +329,72 @@
   width: auto;
 }
 
-.NavBar .linksAndUser .userInfo span {
-  display: none;
-}
-
-@media screen and (min-width: 501px) and (max-width: 750px) {
-  .NavBar .linksAndUser .userInfo span {
-    display: inline;
-    font-size: 4.5vw;
-  }
+.NavBar .linksAndUser .userInfo span.userName {
+  font-size: 45px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 50px;
 }
 
 @media screen and (min-width: 751px) {
-  .NavBar .linksAndUser .userInfo span {
-    display: inline;
-    font-size: 2.25vw;
+  .NavBar .linksAndUser .userInfo span.userName {
+    font-size: calc(15px + 2vw);
   }
 }
 
-.NavBar .linksAndUser .userInfo span.userName {
-  cursor: pointer;
+@media screen and (min-width: 321px) and (max-width: 350px) {
+  .NavBar .linksAndUser .userInfo span.userName {
+    max-width: 75px;
+  }
+}
+
+@media screen and (min-width: 351px) and (max-width: 370px) {
+  .NavBar .linksAndUser .userInfo span.userName {
+    max-width: 100px;
+  }
+}
+
+@media screen and (min-width: 371px) and (max-width: 400px) {
+  .NavBar .linksAndUser .userInfo span.userName {
+    max-width: 130px;
+  }
+}
+
+@media screen and (min-width: 401px) and (max-width: 450px) {
+  .NavBar .linksAndUser .userInfo span.userName {
+    max-width: 160px;
+  }
+}
+
+@media screen and (min-width: 451px) and (max-width: 500px) {
+  .NavBar .linksAndUser .userInfo span.userName {
+    max-width: 210px;
+  }
+}
+
+@media screen and (min-width: 501px) and (max-width: 750px) {
+  .NavBar .linksAndUser .userInfo span.userName {
+    max-width: 260px;
+  }
+}
+
+@media screen and (min-width: 751px) and (max-width: 1200px) {
+  .NavBar .linksAndUser .userInfo span.userName {
+    max-width: 200px;
+  }
+}
+
+@media screen and (min-width: 1201px) and (max-width: 1500px) {
+  .NavBar .linksAndUser .userInfo span.userName {
+    max-width: 400px;
+  }
+}
+
+@media screen and (min-width: 1501px) {
+  .NavBar .linksAndUser .userInfo span.userName {
+    max-width: 600px;
+  }
 }
 
 .NavBar .linksAndUser .userInfo span.notLoggedIn {

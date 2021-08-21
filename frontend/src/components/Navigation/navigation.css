@@ -11,7 +11,13 @@
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: distribute;
-      justify-content: space-around;
+  justify-content: space-around;
+}
+
+.navigation div:first-of-type > span:first-child,
+.navigation div:first-of-type > span:last-child {
+  cursor: pointer;
+  color: greenyellow;
 }
 
 .navigation div:last-of-type {
@@ -88,10 +94,6 @@
   }
 }
 
-.navigation span:first-child, .navigation span:last-child {
-  cursor: pointer;
-}
-
 .navigation span:nth-child(2) {
   position: relative;
 }
@@ -120,10 +122,10 @@
 
 .navigation span:nth-child(2) span:first-of-type {
   -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
 }
 
 .navigation span:nth-child(2) span:last-of-type {
   -webkit-transform: translate(-50%, 50%);
-          transform: translate(-50%, 50%);
+  transform: translate(-50%, 50%);
 }

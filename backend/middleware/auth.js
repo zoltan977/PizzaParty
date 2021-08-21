@@ -2,7 +2,15 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
 module.exports = async function (req, res, next) {
-  const token = req.header("x-auth-token");
+  const authorizationHeader = req.header("Authorization");
+
+  if (!authorizationHeader) {
+    return res.status(401).json({
+      msg: "Authentication error: No authorization header. Authorization denied",
+    });
+  }
+
+  const token = authorizationHeader.split(" ")[1];
 
   if (!token) {
     return res
@@ -26,7 +34,7 @@ module.exports = async function (req, res, next) {
         .status(401)
         .json({ msg: "Authentication error: This user has been deleted" });
 
-    req.user = decoded.user;
+    res.locals.user = decoded.user;
     next();
   } catch (error) {
     return res.status(500).json({ msg: "Authentication error" });

@@ -1,25 +1,40 @@
-import React, { useRef } from 'react'
+import React, { useRef, useEffect } from "react";
 
 export default function ContentEditable(props) {
-    const { onChange } = props;
-    const element = useRef();
-    let elements = React.Children.toArray(props.children);
+  const { onChange } = props;
+  const element = useRef();
+  let elements = React.Children.toArray(props.children);
 
-    if (elements.length > 1) {
-      throw Error("Can't have more than one child");
+  const keyUpHandler = () => {
+    if (!element.current) return;
+
+    if (!element.current.innerText) {
+      let spaces = String.fromCharCode(160);
+      for (let index = 0; index < 2; index++) {
+        spaces += spaces;
+      }
+      element.current.innerText = spaces;
     }
 
-    const keyUpHandler = () => {
-      const value = element.current?.value || element.current?.innerText;
-      onChange(value);
-    };
+    onChange(element.current.innerText);
+  };
 
-    elements = React.cloneElement(elements[0], {
-      contentEditable: true,
-      suppressContentEditableWarning: true,
-      ref: element,
-      onKeyUp: keyUpHandler
-    });
+  useEffect(() => {
+    if (element.current && !element.current.innerText) {
+      let spaces = String.fromCharCode(160);
+      for (let index = 0; index < 2; index++) {
+        spaces += spaces;
+      }
+      element.current.innerText = spaces;
+    }
+  }, []);
 
-    return elements;
+  elements = React.cloneElement(elements[0], {
+    contentEditable: true,
+    suppressContentEditableWarning: true,
+    ref: element,
+    onKeyUp: keyUpHandler,
+  });
+
+  return elements;
 }

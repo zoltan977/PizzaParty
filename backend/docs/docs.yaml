@@ -14,15 +14,13 @@ tags:
     description: Everything about Orders
   - name: dataHandling
     description: Access to Product data
-  - name: auth
-    description: Authentication
 
 paths:
   /api/login:
     post:
       tags:
         - userHandling
-      description: Signs in a user
+      description: Signs in a registered user
       requestBody:
         required: true
         content:
@@ -234,6 +232,49 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorMessage"
 
+  /api/name_change:
+    post:
+      tags:
+        - userHandling
+      security:
+        - pizzaWebshopAuth: []
+      description: Changing the name of the authenticated user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NameChangeData"
+
+      responses:
+        200: # status code
+          description: Name change has been executed successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessMessage"
+
+        400: # status code
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+
+        401: # status code
+          description: Unauthenticated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+
+        500: # status code
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+
   /api/loaduser:
     get:
       tags:
@@ -275,7 +316,7 @@ paths:
         - orderHandling
       security:
         - pizzaWebshopAuth: []
-      description: Sending an order request
+      description: Sending an order request of the authenticated user
       requestBody:
         required: true
         content:
@@ -343,6 +384,26 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorMessage"
 
+  /api/data:
+    get:
+      tags:
+        - dataHandling
+      description: Returns the product data
+      responses:
+        200: # status code
+          description: The product data has been returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductData"
+
+        500: # status code
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+
 components:
   securitySchemes:
     pizzaWebshopAuth: # arbitrary name for the security scheme
@@ -351,6 +412,44 @@ components:
       bearerFormat: JWT # optional, arbitrary value for documentation purposes
 
   schemas:
+    ProductData:
+      type: object
+      required:
+        - pizza
+        - topping
+      properties:
+        pizza:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductItem"
+        topping:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductItem"
+
+    ProductItem:
+      type: object
+      required:
+        - _id
+        - name
+        - price
+        - description
+        - stock
+      properties:
+        _id:
+          type: string
+        name:
+          type: string
+        price:
+          type: integer
+        image:
+          type: string
+          default: no-image.png
+        description:
+          type: string
+        stock:
+          type: integer
+
     OrderData:
       type: object
       required:
@@ -358,6 +457,7 @@ components:
         - tel
         - email
         - address
+        - cart
       properties:
         name:
           type: string
@@ -399,12 +499,12 @@ components:
           properties:
             pizza:
               type: array
-                items:
-                  $ref: "#/components/schemas/CartItem"
+              items:
+                $ref: "#/components/schemas/CartItem"
             topping:
               type: array
-                items:
-                  $ref: "#/components/schemas/CartItem"
+              items:
+                $ref: "#/components/schemas/CartItem"
     CartItem:
       type: object
       properties:
@@ -496,13 +596,30 @@ components:
 
     ArrayOfErrorMessages:
       type: array
-        items:
-          $ref: "#/components/schemas/ErrorMessageItem"
+      items:
+        $ref: "#/components/schemas/ErrorMessageItem"
 
     ArrayOfOrders:
       type: array
-        items:
-          $ref: "#/components/schemas/OrderItem"
+      items:
+        $ref: "#/components/schemas/OrderItem"
+
+    ErrorMessageItem:
+      type: object
+      required:
+        - msg
+        - value
+        - param
+        - location
+      properties:
+        msg:
+          type: string
+        value:
+          type: string
+        param:
+          type: string
+        location:
+          type: string
 
     ErrorMessage:
       type: object
@@ -512,10 +629,27 @@ components:
         msg:
           type: string
 
-    Token:
+    AccessToken:
       type: object
       required:
         - token
       properties:
         token:
           type: string
+
+    NameChangeData:
+      type: object
+      required:
+        - newName
+      properties:
+        newName:
+          type: string
+
+    SuccessMessage:
+      type: object
+      required:
+        - success
+      properties:
+        success:
+          type: boolean
+          default: true

@@ -4,6 +4,8 @@ import axios from "axios";
 import setAuthToken from "./../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 
+axios.defaults.baseURL = "http://localhost:8000";
+
 export const logout = () => {
   return {
     type: LOGOUT,

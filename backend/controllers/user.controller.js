@@ -16,12 +16,18 @@ exports.userAccount = (service) =>
   });
 
 exports.loadUser = asyncHandler(async (req, res) => {
-  const user = await User.findOne({ email: req.user.email });
+  const user = await User.findOne({ email: res.locals.user.email });
   if (!user) return res.status(400).json({ msg: "Nincs ilyen felhasználó" });
   else return res.json({ name: user.name, photo: user.photo });
 });
 
 exports.nameChange = asyncHandler(async (req, res) => {
-  const result = await UserService.nameChange(req.body.newName, req.user);
+  if (!(req.body && req.body.newName && req.body.newName.toString().length))
+    return res.status(400).json({ msg: "Nincs megadva név" });
+
+  const result = await UserService.nameChange(
+    req.body.newName,
+    res.locals.user
+  );
   return res.json(result);
 });

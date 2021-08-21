@@ -9,6 +9,7 @@ const createToken = require("../utils/createToken");
 const MockAdapter = require("axios-mock-adapter");
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
+const { mock } = require("nodemailer");
 
 describe("Account handling tests", () => {
   let mongoServer;
@@ -23,6 +24,7 @@ describe("Account handling tests", () => {
 
   afterEach(async () => {
     await deleteAll([User]);
+    mock.reset();
   });
 
   test("/api/google POST should create a user when a code is posted to it", async () => {
@@ -92,8 +94,8 @@ describe("Account handling tests", () => {
       .send({ code: "alma" });
 
     const user = await User.findOne();
-    //then an error message should come back with a 401 status
-    expect(resp.status).toBe(401);
+    //then an error message should come back with a 400 status
+    expect(resp.status).toBe(400);
     expect(resp.body.msg).toBe("Email not verified!");
     expect(user).toBeFalsy();
   });
@@ -196,6 +198,7 @@ describe("Account handling tests", () => {
 
     const user = await User.findOne();
     //then the user should be deleted
+    //and an error message should be given back with 400 status
     expect(res2.status).toBe(400);
     expect(res2.body.msg).toBe("Újra regisztrálnod kell!");
     expect(user).toBeFalsy();
@@ -244,7 +247,7 @@ describe("Account handling tests", () => {
       .expect("Content-Type", /json/)
       .send({});
 
-    //then we should be given an error message with 400 status
+    //then we should be given two error messages with 400 status
     expect(res2.status).toBe(400);
     expect(res2.body.errors).toBeTruthy();
     expect(res2.body.errors.length).toBe(2);
@@ -252,7 +255,7 @@ describe("Account handling tests", () => {
     expect(res2.body.errors[1].msg).toBe("Meg kell adni a jelszót!");
   });
 
-  test("/api/register POST should return 200 when user registration with given data is successful", async () => {
+  test("/api/register POST should return with status 200 when user registration with given data is successful", async () => {
     //given NO User in the database
 
     //when we send the data of the new user
@@ -263,13 +266,21 @@ describe("Account handling tests", () => {
       .send({ name: "Nevem", email: "email@email.hu", password: "jelszo" });
 
     //then the new user with the given data should exist in the database
+    //and the new user should have a confirm property
+    //and an email should have been sent to him/her
+    //and a success message should return with status 200
     const count = await User.countDocuments();
     const user = await User.findOne();
+    const sentEmails = mock.getSentMail();
 
     expect(res.status).toBe(200);
     expect(res.body.success).toBe(true);
     expect(count).toBe(1);
     expect(user.name).toBe("Nevem");
+    expect(user.confirmation).toBeTruthy();
+    expect(sentEmails.length).toBe(1);
+    expect(sentEmails[0].to).toBe("email@email.hu");
+    expect(sentEmails[0].subject).toBe("Regisztráció megerősítés");
 
     //given User with an email: email@email.hu in the database
 
@@ -281,8 +292,11 @@ describe("Account handling tests", () => {
       .send({ name: "Nevem", email: "email@email.hu", password: "jelszo" });
 
     //then we get an error message with status 400
+    //and we still have only one user in the database
+    //and still only one email has been sent to him/her
     const count2 = await User.countDocuments();
     const user2 = await User.findOne();
+    const sentEmails2 = mock.getSentMail();
 
     expect(res2.status).toBe(400);
     expect(res2.body.msg).toBe(
@@ -290,6 +304,8 @@ describe("Account handling tests", () => {
     );
     expect(count2).toBe(1);
     expect(user2.name).toBe("Nevem");
+    expect(sentEmails2.length).toBe(1);
+    expect(sentEmails2[0].to).toBe("email@email.hu");
   });
 
   test("/api/register POST gives back an error message when invalid data was POSTed", async () => {
@@ -315,7 +331,7 @@ describe("Account handling tests", () => {
       .expect("Content-Type", /json/)
       .send({ email: "email", password: "jelszo" });
 
-    //then we should get back an error message with 400 status
+    //then we should get back 2 error messages with 400 status
     expect(res2.status).toBe(400);
     expect(res2.body.errors).toBeTruthy();
     expect(res2.body.errors.length).toBe(2);
@@ -329,7 +345,7 @@ describe("Account handling tests", () => {
       .expect("Content-Type", /json/)
       .send({ email: "email", password: "szo" });
 
-    //then we should get back an error message with 400 status
+    //then we should get back 3 error messages with 400 status
     expect(res3.status).toBe(400);
     expect(res3.body.errors).toBeTruthy();
     expect(res3.body.errors.length).toBe(3);
@@ -348,7 +364,7 @@ describe("Account handling tests", () => {
     });
     await newUser.save();
 
-    //when we send to the reset endpoint the email address of the user in the database
+    //when we send the email address of the user in the database to the reset endpoint
     const res = await request
       .post("/api/reset")
       .set("Accept", "application/json")
@@ -356,11 +372,16 @@ describe("Account handling tests", () => {
       .send({ email: "email@email.hu" });
 
     //then a reset property should exist on the user
+    //and an email should have been sent to him/her
     const user = await User.findOne();
+    const sentEmails = mock.getSentMail();
 
     expect(res.status).toBe(200);
     expect(res.body.success).toBe(true);
     expect(user.reset).toBeTruthy();
+    expect(sentEmails.length).toBe(1);
+    expect(sentEmails[0].to).toBe("email@email.hu");
+    expect(sentEmails[0].subject).toBe("Jelszó változtatás");
   });
 
   test("/api/reset POST should give back an error message when there is no user to the given email", async () => {
@@ -374,7 +395,7 @@ describe("Account handling tests", () => {
       .send({ email: "email@email.hu" });
 
     //then we should be given an error message with 401 status
-    expect(res.status).toBe(401);
+    expect(res.status).toBe(400);
     expect(res.body.msg).toBe("Ezzel az email címmel nincs felhasználó!");
   });
 
@@ -485,7 +506,7 @@ describe("Account handling tests", () => {
       .send({ password: "123456", email: "em@il.hu", code: "123456" });
 
     //then we should get back an error message with 401 status
-    expect(res.status).toBe(401);
+    expect(res.status).toBe(400);
     expect(res.body.msg).toBe("Nincs felhasználó ezzel az email-el!");
   });
 
@@ -511,7 +532,7 @@ describe("Account handling tests", () => {
       .send({ password: "123456", email, code: "123456" });
 
     //then we should get back an error with 401 status
-    expect(res.status).toBe(401);
+    expect(res.status).toBe(400);
     expect(res.body.msg).toBe(
       "Ezzel az email címmel nem kértek jelszóváltoztatást!"
     );
@@ -634,7 +655,7 @@ describe("Account handling tests", () => {
     //given a user with email and a generated confirm property in the database
     const buf = randomBytes(256);
     const code = buf.toString("hex");
-    //and the date in the confirm property is older than 6 minute
+    //and the date in the confirm property is older than 5 minutes
     const confirmation = {
       code,
       date: new Date(new Date().getTime() - 6 * 60 * 1000),
@@ -772,7 +793,9 @@ describe("Account handling tests", () => {
     const token = createToken(newUser);
 
     //when we send a GET request with the generated token in the header
-    const res = await request.get("/api/loaduser").set("x-auth-token", token);
+    const res = await request
+      .get("/api/loaduser")
+      .set("Authorization", `Bearer ${token}`);
 
     //then the data of the user should return
     expect(res.status).toBe(200);
@@ -782,7 +805,9 @@ describe("Account handling tests", () => {
     await deleteAll([User]);
 
     //when we send a request with the same token in the header
-    const res2 = await request.get("/api/loaduser").set("x-auth-token", token);
+    const res2 = await request
+      .get("/api/loaduser")
+      .set("Authorization", `Bearer ${token}`);
 
     //then we should get back a message says: Authentication error: This user has been deleted
     expect(res2.status).toBe(401);
@@ -798,7 +823,7 @@ describe("Account handling tests", () => {
     //then an error message should return with status 401
     expect(res.status).toBe(401);
     expect(res.body.msg).toBe(
-      "Authentication error: No token. Authorization denied"
+      "Authentication error: No authorization header. Authorization denied"
     );
   });
 
@@ -806,14 +831,14 @@ describe("Account handling tests", () => {
     //when we send a GET request with an invalid access token
     const res = await request
       .get("/api/loaduser")
-      .set("x-auth-token", "xyz123");
+      .set("Authorization", "Bearer xyz123");
 
     //then an error message should return with status 401
     expect(res.status).toBe(401);
     expect(res.body.msg).toBe("Authentication error: Token is not valid");
   });
 
-  test("/api/name_change POST should change the name of the authenticated user to the given name", async () => {
+  test("/api/name_change POST should change the name of the authenticated user to the given name and give back an error message if the user has been deleted", async () => {
     //given a user with email and name in the database
     const email = "email@email.hu";
     const newUser = new User({
@@ -827,7 +852,7 @@ describe("Account handling tests", () => {
     //when we POST a new name to the /api/name_change
     const res = await request
       .post(`/api/name_change`)
-      .set("x-auth-token", token)
+      .set("Authorization", `Bearer ${token}`)
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .send({ newName: "my new name" });
@@ -837,6 +862,23 @@ describe("Account handling tests", () => {
 
     expect(res.status).toBe(200);
     expect(user.name).toBe("my new name");
+
+    //given the user has been deleted from the database
+    await deleteAll([User]);
+
+    //when we POST a new name again to the /api/name_change
+    const res2 = await request
+      .post(`/api/name_change`)
+      .set("Authorization", `Bearer ${token}`)
+      .set("Accept", "application/json")
+      .expect("Content-Type", /json/)
+      .send({ newName: "új név" });
+
+    //then we should get back an error message with status 401
+    expect(res2.status).toBe(401);
+    expect(res2.body.msg).toBe(
+      "Authentication error: This user has been deleted"
+    );
   });
 
   test("/api/name_change POST should give back an error message when it is called without an access token", async () => {
@@ -850,7 +892,7 @@ describe("Account handling tests", () => {
     //then an error message should return with status 401
     expect(res.status).toBe(401);
     expect(res.body.msg).toBe(
-      "Authentication error: No token. Authorization denied"
+      "Authentication error: No authorization header. Authorization denied"
     );
   });
 
@@ -858,7 +900,7 @@ describe("Account handling tests", () => {
     //when we send a POST request with an invalid access token
     const res = await request
       .post("/api/name_change")
-      .set("x-auth-token", "xyz123")
+      .set("Authorization", "Bearer xyz123")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .send({ newName: "my new name" });

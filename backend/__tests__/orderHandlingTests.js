@@ -22,7 +22,7 @@ describe("Order handling tests", () => {
     await deleteAll([User, Pizza, Topping]);
   });
 
-  test("/api/order POST should add order data to the authenticated user", async () => {
+  test("/api/order POST should add order data to the authenticated user or give back an error message if the user has been deleted", async () => {
     //given a user in the database without orders
     //and a generated valid authentication token to that user
     //in the request header
@@ -62,7 +62,7 @@ describe("Order handling tests", () => {
     };
     const res = await request
       .post(`/api/order`)
-      .set("x-auth-token", token)
+      .set("Authorization", `Bearer ${token}`)
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .send(order);
@@ -74,6 +74,23 @@ describe("Order handling tests", () => {
     expect(user.orders.length).toBe(1);
     expect(user.orders[0].name).toBe("én");
     expect(user.orders[0].cart.pizza[0].name).toBe("pizza001");
+
+    //given the user has been deleted
+    await deleteAll([User]);
+
+    //when we send the order again
+    const res2 = await request
+      .post(`/api/order`)
+      .set("Authorization", `Bearer ${token}`)
+      .set("Accept", "application/json")
+      .expect("Content-Type", /json/)
+      .send(order);
+
+    //then we should get back an error message with 401 status
+    expect(res2.status).toBe(401);
+    expect(res2.body.msg).toBe(
+      "Authentication error: This user has been deleted"
+    );
   });
 
   test("/api/order POST should give back an error message with 400 status if the request data is invalid", async () => {
@@ -96,7 +113,7 @@ describe("Order handling tests", () => {
     };
     const res = await request
       .post(`/api/order`)
-      .set("x-auth-token", token)
+      .set("Authorization", `Bearer ${token}`)
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .send(order);
@@ -117,7 +134,7 @@ describe("Order handling tests", () => {
     };
     const res2 = await request
       .post(`/api/order`)
-      .set("x-auth-token", token)
+      .set("Authorization", `Bearer ${token}`)
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .send(order2);
@@ -137,7 +154,7 @@ describe("Order handling tests", () => {
     };
     const res3 = await request
       .post(`/api/order`)
-      .set("x-auth-token", token)
+      .set("Authorization", `Bearer ${token}`)
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .send(order3);
@@ -169,7 +186,7 @@ describe("Order handling tests", () => {
     //then an error message should return with status 401
     expect(res.status).toBe(401);
     expect(res.body.msg).toBe(
-      "Authentication error: No token. Authorization denied"
+      "Authentication error: No authorization header. Authorization denied"
     );
   });
 
@@ -183,7 +200,7 @@ describe("Order handling tests", () => {
     };
     const res = await request
       .post("/api/name_change")
-      .set("x-auth-token", "xyz123")
+      .set("Authorization", "Bearer xyz123")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .send(order);
@@ -193,23 +210,23 @@ describe("Order handling tests", () => {
     expect(res.body.msg).toBe("Authentication error: Token is not valid");
   });
 
-  test("/api/orders GET should give back orders of the authenticated user", async () => {
+  test("/api/orders GET should give back orders of the authenticated user or give back an error message if the user has been deleted", async () => {
     //given a user in the database with an order in the orders property of that user
-    //and a generated valid authentication token to that user
+    //and a generated valid authentication token for that user
     //in the request header
     const orderCart = {
       pizza: [
         {
           name: "Sajtos Pizza",
           quantity: 3,
-          proce: 1000,
+          price: 1000,
         },
       ],
       topping: [
         {
           name: "Paradicsomos feltét",
           quantity: 1,
-          proce: 500,
+          price: 500,
         },
       ],
     };
@@ -233,7 +250,7 @@ describe("Order handling tests", () => {
     //when we send a request with the user token in the header
     const res = await request
       .get(`/api/orders`)
-      .set("x-auth-token", token)
+      .set("Authorization", `Bearer ${token}`)
       .set("Accept", "application/json")
       .expect("Content-Type", /json/);
 
@@ -244,6 +261,22 @@ describe("Order handling tests", () => {
     expect(user.orders.length).toBe(1);
     expect(user.orders[0].name).toBe("a nevem");
     expect(user.orders[0].cart.pizza[0].name).toBe("Sajtos Pizza");
+
+    //given the user has been deleted
+    await deleteAll([User]);
+
+    //when we send a request again with the user token in the header
+    const res2 = await request
+      .get(`/api/orders`)
+      .set("Authorization", `Bearer ${token}`)
+      .set("Accept", "application/json")
+      .expect("Content-Type", /json/);
+
+    //then we should get back an error message with 401 status
+    expect(res2.status).toBe(401);
+    expect(res2.body.msg).toBe(
+      "Authentication error: This user has been deleted"
+    );
   });
 
   test("/api/orders GET should give back an error message with 401 status if we send a request without the user token", async () => {
@@ -256,7 +289,7 @@ describe("Order handling tests", () => {
     //then we should get back an error message with 401 status
     expect(res.status).toBe(401);
     expect(res.body.msg).toBe(
-      "Authentication error: No token. Authorization denied"
+      "Authentication error: No authorization header. Authorization denied"
     );
   });
 
@@ -264,7 +297,7 @@ describe("Order handling tests", () => {
     //when we send a GET request to the endpoint with invalid user token
     const res = await request
       .get(`/api/orders`)
-      .set("x-auth-token", "xyz123")
+      .set("Authorization", "Bearer xyz123")
       .set("Accept", "application/json")
       .expect("Content-Type", /json/);
 

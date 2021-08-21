@@ -3,18 +3,22 @@ const mongoose = require("mongoose");
 const ConfirmSchema = mongoose.Schema({
   date: {
     type: Date,
+    required: true,
   },
   code: {
     type: String,
+    required: true,
   },
 });
 
 const ResetSchema = mongoose.Schema({
   date: {
     type: Date,
+    required: true,
   },
   code: {
     type: String,
+    required: true,
   },
 });
 
@@ -24,12 +28,15 @@ const CartItemSchema = mongoose.Schema({
   },
   name: {
     type: String,
+    required: true,
   },
   quantity: {
     type: Number,
+    required: true,
   },
   price: {
     type: Number,
+    required: true,
   },
 });
 
@@ -52,7 +59,7 @@ const OrderSchema = mongoose.Schema({
   },
   date: {
     type: Date,
-    default: Date.now(),
+    default: new Date("2000-01-01"),
   },
   cart: {
     pizza: {
@@ -92,4 +99,4 @@ const UserSchema = mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("users", UserSchema);
+module.exports = mongoose.model("user", UserSchema);

@@ -18,26 +18,26 @@
   overflow: visible;
   margin: 0 auto;
   -webkit-box-shadow: 0 0 15.2vw 8.6vw white;
-          box-shadow: 0 0 15.2vw 8.6vw white;
+  box-shadow: 0 0 15.2vw 8.6vw white;
 }
 
 @media screen and (min-width: 501px) and (max-width: 750px) {
   .cartRoute .title {
     -webkit-box-shadow: 0 0 15.2vw 8.6vw white;
-            box-shadow: 0 0 15.2vw 8.6vw white;
+    box-shadow: 0 0 15.2vw 8.6vw white;
   }
 }
 
 @media screen and (min-width: 751px) {
   .cartRoute .title {
     -webkit-box-shadow: 0 0 7.6vw 4.3vw white;
-            box-shadow: 0 0 7.6vw 4.3vw white;
+    box-shadow: 0 0 7.6vw 4.3vw white;
   }
 }
 
 .cartRoute .title h1 {
   -webkit-transform: translate(0, -50%);
-          transform: translate(0, -50%);
+  transform: translate(0, -50%);
   margin: 0;
   padding: 0;
   text-align: center;
