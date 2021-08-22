@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
 
+//Editable element for username in the navbar
 export default function ContentEditable(props) {
   const { onChange } = props;
   const element = useRef();
@@ -8,6 +9,7 @@ export default function ContentEditable(props) {
   const keyUpHandler = () => {
     if (!element.current) return;
 
+    //if username is an empty string then fills it in with spaces
     if (!element.current.innerText) {
       let spaces = String.fromCharCode(160);
       for (let index = 0; index < 2; index++) {
@@ -16,10 +18,12 @@ export default function ContentEditable(props) {
       element.current.innerText = spaces;
     }
 
+    //calls onChange in the props
     onChange(element.current.innerText);
   };
 
   useEffect(() => {
+    //if username is an empty string then fills it in with spaces
     if (element.current && !element.current.innerText) {
       let spaces = String.fromCharCode(160);
       for (let index = 0; index < 2; index++) {

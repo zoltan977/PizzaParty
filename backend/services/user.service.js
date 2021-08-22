@@ -245,7 +245,8 @@ exports.google = async (postedData) => {
     picture: photo,
   } = jwt.decode(data.id_token);
 
-  if (!email_verified) throw { status: 400, msg: "Email not verified!" };
+  if (!email_verified)
+    throw { status: 400, msg: "Email not verified at google!" };
 
   let user = await User.findOne({ email: email });
 

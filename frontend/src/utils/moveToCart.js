@@ -1,3 +1,4 @@
+//Animation for putting an item to cart
 const moveToCart = (node, container) => {
   const cartNodeInfo = document.getElementById("cart").getBoundingClientRect();
   const nodeInfo = node.getBoundingClientRect();

@@ -39,16 +39,15 @@ export default function PasswordReset() {
           },
           config
         );
-
+        setWaitingForServer(false);
         setSuccess(true);
 
         setTimeout(() => {
           history.push("/login");
         }, 1000);
       } catch (error) {
-        setError(error.response.data);
-      } finally {
         setWaitingForServer(false);
+        setError(error.response.data);
       }
     };
 

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import ItemDetails from "./ItemDetails/ItemDetails.jsx";
 import Navigation from "../Navigation/navigation.jsx";
 
+//Lists the item components (pizzas or toppings)
 export default function Items({ items, itemType }) {
   const defaultQuantityPerPage = itemType === "pizza" ? 6 : 4;
   const [quantityPerPage, setQuantityPerPage] = useState(

@@ -4,6 +4,7 @@ import { putInCart } from "../../../actions/cartActions";
 import { selectPizza, selectTopping } from "../../../actions/dataActions";
 import { connect } from "react-redux";
 
+//Pizza or Topping item
 const Item = ({
   putInCart,
   selectPizza,
@@ -13,7 +14,6 @@ const Item = ({
   key2,
 }) => {
   const itemRef = useRef();
-  const observerRef = useRef();
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -24,14 +24,13 @@ const Item = ({
       }
     });
 
-    observerRef.current = observer;
 
     if (itemRef.current) {
       observer.observe(itemRef.current);
     }
 
     return () => {
-      observerRef.current.disconnect();
+      observer.disconnect();
     };
   }, []);
 

@@ -21,6 +21,7 @@ const cartReducer = (state = initialState(), action) => {
         topping: { ...action.payload.topping },
       };
 
+    //deleting invalid cart items based on database item id-s(in case of database change)
     case CHECK_CART:
       const pizza = { ...state.pizza };
       const topping = { ...state.topping };

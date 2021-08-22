@@ -18,7 +18,6 @@ export const modifyOrDeleteItem = (modifyOrDelete, id, category, newValue) => {
 
     localStorage.partyPizza = JSON.stringify(partyPizza);
 
-    // setCart(partyPizza)
     return {
       type: SET_CART,
       payload: partyPizza,
@@ -37,9 +36,9 @@ export const putInCart = (node, container) => {
 
     localStorage.partyPizza = JSON.stringify(partyPizza);
 
+    //animation
     moveToCart(node, container);
 
-    // setCart(partyPizza)
     return {
       type: SET_CART,
       payload: partyPizza,

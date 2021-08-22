@@ -4,7 +4,6 @@ import Items from "./../Items/Items";
 import { connect } from "react-redux";
 
 const Home = ({ loading, data }) => {
-  const observerRef = useRef();
 
   const mainImgRef = useRef();
   const menuImgRef = useRef();
@@ -27,8 +26,6 @@ const Home = ({ loading, data }) => {
       }
     });
 
-    observerRef.current = observer;
-
     if (mainImgRef.current && menuImgRef.current && introductionRef.current) {
       observer.observe(mainImgRef.current);
       observer.observe(menuImgRef.current);
@@ -36,7 +33,7 @@ const Home = ({ loading, data }) => {
     }
 
     return () => {
-      observerRef.current.disconnect();
+      observer.disconnect();
     };
   }, [loading]);
 

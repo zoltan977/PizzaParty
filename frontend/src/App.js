@@ -25,8 +25,6 @@ import { loadUser } from "./actions/authActions";
 
 import { useLocation } from "react-router-dom";
 
-import httpClient from "axios";
-
 const App = ({ loadingData, setData, loadUser }) => {
   const location = useLocation();
 

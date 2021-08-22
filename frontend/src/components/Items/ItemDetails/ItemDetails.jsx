@@ -4,6 +4,7 @@ import { modifyOrDeleteItem } from "../../../actions/cartActions";
 import { selectPizza, selectTopping } from "../../../actions/dataActions";
 import { connect } from "react-redux";
 
+//Displays the selected item(pizza or topping) on full screen
 const ItemDetails = ({
   selectPizza,
   selectTopping,

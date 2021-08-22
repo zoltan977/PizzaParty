@@ -5,7 +5,10 @@ export const setData = () => async (dispatch) => {
   try {
     const response = await axios("/api/data");
 
+    //setting product data in the state
     dispatch({ type: SET_DATA, payload: response.data });
+    //checking cart data in case database items have been deleted
+    //and deleting invalid items in cart
     dispatch({
       type: CHECK_CART,
       payload: {

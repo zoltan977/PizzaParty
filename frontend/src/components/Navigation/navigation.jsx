@@ -1,6 +1,7 @@
 import "./navigation.css";
 import React from "react";
 
+//paging for pizzas and toppings
 export default function Navigation({ props }) {
   return (
     <div className="navigation">
