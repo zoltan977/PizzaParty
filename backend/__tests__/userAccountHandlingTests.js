@@ -96,7 +96,7 @@ describe("Account handling tests", () => {
     const user = await User.findOne();
     //then an error message should come back with a 400 status
     expect(resp.status).toBe(400);
-    expect(resp.body.msg).toBe("Email not verified!");
+    expect(resp.body.msg).toBe("Email not verified at google!");
     expect(user).toBeFalsy();
   });
 

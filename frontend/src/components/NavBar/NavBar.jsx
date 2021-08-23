@@ -30,8 +30,8 @@ const NavBar = ({ logout, user, cart, data }) => {
     }
   };
 
-  const callGoogle = (_) => {
-    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=581910913527-bte82bsk8dpd68tdv1q3eo4af77edjsk.apps.googleusercontent.com&prompt=select_account&scope=openid%20profile%20email%20https://www.googleapis.com/auth/calendar&redirect_uri=http%3A//localhost%3A3000/callback`;
+  const callGoogle = () => {
+    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=581910913527-bte82bsk8dpd68tdv1q3eo4af77edjsk.apps.googleusercontent.com&prompt=select_account&scope=openid%20profile%20email&redirect_uri=http%3A//localhost%3A3000/callback`;
   };
 
   const sendNameChangeRequest = async (newName) => {
