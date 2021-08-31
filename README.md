@@ -24,7 +24,7 @@ Pizza Party uses a number of open source projects to work properly:
 - [Jest](https://jestjs.io/) - for backend integration tests
 
 And of course Pizza Party itself is open source with a [public repository](https://github.com/zoltan778/exam-project)
- on GitHub.
+on GitHub.
 
 ## Installation
 
@@ -68,11 +68,10 @@ build the image.
 
 ```sh
 cd backend
-docker build -t <yourusername>/pizza-party-backend
+docker build -t <yourusername>/pizza-party-backend .
 ```
 
 This will create the pizza-party-backend image and pull in the necessary dependencies.
-
 
 Once done, run the Docker image and map the port to port 8000 of the host to
 port 8000 of the Docker:
@@ -95,17 +94,16 @@ build the image.
 
 ```sh
 cd frontend
-docker build -t <yourusername>/pizza-party-frontend
+docker build -t <yourusername>/pizza-party-frontend .
 ```
 
 This will create the pizza-party-frontend image and pull in the necessary dependencies.
-
 
 Once done, run the Docker image and map the port to port 3000 of the host to
 port 80 of the Docker:
 
 ```sh
-docker run -d -p 3000:80 <youruser>/pizza-party-frontend
+docker run -d -p 3000:80 <yourusername>/pizza-party-frontend
 ```
 
 Verify the deployment by navigating to your server address in
@@ -118,4 +116,3 @@ your preferred browser.
 ## License
 
 MIT
-
