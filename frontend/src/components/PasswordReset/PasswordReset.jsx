@@ -9,7 +9,6 @@ function useQuery() {
 }
 
 export default function PasswordReset() {
-
   let query = useQuery();
   let history = useHistory();
 
@@ -62,15 +61,11 @@ export default function PasswordReset() {
         <div className="content">
           <h1>Add meg az új jelszavad!</h1>
           <div className="alerts">
-            {
-              !password && <p>Tölts ki minden mezőt!</p>
-            }
-            {
-              error && error.msg && <p>{error.msg}</p>
-            }
-            {
-              error && error.errors && error.errors.map((e, i) => <p key={i}>{e.msg}</p>)
-            }
+            {!password && <p>Tölts ki minden mezőt!</p>}
+            {error && error.msg && <p>{error.msg}</p>}
+            {error &&
+              error.errors &&
+              error.errors.map((e, i) => <p key={i}>{e.msg}</p>)}
           </div>
           <form>
             <div>

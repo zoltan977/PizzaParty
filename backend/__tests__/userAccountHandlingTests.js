@@ -6,10 +6,9 @@ const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const { randomBytes } = require("crypto");
 const createToken = require("../utils/createToken");
-const MockAdapter = require("axios-mock-adapter");
-const axios = require("axios");
 const jwt = require("jsonwebtoken");
 const { mock } = require("nodemailer");
+const { setResponse } = require("googleapis");
 
 describe("Account handling tests", () => {
   let mongoServer;
@@ -27,11 +26,23 @@ describe("Account handling tests", () => {
     mock.reset();
   });
 
-  test("/api/google POST should create a user when a code is posted to it", async () => {
-    //given axios POSTs to https://oauth2.googleapis.com/token are mocked out
-    const mock = new MockAdapter(axios);
+  test("/api/get_auth_info GET should give back the google authentication url", async () => {
+    //given googleapis OAuth2Client.generateAuthUrl() is mocked out
+    //and "http://mock_auth_url"
+    //is returned by the mock when called
 
-    //and a JWT encoded json is returned with this user data when a POST is sent
+    //when we send a GET request
+    const res = await request.get("/api/get_auth_info");
+
+    //then the authentication url should be given back
+    expect(res.status).toBe(200);
+    expect(res.body.authUrl).toBe("http://mock_auth_url");
+  });
+
+  test("/api/google POST should create a user when a code is posted to it", async () => {
+    //given googleapis OAuth2Client.getToken() is mocked out
+    //and this JWT encoded json with this user data
+    //is returned by the mock when called
     const googleToken = jwt.sign(
       {
         email: "test@email.hu",
@@ -45,9 +56,8 @@ describe("Account handling tests", () => {
       }
     );
 
-    mock.onPost("https://oauth2.googleapis.com/token").reply(200, {
-      id_token: googleToken,
-    });
+    //setting the mock response
+    setResponse(googleToken);
 
     //when we send a POST request to the /api/google endpoint with a dummy code in the body
     const resp = await request
@@ -56,7 +66,7 @@ describe("Account handling tests", () => {
       .expect("Content-Type", /json/)
       .send({ code: "alma" });
 
-    //then a user is created in the database with the data returned by the mocked POST to google
+    //then a user is created in the database with the data returned by the mocked getToken call
     const user = await User.findOne();
     expect(resp.status).toBe(200);
     expect(resp.body.token).toBeTruthy();
@@ -65,10 +75,9 @@ describe("Account handling tests", () => {
   });
 
   test("/api/google POST should give back an error message when the user email is not verified at google", async () => {
-    //given axios POSTs to https://oauth2.googleapis.com/token are mocked out
-    const mock = new MockAdapter(axios);
-
-    //and a JWT encoded json is returned with this user data when a POST is sent
+    //given googleapis OAuth2Client.getToken() is mocked out
+    //and this JWT encoded json with this user data(where email is not verified)
+    //is returned by the mock when called
     const googleToken = jwt.sign(
       {
         email: "test@email.hu",
@@ -82,9 +91,8 @@ describe("Account handling tests", () => {
       }
     );
 
-    mock.onPost("https://oauth2.googleapis.com/token").reply(200, {
-      id_token: googleToken,
-    });
+    //setting the mock response
+    setResponse(googleToken);
 
     //when we send a POST request to the /api/google endpoint with a dummy code in the body
     const resp = await request

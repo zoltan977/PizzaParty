@@ -4,7 +4,6 @@ import Items from "./../Items/Items";
 import { connect } from "react-redux";
 
 const Home = ({ loading, data }) => {
-
   const mainImgRef = useRef();
   const menuImgRef = useRef();
   const introductionRef = useRef();
@@ -12,7 +11,6 @@ const Home = ({ loading, data }) => {
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       for (const entry of entries) {
-
         let target;
         if (entry.target.className === "mainImage")
           target = entry.target.querySelector("img");
@@ -111,7 +109,6 @@ const Home = ({ loading, data }) => {
     </div>
   );
 };
-
 
 const mapStateToProps = (state) => ({
   data: state.data.data,

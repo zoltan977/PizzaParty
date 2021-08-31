@@ -9,13 +9,35 @@ servers:
 
 tags:
   - name: userHandling
-    description: Operations about user
+    description: Operations about Users
   - name: orderHandling
     description: Everything about Orders
   - name: dataHandling
     description: Access to Product data
+  - name: bookingsHandling
+    description: Everyhting about Bookings
 
 paths:
+  /api/get_auth_info:
+    get:
+      tags:
+        - userHandling
+      description: Returns the auth url
+      responses:
+        200: # status code
+          description: The auth url has been returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthUrlData"
+
+        500: # status code
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+
   /api/login:
     post:
       tags:
@@ -404,6 +426,87 @@ paths:
               schema:
                 $ref: "#/components/schemas/ErrorMessage"
 
+  /api/bookings:
+    get:
+      tags:
+        - bookingsHandling
+      security:
+        - pizzaWebshopAuth: []
+      description: Returns all the bookings in the database
+      responses:
+        200: # status code
+          description: The bookings data has been returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BookingsData"
+
+        500: # status code
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+
+    post:
+      tags:
+        - bookingsHandling
+      security:
+        - pizzaWebshopAuth: []
+      description: Adds a new booking to the database
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookingsData"
+
+      responses:
+        200: # status code
+          description: New booking added to the database successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BookingsData"
+
+        400: # status code
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/schemas/ArrayOfErrorMessages"
+                  - $ref: "#/components/schemas/ErrorMessage"
+
+        500: # status code
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+
+  /api/user_bookings:
+    get:
+      tags:
+        - bookingsHandling
+      security:
+        - pizzaWebshopAuth: []
+      description: Returns all the bookings of the current user
+      responses:
+        200: # status code
+          description: The bookings data of the current user has been returned successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ArrayOfUserBookings"
+
+        500: # status code
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorMessage"
+
 components:
   securitySchemes:
     pizzaWebshopAuth: # arbitrary name for the security scheme
@@ -507,6 +610,10 @@ components:
                 $ref: "#/components/schemas/CartItem"
     CartItem:
       type: object
+      required:
+        - name
+        - quantity
+        - price
       properties:
         id:
           type: string
@@ -516,6 +623,22 @@ components:
           type: integer
         price:
           type: integer
+
+    UserBookingItem:
+      type: object
+      required:
+        - tableNumber
+        - start
+        - end
+      properties:
+        tableNumber:
+          type: string
+        start:
+          type: string
+          format: date
+        end:
+          type: string
+          format: date
 
     UserData:
       type: object
@@ -604,6 +727,16 @@ components:
       items:
         $ref: "#/components/schemas/OrderItem"
 
+    ArrayOfUserBookings:
+      type: object
+      required:
+        - userBookingsArray
+      properties:
+        userBookingsArray:
+          type: array
+          items:
+            $ref: "#/components/schemas/UserBookingItem"
+
     ErrorMessageItem:
       type: object
       required:
@@ -643,6 +776,22 @@ components:
         - newName
       properties:
         newName:
+          type: string
+
+    BookingsData:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          type: object
+
+    AuthUrlData:
+      type: object
+      required:
+        - authUrl
+      properties:
+        authUrl:
           type: string
 
     SuccessMessage:

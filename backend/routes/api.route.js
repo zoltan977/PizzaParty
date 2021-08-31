@@ -3,8 +3,9 @@ const router = express.Router();
 const UserController = require("../controllers/user.controller");
 const OrderController = require("../controllers/order.controller");
 const DataController = require("../controllers/data.controller");
+const BookingController = require("../controllers/booking.controller");
 const auth = require("../middleware/auth");
-const { check } = require("express-validator");
+const { check, body } = require("express-validator");
 
 router.post(
   "/login",
@@ -79,5 +80,42 @@ router.post(
 router.get("/orders", [auth], OrderController.orders);
 
 router.get("/data", DataController.data);
+
+router.get("/get_auth_info", UserController.getAuthInfo);
+
+router.get("/bookings", [auth], BookingController.bookings);
+
+router.post(
+  "/bookings",
+  [
+    auth,
+    body("data").custom((value) => {
+      let ok = true;
+      if (Object.keys(value).length < 1) ok = false;
+      for (const tableNumber in value) {
+        if (parseInt(tableNumber) < 1 || parseInt(tableNumber) > 10) ok = false;
+        if (Object.keys(value[tableNumber]).length < 1) ok = false;
+        for (const date in value[tableNumber]) {
+          if (new Date(date).toString() === "Invalid Date") ok = false;
+          if (new Date(date) < new Date()) ok = false;
+          if (Object.keys(value[tableNumber][date]).length < 1) ok = false;
+          for (const interval of value[tableNumber][date]) {
+            if (parseInt(interval) < 0 || parseInt(interval) > 95) ok = false;
+          }
+        }
+      }
+
+      if (!ok) {
+        throw new Error("A küldött adat formátuma nem megfelelő");
+      }
+
+      // Indicates the success of this synchronous custom validator
+      return true;
+    }),
+  ],
+  BookingController.createBooking
+);
+
+router.get("/user_bookings", [auth], BookingController.userBookings);
 
 module.exports = router;

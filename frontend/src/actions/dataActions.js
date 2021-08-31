@@ -17,7 +17,7 @@ export const setData = () => async (dispatch) => {
       },
     });
   } catch (error) {
-    console.log("getting pizza data error: ", error.response.data);
+    console.log("getting pizza data error: ", error);
     dispatch({ type: SET_DATA, payload: { pizza: [], topping: [] } });
   }
 };

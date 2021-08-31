@@ -33,7 +33,7 @@ export const loadUser = () => async (dispatch) => {
       payload: { token, user: res.data },
     });
   } catch (error) {
-    console.log("auth actions load user error:", error.response.data);
+    console.log("auth actions load user error:", error);
 
     dispatch({
       type: LOGOUT,

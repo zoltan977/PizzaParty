@@ -15,6 +15,8 @@ import Confirm from "./components/Confirm/Confirm";
 import PasswordReset from "./components/PasswordReset/PasswordReset";
 import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 import LoadingMask from "./components/LoadingMask/LoadingMask.component";
+import Booking from "./components/Booking/Booking";
+import Bookings from "./components/Bookings/Bookings";
 
 import PrivateRoute from "./components/Routing/PrivateRoute";
 import UnAuthRoute from "./components/Routing/UnAuthRoute";
@@ -51,6 +53,8 @@ const App = ({ loadingData, setData, loadUser }) => {
         <UnAuthRoute path="/login" component={Login} />
         <PrivateRoute path="/order" component={Order} />
         <PrivateRoute path="/orders" component={Orders} />
+        <PrivateRoute path="/booking" component={Booking} />
+        <PrivateRoute path="/bookings" component={Bookings} />
         <Route path="/confirm" component={Confirm} />
         <Route path="/callback" component={Callback} />
         <Route path="/password_reset" component={PasswordReset} />

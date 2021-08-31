@@ -153,7 +153,6 @@ const Cart = ({ modifyOrDeleteItem, cart, data }) => {
   );
 };
 
-
 const mapStateToProps = (state) => ({
   cart: state.cart,
   data: state.data.data,

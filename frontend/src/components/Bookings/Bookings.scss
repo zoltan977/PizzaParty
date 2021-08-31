@@ -1,0 +1,80 @@
+.UserBookings {
+  font-size: 6vw;
+  padding: 30vw 0;
+  box-sizing: border-box;
+
+  padding: 90px 0;
+  @media screen and (min-width: 501px) and (max-width: 750px) {
+    font-size: 3vw;
+  }
+  @media screen and (min-width: 751px) {
+    padding: calc(3 * (15px + 2vw)) 0;
+    font-size: 1.5vw;
+  }
+
+  .title {
+    // border: 2px solid red;
+
+    width: fit-content;
+    height: 0;
+
+    overflow: visible;
+    margin: 0 auto;
+    box-shadow: 0 0 7.6vw 4.3vw white;
+    @media screen and (min-width: 501px) and (max-width: 750px) {
+      box-shadow: 0 0 7.6vw 4.3vw white;
+    }
+    @media screen and (min-width: 751px) {
+      box-shadow: 0 0 7.6vw 4.3vw white;
+    }
+
+    h1 {
+      transform: translate(0, -50%);
+
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      font-family: "Otomanopee One", sans-serif;
+      color: rgb(41, 38, 38);
+
+      font-size: 7.5vw;
+      text-shadow: 0.4vw 0.3vw 0 #fff, 0.9vw 0.8vw 0 rgba(0, 0, 0, 0.15);
+      @media screen and (min-width: 501px) and (max-width: 750px) {
+        font-size: 5vw;
+        text-shadow: 0.3vw 0.225vw 0 #fff, 0.675vw 0.6vw 0 rgba(0, 0, 0, 0.15);
+      }
+      @media screen and (min-width: 751px) {
+        font-size: 5vw;
+        text-shadow: 0.3vw 0.225vw 0 #fff, 0.675vw 0.6vw 0 rgba(0, 0, 0, 0.15);
+      }
+    }
+  }
+
+  .content {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 0;
+    row-gap: 12vw;
+    align-items: flex-start;
+    justify-content: center;
+    align-content: flex-start;
+    margin-top: 50px;
+
+    @media screen and (min-width: 501px) and (max-width: 750px) {
+      column-gap: 0;
+      row-gap: 6vw;
+    }
+
+    @media screen and (min-width: 751px) {
+      margin-top: calc(3 * (15px + 2vw));
+      column-gap: 0;
+      row-gap: 3vw;
+    }
+
+    // border: 2px solid red;
+
+    min-height: calc(100vh - 7.5vw);
+
+    box-sizing: border-box;
+  }
+}

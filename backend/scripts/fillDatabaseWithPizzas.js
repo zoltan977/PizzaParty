@@ -22,7 +22,7 @@ const connectDb = async () => {
   });
 
   await mongoose.connect(
-    "mongodb+srv://mzoltan778:mezo1977@cluster0.h3he3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    "mongodb+srv://mzoltan778:mezo1977@cluster0.66kqt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useCreateIndex: true,

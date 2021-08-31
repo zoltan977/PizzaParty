@@ -37,7 +37,11 @@ const Order = ({ logout, cart, history }) => {
       setError(null);
       setWaitingForServer(true);
 
-      const res = await httpClient.post("/api/order", { ...order, cart }, config);
+      const res = await httpClient.post(
+        "/api/order",
+        { ...order, cart },
+        config
+      );
 
       setWaitingForServer(false);
 

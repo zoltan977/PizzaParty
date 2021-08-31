@@ -7,7 +7,6 @@ import LoadingMask from "./../LoadingMask/LoadingMask.component";
 import httpClient from "axios";
 
 const Login = ({ logout, setToken }) => {
-
   const [error, setError] = useState(null);
   const [waitingForServer, setWaitingForServer] = useState(false);
   const [user, setUser] = useState({
@@ -51,15 +50,11 @@ const Login = ({ logout, setToken }) => {
         <div className="content">
           <h1>Belépés</h1>
           <div className="alerts">
-            {
-              (!email || !password) && <p>Tölts ki minden mezőt!</p>
-            }
-            {
-              error && error.msg && <p>{error.msg}</p>
-            }
-            {
-              error && error.errors && error.errors.map((e, i) => <p key={i}>{e.msg}</p>)
-            }
+            {(!email || !password) && <p>Tölts ki minden mezőt!</p>}
+            {error && error.msg && <p>{error.msg}</p>}
+            {error &&
+              error.errors &&
+              error.errors.map((e, i) => <p key={i}>{e.msg}</p>)}
           </div>
           <form>
             <div>
@@ -81,7 +76,11 @@ const Login = ({ logout, setToken }) => {
                 onChange={onChange}
               />
             </div>
-            <button type="button" disabled={(!email || !password)} onClick={submit}>
+            <button
+              type="button"
+              disabled={!email || !password}
+              onClick={submit}
+            >
               Küldés
             </button>
             <Link to="/forgot_password">Elfelejtett jelszó</Link>

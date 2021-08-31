@@ -215,7 +215,37 @@
         display: flex;
       }
 
-      a {
+      div.order,
+      div.booking {
+        display: none;
+        width: fit-content;
+        height: fit-content;
+        // border: 2px solid white;
+      }
+
+      span.loggedIn {
+        position: relative;
+        white-space: nowrap;
+        cursor: pointer;
+      }
+
+      span.loggedIn:hover {
+        div.order,
+        div.booking {
+          display: flex;
+          flex-direction: column;
+          position: absolute;
+          left: 0;
+          top: 45px;
+
+          @media screen and (min-width: 751px) {
+            top: calc(15px + 2vw);
+          }
+        }
+      }
+
+      a,
+      span.loggedIn {
         text-decoration: none;
         color: black;
         font-family: "Bebas Neue", cursive;

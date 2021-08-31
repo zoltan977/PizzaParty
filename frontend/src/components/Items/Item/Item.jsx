@@ -24,7 +24,6 @@ const Item = ({
       }
     });
 
-
     if (itemRef.current) {
       observer.observe(itemRef.current);
     }

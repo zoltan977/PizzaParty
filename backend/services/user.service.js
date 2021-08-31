@@ -1,10 +1,10 @@
 const User = require("../models/User");
-const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { randomBytes } = require("crypto");
 const nodemailer = require("nodemailer");
 const createToken = require("../utils/createToken");
-const httpClient = require("axios");
+const oauth2Client = require("../utils/oauth2Client")();
+const jwt = require("jsonwebtoken");
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -222,28 +222,22 @@ exports.register = async (registrationData) => {
 exports.google = async (postedData) => {
   const { code } = postedData;
 
-  let response;
+  let tokens;
+  let result;
   try {
-    response = await httpClient.post("https://oauth2.googleapis.com/token", {
-      code,
-      client_id: process.env.CLIENT_ID,
-      client_secret: process.env.CLIENT_SECRET,
-      redirect_uri: process.env.REDIRECT_URI,
-      grant_type: process.env.GRANT_TYPE,
-    });
-  } catch (error) {
-    console.log("error getting token!");
-    throw { status: 400, msg: "Hiba a token kéréskor!" };
+    result = await oauth2Client.getToken(code);
+    tokens = result.tokens;
+  } catch (err) {
+    console.error(err.response.data);
+    throw { message: "Hiba a token kéréskor!", status: 400 };
   }
-
-  const data = response.data;
 
   const {
     email_verified,
     email,
     name,
     picture: photo,
-  } = jwt.decode(data.id_token);
+  } = jwt.decode(tokens.id_token);
 
   if (!email_verified)
     throw { status: 400, msg: "Email not verified at google!" };
@@ -269,7 +263,7 @@ exports.google = async (postedData) => {
     await user.save();
   }
 
-  const token = createToken(user);
+  const token = createToken(user, tokens.access_token);
 
   return { token };
 };

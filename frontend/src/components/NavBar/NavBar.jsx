@@ -30,8 +30,17 @@ const NavBar = ({ logout, user, cart, data }) => {
     }
   };
 
-  const callGoogle = () => {
-    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?response_type=code&client_id=581910913527-bte82bsk8dpd68tdv1q3eo4af77edjsk.apps.googleusercontent.com&prompt=select_account&scope=openid%20profile%20email&redirect_uri=http%3A//localhost%3A3000/callback`;
+  const callGoogle = async () => {
+    try {
+      const res = await httpClient.get("/api/get_auth_info");
+
+      const { authUrl } = res.data;
+
+      window.location.href = authUrl;
+      
+    } catch (error) {
+      console.log("Get auth url error: ", error.response.data)
+    }
   };
 
   const sendNameChangeRequest = async (newName) => {
@@ -42,7 +51,11 @@ const NavBar = ({ logout, user, cart, data }) => {
     };
 
     try {
-      const res = await httpClient.post("/api/name_change", { newName }, config);
+      const res = await httpClient.post(
+        "/api/name_change",
+        { newName },
+        config
+      );
 
       if (!res.data.success) logout();
       else console.log("name change happened: ", newName);
@@ -75,6 +88,12 @@ const NavBar = ({ logout, user, cart, data }) => {
             <Link to="/orders">
               <span>Megrendelések</span>
             </Link>
+            <Link to="/booking">
+              <span>Új asztalfoglalás</span>
+            </Link>
+            <Link to="/bookings">
+              <span>Asztalfoglalások</span>
+            </Link>
           </>
         ) : (
           <>
@@ -101,7 +120,7 @@ const NavBar = ({ logout, user, cart, data }) => {
             <svg id="cart" viewBox="0 0 576 512">
               <path d="M528.12 301.319l47.273-208C578.806 78.301 567.391 64 551.99 64H159.208l-9.166-44.81C147.758 8.021 137.93 0 126.529 0H24C10.745 0 0 10.745 0 24v16c0 13.255 10.745 24 24 24h69.883l70.248 343.435C147.325 417.1 136 435.222 136 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-15.674-6.447-29.835-16.824-40h209.647C430.447 426.165 424 440.326 424 456c0 30.928 25.072 56 56 56s56-25.072 56-56c0-22.172-12.888-41.332-31.579-50.405l5.517-24.276c3.413-15.018-8.002-29.319-23.403-29.319H218.117l-6.545-32h293.145c11.206 0 20.92-7.754 23.403-18.681z"></path>
             </svg>
-            <span> 
+            <span>
               {(function () {
                 //Counting total sum of the cart
                 //Based on quantities in cart and prices in the database
@@ -132,8 +151,20 @@ const NavBar = ({ logout, user, cart, data }) => {
           </NavLink>
           {user ? (
             <>
-              <NavLink to="/order">Új megrendelés</NavLink>
-              <NavLink to="/orders">Megrendelések </NavLink>
+              <span className="loggedIn">
+                Megrendelés
+                <div className="order">
+                  <NavLink to="/order">Új megrendelés</NavLink>
+                  <NavLink to="/orders">Megrendelések </NavLink>
+                </div>
+              </span>
+              <span className="loggedIn">
+                Asztalfoglalás
+                <div className="booking">
+                  <NavLink to="/booking">Új asztalfoglalás</NavLink>
+                  <NavLink to="/bookings">Asztalfoglalások</NavLink>
+                </div>
+              </span>
             </>
           ) : (
             <>
@@ -169,7 +200,6 @@ const NavBar = ({ logout, user, cart, data }) => {
     </div>
   );
 };
-
 
 const mapStateToProps = (state) => ({
   cart: state.cart,

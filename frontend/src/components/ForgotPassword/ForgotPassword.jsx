@@ -4,7 +4,6 @@ import httpClient from "axios";
 import LoadingMask from "../LoadingMask/LoadingMask.component";
 
 export default function ForgotPassword() {
-
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
@@ -44,15 +43,11 @@ export default function ForgotPassword() {
         <div className="content">
           <h1>Add meg melyik email címhez szeretnél új jelszót!</h1>
           <div className="alerts">
-            {
-              !email && <p>Tölts ki minden mezőt!</p>
-            }
-            {
-              error && error.msg && <p>{error.msg}</p>
-            }
-            {
-              error && error.errors && error.errors.map((e, i) => <p key={i}>{e.msg}</p>)
-            }
+            {!email && <p>Tölts ki minden mezőt!</p>}
+            {error && error.msg && <p>{error.msg}</p>}
+            {error &&
+              error.errors &&
+              error.errors.map((e, i) => <p key={i}>{e.msg}</p>)}
           </div>
           <form>
             <div>

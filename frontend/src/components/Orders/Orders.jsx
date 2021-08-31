@@ -15,13 +15,15 @@ const Orders = ({ logout }) => {
       try {
         setWaitingForServer(true);
         const res = await httpClient.get("/api/orders");
+        setWaitingForServer(false);
+
         console.log("orders: ", res.data);
         setOrders(res.data);
       } catch (err) {
+        setWaitingForServer(false);
+
         console.log(err.response.data);
         logout();
-      } finally {
-        setWaitingForServer(false);
       }
     };
 

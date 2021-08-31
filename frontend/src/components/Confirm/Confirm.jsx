@@ -46,10 +46,7 @@ const Confirm = ({ logout, setToken }) => {
 
         history.push("/");
       } catch (error) {
-        console.log(
-          "confirm error.response.data: ",
-          error.response.data
-        );
+        console.log("confirm error.response.data: ", error.response.data);
         setWaitingForServer(false);
         setError(error.response.data);
         logout();
@@ -68,17 +65,11 @@ const Confirm = ({ logout, setToken }) => {
           <div className="content">
             <h1>Regisztráció megerősítés!</h1>
             <div className="alerts">
-              {
-                error && error.msg && <p>{error.msg}</p>
-              }
-              {
-                error && error.errors && error.errors.map((e, i) => <p key={i}>{e.msg}</p>)
-              }
-              {
-                !error && <p>
-                  A regisztrációd megerősítésre került!
-                </p>
-              }
+              {error && error.msg && <p>{error.msg}</p>}
+              {error &&
+                error.errors &&
+                error.errors.map((e, i) => <p key={i}>{e.msg}</p>)}
+              {!error && <p>A regisztrációd megerősítésre került!</p>}
             </div>
           </div>
         </>

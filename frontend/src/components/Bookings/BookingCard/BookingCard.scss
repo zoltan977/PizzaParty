@@ -1,0 +1,40 @@
+.BookingCardContainer {
+  width: fit-content;
+  height: fit-content;
+  //   background-color: green;
+
+  display: flex;
+  flex-direction: column;
+}
+.BookingCard {
+  width: fit-content;
+  height: fit-content;
+
+  padding: 1em 2em 0 2em;
+
+  text-align: center;
+
+  clip-path: polygon(20% 100%, 75% 100%, 100% 0, 0 0);
+  background-color: gray;
+
+  border-radius: 50%;
+
+  font-family: "Otomanopee One", sans-serif;
+}
+
+div.shadow {
+  margin: 0 auto;
+  height: 0;
+  background-color: red;
+  box-shadow: -30vw 0 30vw 30vw black;
+  width: 40vw;
+  @media screen and (min-width: 501px) and (max-width: 750px) {
+    box-shadow: -15vw 0 15vw 15vw black;
+    width: 20vw;
+  }
+
+  @media screen and (min-width: 751px) {
+    box-shadow: -7.5vw 0 7.5vw 7.5vw black;
+    width: 10vw;
+  }
+}
