@@ -24,17 +24,24 @@ const Booking = ({ logout }) => {
   const [unsavedChanges, setUnsavedChanges] = useState(false);
   const [waitingForServer, setWaitingForServer] = useState(false);
   const [error, setError] = useState("");
+  const [errors, setErrors] = useState([]);
 
   const createDateStrings = () => {
     const dateStringArray = [];
+
     for (let day = 1; day <= 7; day++) {
-      const tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
-      const aDayInTheFuture = (new Date(Date.now() + day * 24 * 60 * 60 * 1000 - tzoffset)).toISOString().slice(0, 10);
+      
+      //offset in milliseconds
+      const tzoffset = (new Date()).getTimezoneOffset() * 60000; 
+      const futureTimeStamp = Date.now() + day * 24 * 60 * 60 * 1000;
+      
+      const aDayInTheFuture = (new Date(futureTimeStamp - tzoffset)).toISOString().slice(0, 10);
       
       dateStringArray.push(aDayInTheFuture);
 
-      if (day === 1) setFirstDayIndex(new Date(aDayInTheFuture).getDay());
+      if (day === 1) setFirstDayIndex((new Date(futureTimeStamp)).getDay());
     }
+
     setDateStrings(dateStringArray);
   };
 
@@ -89,25 +96,74 @@ const Booking = ({ logout }) => {
     setBookings(copyOfBookings);
   };
 
+  //Modifies the interval number and date based on timezone
+  //(interval and date shifting routine)
+  const intervalCorrectionBasedOnTimeZone = (intervalNumber, intervalDate, outgoingData) => {
+    //Timezone offset in quarter hours
+    const tzoffset = Math.round((new Date()).getTimezoneOffset() / 15);
+
+    let correctedIntervalNumber = intervalNumber;
+
+    if (outgoingData)
+      correctedIntervalNumber = intervalNumber + tzoffset;
+    else
+      correctedIntervalNumber = intervalNumber - tzoffset;
+
+    let correctedDate = intervalDate
+
+    if (correctedIntervalNumber < 0) {
+      correctedDate = (new Date(new Date(intervalDate).getTime() - 1 * 24 * 60 * 60 * 1000)).toISOString().slice(0, 10);
+      correctedIntervalNumber = 96 + correctedIntervalNumber;
+    } else
+    if (correctedIntervalNumber > 95) {
+      correctedDate = (new Date(new Date(intervalDate).getTime() + 1 * 24 * 60 * 60 * 1000)).toISOString().slice(0, 10);          
+      correctedIntervalNumber = correctedIntervalNumber - 96;
+    }
+
+    return [correctedDate, correctedIntervalNumber];
+  }
+
+  //Loops through the given data and calls the the interval and date shifting routine
+  const incomingBookingsDataParser = (data) => {
+
+    const convertedData = {}
+    for (const tableNumber in data) {
+      for (const date in data[tableNumber]) {
+        for (const interval in data[tableNumber][date]) {
+
+            const [correctedDate, correctedIntervalNumber] = intervalCorrectionBasedOnTimeZone(parseInt(interval), date, false);
+
+            addProps(convertedData, [tableNumber, correctedDate, correctedIntervalNumber], data[tableNumber][date][interval])
+        }
+      }
+    }
+
+    return convertedData;
+  }
+
   const send = () => {
     const asyncFn = async () => {
 
+      //creates a userBookings object to send data to the server
+      //this object contains the new bookings which are marked with "x" in the bookings state
       const userBookings = {}
       for (const tableNumber in bookings) {
         for (const date in bookings[tableNumber]) {
           for (const interval in bookings[tableNumber][date]) {
             if (bookings[tableNumber][date][interval] === "x") {
 
-              if (userBookings?.[tableNumber]?.[date])
-                userBookings[tableNumber][date].push(parseInt(interval))
+              const [correctedDate, correctedIntervalNumber] = intervalCorrectionBasedOnTimeZone(parseInt(interval), date, true);
+
+              if (userBookings?.[tableNumber]?.[correctedDate])
+                userBookings[tableNumber][correctedDate].push(correctedIntervalNumber)
               else
-                addProps(userBookings, [tableNumber, date], [parseInt(interval)])
+                addProps(userBookings, [tableNumber, correctedDate], [correctedIntervalNumber])
             }
           }
         }
       }
 
-      console.log(userBookings);
+      console.log("userBookings to send:", userBookings);
 
       const config = {
         headers: {
@@ -126,22 +182,23 @@ const Booking = ({ logout }) => {
           config
         );
         console.log(res?.data?.data || {});
-        setBookings(res?.data?.data || {});
+        setBookings(incomingBookingsDataParser(res?.data?.data || {}));
         setUnsavedChanges(false);
         setWaitingForServer(false);
       } catch (error) {
         setWaitingForServer(false);
 
-        if (error?.response?.data?.msg?.includes("Authentication error"))
-          logout();
-
-        console.log("Booking error:", error?.response?.data?.msg);
+        if (error?.response?.data?.errors)
+          setErrors(error.response.data.errors)
 
         if (error?.response?.data?.msg)
           setError(error.response.data.msg)
-
+  
         if (error?.response?.data?.data)
-          setBookings(error.response.data.data)
+          setBookings(incomingBookingsDataParser(error.response.data.data))
+            
+        if (error?.response?.data?.msg?.includes("Authentication error"))
+          logout();
       }
     };
 
@@ -156,9 +213,11 @@ const Booking = ({ logout }) => {
         setWaitingForServer(true);
 
         const res = await httpClient.get("/api/bookings");
-        console.log(res?.data?.data || {});
+        
+        console.log("incoming bookings: ", res?.data?.data || {});
+        
         setWaitingForServer(false);
-        setBookings(res?.data?.data || {});
+        setBookings(incomingBookingsDataParser(res?.data?.data || {}));
       } catch (error) {
         console.log(error.response.data);
         setWaitingForServer(false);
@@ -174,6 +233,12 @@ const Booking = ({ logout }) => {
       {
         error && <div className="Error" onClick={e => setError("")}>
           {error}
+        </div>
+      }
+      {
+        errors.length && <div className="Error" onClick={e => setErrors([])}>
+        
+          {errors.map((e, i) => <p key={i}>{e.msg}</p>)}
         </div>
       }
       <div className="Booking">

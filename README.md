@@ -5,14 +5,26 @@ Pizza Party is an online, mobile-friendly, ReactJS and NodeJS-powered pizza orde
 ## Features
 
 - You can authenticate yourself either by the Google icon on the top right corner or by the "Regisztráció" and "Belépés" forms
-- Your registration must be confirmed by a link sent to you via email
-- You can change your password on the login page by clicking the "Elfelejtett jelszó" link
+- A form registration must be confirmed by a link sent to you via email
+- Your password can be changed on the login page by clicking on the "Elfelejtett jelszó" link
 - You can choose from several pizza and topping on the Home page
-- You can view the details of a product by clicking the info icon on it
-- You can put your choosen product into a cart either by the cart icon on it or by the button on the details page
+- Product details can be viewed by clicking on the info icon on it
+- Chosen products can be put into a cart either by the cart icon on it or by the button on the details page
 - Cart content can be modified and deleted
 - When you are authenticated and the cart is not empty you can fill in an ordering form on the "Új megrendelés" page and send it
 - Previous orders can be viewed on the "Megrendelések" page
+- There is a "Új asztalfoglalás" and "Asztalfoglalások" page.
+- Table bookings can be made on the "Új asztalfoglalás" page with the help of a table where quarter hour intervals can be chosen.
+- Your previous bookings can be seen on the "Asztalfoglalások page"
+- And bookings are also entered into the google calendar of the current user if he/she authenticated with google
+
+## Demo
+
+You can test the running upplication on this [demo](https://cryptic-brushlands-33727.herokuapp.com) link.
+
+## API documentation of the backend
+
+On the demo page you can view the API documentation too on this [documentation](https://cryptic-brushlands-33727.herokuapp.com/api/docs) link.
 
 ## Tech
 
@@ -21,9 +33,10 @@ Pizza Party uses a number of open source projects to work properly:
 - [ReactJS](https://reactjs.org/) - JavaScript library for building user interfaces
 - [node.js](https://nodejs.org/en/) - evented I/O for the backend
 - [Express](https://expressjs.com/) - fast node.js network app framework
+- [MongoDb](https://www.mongodb.com/) - the application data platform
 - [Jest](https://jestjs.io/) - for backend integration tests
 
-And of course Pizza Party itself is open source with a [public repository](https://github.com/zoltan778/exam-project)
+And of course Pizza Party itself is open source with a [public repository](https://github.com/zoltan977/PizzaParty)
 on GitHub.
 
 ## Installation
@@ -49,7 +62,9 @@ npm i
 npm start
 ```
 
-(optional) Third (for running backend tests):
+## Backend endpoint tests
+
+Integration tests written by jest can be run in a terminal as well
 
 ```sh
 cd backend

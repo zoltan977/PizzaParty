@@ -76,5 +76,13 @@
     min-height: calc(100vh - 7.5vw);
 
     box-sizing: border-box;
+
+    p.info {
+      color: white;
+      background-color: black;
+      font-size: 30px;
+      text-align: center;
+      padding: 20px;
+    }
   }
 }

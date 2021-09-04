@@ -109,3 +109,11 @@
     row-gap: 3vw;
   }
 }
+
+.UserBookings .content p.info {
+  color: white;
+  background-color: black;
+  font-size: 30px;
+  text-align: center;
+  padding: 20px;
+}
