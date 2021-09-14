@@ -24,8 +24,9 @@
   }
 }
 
+.BookingContainer .Message,
 .BookingContainer .Error {
-  z-index: 2;
+  z-index: 3;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
@@ -48,9 +49,33 @@
   font-size: 1.8vw;
 }
 
+.Booking .dashBoard {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
 .Booking select,
 .Booking button {
   font-size: 1.8vw;
+  padding: 0;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(grey), to(white));
+  background-image: linear-gradient(to bottom, grey, white);
+}
+
+.Booking select.booking:first-child,
+.Booking button.booking:first-child {
+  float: right;
+}
+
+.Booking select:hover,
+.Booking button:hover {
+  background-image: -webkit-gradient(linear, left bottom, left top, from(grey), to(white));
+  background-image: linear-gradient(to top, grey, white);
+}
+
+.Booking button {
+  padding: 0 0.25em;
 }
 
 .Booking div.Td {
@@ -107,9 +132,25 @@
   position: absolute;
   left: 0;
   top: 0;
-  -webkit-transform: translate(-120%, -50%);
-          transform: translate(-120%, -50%);
-  font-size: 1.5em;
+  -webkit-transform: translate(-1em, -50%);
+          transform: translate(-1em, -50%);
+  font-size: 4em;
+}
+
+@media screen and (min-width: 501px) and (max-width: 750px) {
+  .Booking div.Td div.overlay table.ContentTable tr span {
+    font-size: 3em;
+    -webkit-transform: translate(-2em, -50%);
+            transform: translate(-2em, -50%);
+  }
+}
+
+@media screen and (min-width: 751px) {
+  .Booking div.Td div.overlay table.ContentTable tr span {
+    font-size: calc(30px + 0.5em);
+    -webkit-transform: translate(-3em, -50%);
+            transform: translate(-3em, -50%);
+  }
 }
 
 .Booking div.Td div.overlay h1 {
@@ -118,8 +159,61 @@
   height: -moz-fit-content;
   height: fit-content;
   text-align: center;
-  margin: 0.5em 0 0 0;
+  margin: 0;
   padding: 0;
+  position: relative;
+  left: -20px;
+  top: 0;
+  font-size: 35px;
+}
+
+@media screen and (min-width: 501px) and (max-width: 750px) {
+  .Booking div.Td div.overlay h1 {
+    font-size: 40px;
+    left: 40px;
+    top: 0;
+  }
+}
+
+@media screen and (min-width: 751px) {
+  .Booking div.Td div.overlay h1 {
+    left: 0;
+    top: 0;
+    font-size: calc(30px + 1.5em);
+  }
+}
+
+.Booking div.Td div.overlay button.booking {
+  z-index: 2;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin-left: 20px;
+  margin-top: 40px;
+  font-size: 15px;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(grey), to(white));
+  background-image: linear-gradient(to bottom, grey, white);
+}
+
+@media screen and (min-width: 501px) and (max-width: 750px) {
+  .Booking div.Td div.overlay button.booking {
+    margin-left: 20px;
+    margin-top: 0;
+    font-size: 20px;
+  }
+}
+
+@media screen and (min-width: 751px) {
+  .Booking div.Td div.overlay button.booking {
+    font-size: calc(30px + 0.5em);
+    margin-left: 20px;
+    margin-top: 0;
+  }
+}
+
+.Booking div.Td div.overlay button.booking:hover {
+  background-image: -webkit-gradient(linear, left bottom, left top, from(grey), to(white));
+  background-image: linear-gradient(to top, grey, white);
 }
 
 .Booking div.Td div.overlay span.close {
@@ -141,7 +235,7 @@
 
 @media screen and (min-width: 1501px) {
   .Booking div.Td div.overlay span.close {
-    font-size: 2.25vw;
+    font-size: 1.5vw;
     padding: 0.38vw 0.95vw;
   }
 }
