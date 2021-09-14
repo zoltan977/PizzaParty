@@ -123,7 +123,7 @@ const Booking = ({ logout }) => {
     return [correctedDate, correctedIntervalNumber];
   }
 
-  //Loops through the given data and calls the the interval and date shifting routine
+  //Loops through the given data and calls the interval and date shifting routine
   const incomingBookingsDataParser = (data) => {
 
     const convertedData = {}
@@ -144,7 +144,7 @@ const Booking = ({ logout }) => {
   const send = () => {
     const asyncFn = async () => {
 
-      //creates a userBookings object to send data to the server
+      //creates a userBookings object to send to the server
       //this object contains the new bookings which are marked with "x" in the bookings state
       const userBookings = {}
       for (const tableNumber in bookings) {
@@ -163,8 +163,6 @@ const Booking = ({ logout }) => {
         }
       }
 
-      console.log("userBookings to send:", userBookings);
-
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -181,7 +179,6 @@ const Booking = ({ logout }) => {
           },
           config
         );
-        console.log(res?.data?.data || {});
         setBookings(incomingBookingsDataParser(res?.data?.data || {}));
         setUnsavedChanges(false);
         setWaitingForServer(false);
@@ -213,8 +210,6 @@ const Booking = ({ logout }) => {
         setWaitingForServer(true);
 
         const res = await httpClient.get("/api/bookings");
-        
-        console.log("incoming bookings: ", res?.data?.data || {});
         
         setWaitingForServer(false);
         setBookings(incomingBookingsDataParser(res?.data?.data || {}));

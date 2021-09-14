@@ -1,30 +1,18 @@
 const Table = require("../models/Table");
 
-let userBookingsArray = [];
-
 //sends new booking data of the google-authenticated user to google calendar
-//or
-//pushes booking data of the user into the userBookingsArray
-//depending on whether the calendar and email parameters are undefined or not
 const sendBookingToGoogle = (start, end, tableNumber, calendar, email) => {
-  // console.log("start end tableNumber: ", start, end, tableNumber);
+  const eventBody = {
+    calendarId: email,
+    requestBody: {
+      start: { dateTime: start },
+      end: { dateTime: end },
+      summary: "Asztalfoglalás",
+      description: `Asztal száma: ${tableNumber}`,
+    },
+  };
 
-  if (start < new Date()) return;
-
-  if (!calendar && !email) userBookingsArray.push({ start, end, tableNumber });
-  else {
-    const eventBody = {
-      calendarId: email,
-      requestBody: {
-        start: { dateTime: start },
-        end: { dateTime: end },
-        summary: "Asztalfoglalás",
-        description: `Asztal száma: ${tableNumber}`,
-      },
-    };
-
-    calendar.events.insert(eventBody);
-  }
+  calendar.events.insert(eventBody);
 };
 
 //converts the given interval number to actual hours and minutes
@@ -44,11 +32,11 @@ const countHourMinute = (interval) => {
 //and it is in the form: {tableNumber: {date : []}}
 //where the array contains the interval numbers
 //Defines a start and end time for the consecutive intervals
-//then calls the sendBookingToGoogle function with this data
+//then calls the callBackFn function with this data
 //which either sends it to google calendar
-//or pushes it into the userBookingsArray
-//depending on whether calendar and email parameters are null or not.
-const parseBookingsOfTheUser = (bookingsOfTheUser, calendar, email) => {
+//or pushes it into an array
+//depending on what does that callback function
+const parseBookingsOfTheUser = (bookingsOfTheUser, callBackFn) => {
   for (const tableNumber in bookingsOfTheUser) {
     for (const date in bookingsOfTheUser[tableNumber]) {
       const [sHour, sMinute] = countHourMinute(
@@ -62,7 +50,7 @@ const parseBookingsOfTheUser = (bookingsOfTheUser, calendar, email) => {
         if (interval - prevInterval > 1) {
           const [endHour, endMinute] = countHourMinute(prevInterval + 1);
           end = new Date(`${date}T${endHour}:${endMinute}:00.000Z`);
-          sendBookingToGoogle(start, end, tableNumber, calendar, email);
+          if (start > new Date()) callBackFn(start, end, tableNumber);
           const [startHour, startMinute] = countHourMinute(interval);
           start = new Date(`${date}T${startHour}:${startMinute}:00.000Z`);
         }
@@ -71,7 +59,7 @@ const parseBookingsOfTheUser = (bookingsOfTheUser, calendar, email) => {
       }
       const [eHour, eMinute] = countHourMinute(prevInterval + 1);
       end = new Date(`${date}T${eHour}:${eMinute}:00.000Z`);
-      sendBookingToGoogle(start, end, tableNumber, calendar, email);
+      if (start > new Date()) callBackFn(start, end, tableNumber);
     }
   }
 };
@@ -93,9 +81,10 @@ const addProps = (obj, arr, val) => {
   return obj;
 };
 
-//gives back all the future bookings in the database without the email address
-//if the booking not belongs to the authenticated user
-//and with the email address if its belongs to the current user
+//Gives back all the future bookings in the database
+//it is in the form: {tableNumber: {date : {interval: (<user email> || <true>)}}}
+//interval value is user email if it belongs to the authenticated user
+//otherwise it is true
 const allBooking = async (email) => {
   let table;
   try {
@@ -132,16 +121,13 @@ const allBooking = async (email) => {
   return table;
 };
 
-//Gives back all the bookings in the form: {tableNumber: {date : {interval: (<user email> || <true>)}}}
-//interval value is user email if it belongs to the authenticated user
-//otherwise it is true
 exports.bookings = async (email) => {
   const table = await allBooking(email);
 
   return table;
 };
 
-//Fills the userBookingsArray with booking data of the authenticated user
+//Fills an array with future bookings of the authenticated user
 //and returns it
 //It is in the form: [{start, end, tableNumber}]
 exports.userBookings = async (email) => {
@@ -172,10 +158,13 @@ exports.userBookings = async (email) => {
       }
     }
 
-  userBookingsArray = [];
-  parseBookingsOfTheUser(bookingsOfTheUser);
+  const userBookingsToReturn = [];
 
-  return userBookingsArray;
+  parseBookingsOfTheUser(bookingsOfTheUser, (start, end, tableNumber) => {
+    userBookingsToReturn.push({ start, end, tableNumber });
+  });
+
+  return userBookingsToReturn;
 };
 
 //Updates the booking data in the database based on the POSTed object(data)
@@ -223,7 +212,10 @@ exports.createBooking = async (data, email, calendar) => {
     savedTable = await table.save();
   }
 
-  if (calendar) parseBookingsOfTheUser(bookingsOfTheUser, calendar, email);
+  if (calendar)
+    parseBookingsOfTheUser(bookingsOfTheUser, (start, end, tableNumber) => {
+      sendBookingToGoogle(start, end, tableNumber, calendar, email);
+    });
 
   const allBookingWithoutEmails = await allBooking(email);
 
