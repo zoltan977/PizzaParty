@@ -1,4 +1,5 @@
 const Table = require("../models/Table");
+const countHourMinute = require("../utils/countHourMinute");
 
 //sends new booking data of the google-authenticated user to google calendar
 const sendBookingToGoogle = (start, end, tableNumber, calendar, email) => {
@@ -13,18 +14,6 @@ const sendBookingToGoogle = (start, end, tableNumber, calendar, email) => {
   };
 
   calendar.events.insert(eventBody);
-};
-
-//converts the given interval number to actual hours and minutes
-const countHourMinute = (interval) => {
-  let hour = Math.floor(interval / 4);
-  let minute = (interval % 4) * 15;
-
-  if (hour < 10) hour = `0${hour}`;
-
-  if (minute < 10) minute = `0${minute}`;
-
-  return [hour, minute];
 };
 
 //Loops through the given bookingsOfTheUser data
