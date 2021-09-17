@@ -171,7 +171,7 @@ const DateBooking = ({
       <table>
         <tbody>
           <tr>
-            <td colSpan="3">Kezdés</td>
+            <td colSpan="3"><div className="start">Kezdés</div></td>
           </tr>
           <tr>
             <td>
@@ -186,7 +186,7 @@ const DateBooking = ({
               </select>
             </td>
             <td>
-              <span>Óra:</span>  
+              <span className="time">Óra:</span>  
               <select
                 onChange={(e) => {
                   setMessage("");
@@ -197,7 +197,7 @@ const DateBooking = ({
               </select>
             </td>
             <td>
-              <span>Perc:</span> 
+              <span className="time">Perc:</span> 
               <select
                 onChange={(e) => {
                   setMessage("");
@@ -209,7 +209,7 @@ const DateBooking = ({
             </td>
           </tr>
           <tr>
-            <td colSpan="3">Vége</td>
+            <td colSpan="3"><div className="end">Vége</div></td>
           </tr>
           <tr>
             <td>
@@ -224,7 +224,7 @@ const DateBooking = ({
               </select>
             </td>
             <td>
-              <span>Óra:</span> 
+              <span className="time">Óra:</span> 
               <select
                 onChange={(e) => {
                   setMessage("");
@@ -236,7 +236,7 @@ const DateBooking = ({
               </select>
             </td>
             <td>
-              <span>Perc:</span> 
+              <span className="time">Perc:</span> 
               <select
                 onChange={(e) => {
                   setMessage("");

@@ -39,15 +39,14 @@
   }
 
   td {
-    border: 2px solid red;
     text-align: center;
 
-    span {
+    span.time {
       margin-left: 1ch;
     }
-  }
 
-  table {
-    background-color: green;
+    div.end {
+      margin-top: 1em;
+    }
   }
 }

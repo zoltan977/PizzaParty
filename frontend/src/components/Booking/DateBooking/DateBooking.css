@@ -44,14 +44,13 @@
 }
 
 .DateBooking td {
-  border: 2px solid red;
   text-align: center;
 }
 
-.DateBooking td span {
+.DateBooking td span.time {
   margin-left: 1ch;
 }
 
-.DateBooking table {
-  background-color: green;
+.DateBooking td div.end {
+  margin-top: 1em;
 }
