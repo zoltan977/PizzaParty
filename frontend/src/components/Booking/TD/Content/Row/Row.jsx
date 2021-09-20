@@ -22,6 +22,7 @@ const Row = ({
     else changeBookingState("x", date, index + twoHours * 8);
   };
 
+  
   return (
     <tr onClick={check}>
       <td
@@ -30,10 +31,10 @@ const Row = ({
             bookingState === "x"
               ? "gray"
               : bookingState === user.email
-              ? "yellow"
+              ? "orange"
               : bookingState
-              ? "red"
-              : "green",
+              ? "#e96767"
+              : "#7aeb34",
         }}
       >
         <span className="hoursInContent">

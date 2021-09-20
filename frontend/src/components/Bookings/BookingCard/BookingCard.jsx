@@ -17,10 +17,16 @@ export default function BookingCard({ tableNumber, start, end }) {
       <div className="BookingCard">
         <p>Foglalás a {tableNumber} számú asztalnál</p>
         <p>
-          {new Date(start).toLocaleDateString()} {days[new Date(start).getDay()]}
+          {new Date(start).toLocaleDateString()}{" "}
+          {days[new Date(start).getDay()]}
+          <br />
+          {new Date(end).toLocaleDateString()} {days[new Date(end).getDay()]}
         </p>
-        <p>{new Date(start).toLocaleTimeString()} -tól</p>
-        <p>{new Date(end).toLocaleTimeString()} -ig</p>
+        <p>
+          {new Date(start).toLocaleTimeString()} -tól
+          <br />
+          {new Date(end).toLocaleTimeString()} -ig
+        </p>
       </div>
       <div className="shadow"></div>
     </div>

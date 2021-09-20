@@ -10,6 +10,11 @@ export default function Td(props) {
       {showOverlay && (
         <div className="overlay">
           <h1>{props.date}</h1>
+          {props.unsavedChanges && (
+            <button className="booking" onClick={props.sendBooking}>
+              Lefoglalom
+            </button>
+          )}
           <span className="close" onClick={(e) => setShowOverlay(false)}>
             X
           </span>

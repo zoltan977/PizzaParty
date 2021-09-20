@@ -1,0 +1,56 @@
+.DateBooking {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 94vw;
+  height: 36.5vw;
+  border: 2px solid white;
+  background-color: rgba(255, 255, 255, 0.5);
+  font-size: 1.5em;
+  font-family: "Teko", sans-serif;
+}
+
+.DateBooking h1 {
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+
+.DateBooking p {
+  color: red;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+
+.DateBooking select {
+  margin-left: 1ch;
+  font-size: 0.8em;
+  font-family: "Teko", sans-serif;
+}
+
+.DateBooking button {
+  font-size: 0.8em;
+  font-family: "Teko", sans-serif;
+}
+
+.DateBooking td {
+  text-align: center;
+}
+
+.DateBooking td span.time {
+  margin-left: 1ch;
+}
+
+.DateBooking td div.end {
+  margin-top: 1em;
+}

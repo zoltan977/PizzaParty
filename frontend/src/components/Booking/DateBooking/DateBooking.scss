@@ -1,0 +1,52 @@
+.DateBooking {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  width: 94vw;
+  height: 36.5vw;
+
+  border: 2px solid white;
+
+  background-color: rgba($color: #fff, $alpha: 0.5);
+
+  font-size: 1.5em;
+  font-family: "Teko", sans-serif;
+
+  h1 {
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+  }
+
+  p {
+    color: red;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+  }
+
+  select {
+    margin-left: 1ch;
+    font-size: 0.8em;
+    font-family: "Teko", sans-serif;
+  }
+
+  button {
+    font-size: 0.8em;
+    font-family: "Teko", sans-serif;
+  }
+
+  td {
+    text-align: center;
+
+    span.time {
+      margin-left: 1ch;
+    }
+
+    div.end {
+      margin-top: 1em;
+    }
+  }
+}

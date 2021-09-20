@@ -22,6 +22,29 @@ Pizza Party is an online, mobile-friendly, ReactJS and NodeJS-powered pizza orde
 
 You can test the running upplication on this [demo](https://cryptic-brushlands-33727.herokuapp.com) link.
 
+## Screenshots
+
+<table>
+    <tbody>
+        <tr>
+            <td>
+                <img src="https://github.com/zoltan977/PizzaParty/blob/DateBookingFeature/screenshot001.jpg" alt="" width="200">
+            </td>
+            <td>
+                <img src="https://github.com/zoltan977/PizzaParty/blob/DateBookingFeature/screenshot002.jpg" alt="" width="200">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="https://github.com/zoltan977/PizzaParty/blob/DateBookingFeature/screenshot003.jpg" alt="" width="200">
+            </td>
+            <td>
+                <img src="https://github.com/zoltan977/PizzaParty/blob/DateBookingFeature/screenshot004.jpg" alt="" width="200">
+            </td>
+        </tr>
+    </tbody>
+</table>
+
 ## API documentation of the backend
 
 On the demo page you can view the API documentation too on this [documentation](https://cryptic-brushlands-33727.herokuapp.com/api/docs) link.

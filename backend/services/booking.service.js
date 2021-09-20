@@ -24,32 +24,61 @@ const sendBookingToGoogle = (start, end, tableNumber, calendar, email) => {
 //then calls the callBackFn function with this data
 //which either sends it to google calendar
 //or pushes it into an array
-//depending on what does that callback function
+//depending on what does the given callback function
 const parseBookingsOfTheUser = (bookingsOfTheUser, callBackFn) => {
   for (const tableNumber in bookingsOfTheUser) {
-    for (const date in bookingsOfTheUser[tableNumber]) {
-      const [sHour, sMinute] = countHourMinute(
-        bookingsOfTheUser[tableNumber][date][0]
-      );
+    const datesArrayOfTable = Object.keys(bookingsOfTheUser[tableNumber]);
+    const sortedDatesArrayOfTable = datesArrayOfTable.sort();
 
-      let start = new Date(`${date}T${sHour}:${sMinute}:00.000Z`);
-      let end;
-      let prevInterval = bookingsOfTheUser[tableNumber][date][0];
+    let end;
+
+    const [sHour, sMinute] = countHourMinute(
+      bookingsOfTheUser[tableNumber][sortedDatesArrayOfTable[0]][0]
+    );
+
+    let start = new Date(
+      `${sortedDatesArrayOfTable[0]}T${sHour}:${sMinute}:00.000Z`
+    );
+
+    let prevInterval =
+      bookingsOfTheUser[tableNumber][sortedDatesArrayOfTable[0]][0];
+
+    let prevDate = sortedDatesArrayOfTable[0];
+
+    for (const date of sortedDatesArrayOfTable) {
       for (const interval of bookingsOfTheUser[tableNumber][date]) {
-        if (interval - prevInterval > 1) {
+        const [intervalStartHour, intervalStartMinute] =
+          countHourMinute(interval);
+        const intervalStart = new Date(
+          `${date}T${intervalStartHour}:${intervalStartMinute}:00.000Z`
+        );
+        const [prevIntervalStartHour, prevIntervalStartMinute] =
+          countHourMinute(prevInterval);
+        const prevIntervalStart = new Date(
+          `${prevDate}T${prevIntervalStartHour}:${prevIntervalStartMinute}:00.000Z`
+        );
+
+        if (
+          intervalStart.getTime() - prevIntervalStart.getTime() >
+          15 * 60 * 1000
+        ) {
           const [endHour, endMinute] = countHourMinute(prevInterval + 1);
-          end = new Date(`${date}T${endHour}:${endMinute}:00.000Z`);
-          if (start > new Date()) callBackFn(start, end, tableNumber);
+          end = new Date(`${prevDate}T${endHour}:${endMinute}:00.000Z`);
+
+          callBackFn(start, end, tableNumber);
+
           const [startHour, startMinute] = countHourMinute(interval);
           start = new Date(`${date}T${startHour}:${startMinute}:00.000Z`);
         }
 
         prevInterval = interval;
+        prevDate = date;
       }
-      const [eHour, eMinute] = countHourMinute(prevInterval + 1);
-      end = new Date(`${date}T${eHour}:${eMinute}:00.000Z`);
-      if (start > new Date()) callBackFn(start, end, tableNumber);
     }
+    const [eHour, eMinute] = countHourMinute(prevInterval + 1);
+    end = new Date(`${prevDate}T${eHour}:${eMinute}:00.000Z`);
+
+    callBackFn(start, end, tableNumber);
   }
 };
 
@@ -116,7 +145,7 @@ exports.bookings = async (email) => {
   return table;
 };
 
-//Fills an array with future bookings of the authenticated user
+//Fills an array with bookings of the authenticated user
 //and returns it
 //It is in the form: [{start, end, tableNumber}]
 exports.userBookings = async (email) => {
@@ -184,7 +213,10 @@ exports.createBooking = async (data, email, calendar) => {
         if (!table["data"][tableNumber][date])
           table["data"][tableNumber][date] = {};
         for (const interval of data[tableNumber][date]) {
-          if (table["data"]?.[tableNumber]?.[date]?.[interval]) {
+          if (
+            table["data"]?.[tableNumber]?.[date]?.[interval] &&
+            table["data"]?.[tableNumber]?.[date]?.[interval] !== email
+          ) {
             const allBookingWithoutEmails = await allBooking(email);
             throw {
               status: 400,

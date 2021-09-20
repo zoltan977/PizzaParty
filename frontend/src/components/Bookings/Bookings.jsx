@@ -39,14 +39,18 @@ const Bookings = ({ logout }) => {
             <h1>Asztalfoglalások</h1>
           </div>
           <div className="content">
-            {userBookings.length ? userBookings.map((u, i) => (
-              <BookingCard
-                key={i}
-                tableNumber={u.tableNumber}
-                start={u.start}
-                end={u.end}
-              />
-            )) : <p className="info">Nincsenek asztalfoglalások!</p>}
+            {userBookings.length ? (
+              userBookings.map((u, i) => (
+                <BookingCard
+                  key={i}
+                  tableNumber={u.tableNumber}
+                  start={u.start}
+                  end={u.end}
+                />
+              ))
+            ) : (
+              <p className="info">Nincsenek asztalfoglalások!</p>
+            )}
           </div>
         </>
       )}

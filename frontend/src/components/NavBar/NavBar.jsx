@@ -37,9 +37,8 @@ const NavBar = ({ logout, user, cart, data }) => {
       const { authUrl } = res.data;
 
       window.location.href = authUrl;
-      
     } catch (error) {
-      console.log("Get auth url error: ", error.response.data)
+      console.log("Get auth url error: ", error.response.data);
     }
   };
 
