@@ -1,16 +1,18 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
 import "./DateBooking.css";
+import React, { useState, useContext } from "react";
+import { connect } from "react-redux";
+import BookingContext from "../BookingContext/BookingContext";
 
-const DateBooking = ({
-  dateStrings,
-  bookings,
-  addProps,
-  intervalCorrectionBasedOnTimeZone,
-  sendToServer,
-  setSelectedTableNumber,
-  user
-}) => {
+const DateBooking = ({ user }) => {
+  const {
+    dateStrings,
+    bookings,
+    addProps,
+    intervalCorrectionBasedOnTimeZone,
+    sendToServer,
+    setSelectedTableNumber,
+  } = useContext(BookingContext);
+
   const quarterHourOptions = [];
   for (let minute = 0; minute < 60; minute += 15) {
     quarterHourOptions.push(
@@ -44,12 +46,12 @@ const DateBooking = ({
 
   const [message, setMessage] = useState("");
 
-  const bookFreeTable = (dataToCheck, freeTable) => {
+  const bookFreeTable = (dataToSend, freeTable) => {
     const userBookings = {};
 
-    for (const date in dataToCheck) {
-      for (const interval of dataToCheck[date]) {
-        //makes the interval and date corrections based on time zone
+    for (const date in dataToSend) {
+      for (const interval of dataToSend[date]) {
+        //does the interval and date corrections based on time zone
         const [correctedDate, correctedIntervalNumber] =
           intervalCorrectionBasedOnTimeZone(parseInt(interval), date, true);
 
@@ -101,7 +103,6 @@ const DateBooking = ({
   //which is in the form: {date1: [1,2,..], date2: [1,2..], ...}
   //where the arrays contain the interval numbers of the corresponding date
   const convertSelectedValuesToObject = () => {
-
     const dataToCheck = {};
 
     if (startDateIndex === endDateIndex) {
@@ -165,13 +166,14 @@ const DateBooking = ({
 
   return (
     <div className="DateBooking">
-
       <h1>Időpont foglalás</h1>
 
       <table>
         <tbody>
           <tr>
-            <td colSpan="3"><div className="start">Kezdés</div></td>
+            <td colSpan="3">
+              <div className="start">Kezdés</div>
+            </td>
           </tr>
           <tr>
             <td>
@@ -186,7 +188,7 @@ const DateBooking = ({
               </select>
             </td>
             <td>
-              <span className="time">Óra:</span>  
+              <span className="time">Óra:</span>
               <select
                 onChange={(e) => {
                   setMessage("");
@@ -197,7 +199,7 @@ const DateBooking = ({
               </select>
             </td>
             <td>
-              <span className="time">Perc:</span> 
+              <span className="time">Perc:</span>
               <select
                 onChange={(e) => {
                   setMessage("");
@@ -209,7 +211,9 @@ const DateBooking = ({
             </td>
           </tr>
           <tr>
-            <td colSpan="3"><div className="end">Vége</div></td>
+            <td colSpan="3">
+              <div className="end">Vége</div>
+            </td>
           </tr>
           <tr>
             <td>
@@ -224,7 +228,7 @@ const DateBooking = ({
               </select>
             </td>
             <td>
-              <span className="time">Óra:</span> 
+              <span className="time">Óra:</span>
               <select
                 onChange={(e) => {
                   setMessage("");
@@ -236,7 +240,7 @@ const DateBooking = ({
               </select>
             </td>
             <td>
-              <span className="time">Perc:</span> 
+              <span className="time">Perc:</span>
               <select
                 onChange={(e) => {
                   setMessage("");
@@ -257,10 +261,9 @@ const DateBooking = ({
       <button onClick={convertSelectedValuesToObject}>Foglalás</button>
 
       {message && <p>{message}</p>}
-
     </div>
   );
-}
+};
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
