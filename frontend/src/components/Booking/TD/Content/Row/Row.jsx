@@ -22,7 +22,6 @@ const Row = ({
     else changeBookingState("x", date, index + twoHours * 8);
   };
 
-  
   return (
     <tr onClick={check}>
       <td

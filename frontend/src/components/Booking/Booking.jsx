@@ -1,11 +1,13 @@
 import "./Booking.css";
 import React, { useEffect, useState } from "react";
-import TD from "./TD/Td";
 import httpClient from "axios";
 import LoadingMask from "../LoadingMask/LoadingMask.component";
 import { connect } from "react-redux";
 import { logout } from "../../actions/authActions";
 import DateBooking from "./DateBooking/DateBooking";
+import Dashboard from "./Dashboard/Dashboard";
+import BookingTable from "./BookingTable/BookingTable";
+import BookingContext from "./BookingContext/BookingContext";
 
 const Booking = ({ logout }) => {
   const days = [
@@ -277,114 +279,25 @@ const Booking = ({ logout }) => {
             Foglalás küldése
           </button>
         )}
-        <div className="dashBoard">
-          <button
-            onClick={(e) =>
-              setSelectedTableNumber((prev) =>
-                (parseInt(prev) - 1 >= 0 ? parseInt(prev) - 1 : 10).toString()
-              )
-            }
-          >
-            -
-          </button>
-          <select
-            onChange={(e) => setSelectedTableNumber(e.target.value)}
-            value={selectedTableNumber}
-          >
-            <option value="0">Időpont foglalás</option>
-            <option value="1">1. asztal</option>
-            <option value="2">2. asztal</option>
-            <option value="3">3. asztal</option>
-            <option value="4">4. asztal</option>
-            <option value="5">5. asztal</option>
-            <option value="6">6. asztal</option>
-            <option value="7">7. asztal</option>
-            <option value="8">8. asztal</option>
-            <option value="9">9. asztal</option>
-            <option value="10">10. asztal</option>
-          </select>
-          <button
-            onClick={(e) =>
-              setSelectedTableNumber((prev) =>
-                (parseInt(prev) + 1 < 11 ? parseInt(prev) + 1 : 0).toString()
-              )
-            }
-          >
-            +
-          </button>
-        </div>
-        {parseInt(selectedTableNumber) ? (
-          <table className="BookingTable">
-            <thead>
-              <tr>
-                <th className="hours"></th>
-                {(function () {
-                  const thArray = [];
-                  for (
-                    let index = firstDayIndex, counter = 0;
-                    counter < 7;
-                    index++, counter++
-                  ) {
-                    thArray.push(
-                      <th key={counter}>
-                        {dateStrings[counter]}
-                        <br />({days[index]})
-                      </th>
-                    );
-
-                    if (index === 6) index = -1;
-                  }
-
-                  return thArray;
-                })()}
-              </tr>
-            </thead>
-            <tbody>
-              {(function () {
-                let trArr = [];
-                for (let twoHours = 0; twoHours < 12; twoHours++) {
-                  let tdArr = [];
-                  for (let day = 0; day < 7; day++) {
-                    tdArr.push(
-                      <td key={day}>
-                        <TD
-                          date={dateStrings[day]}
-                          twoHours={twoHours}
-                          bookingMatrix={bookings?.[selectedTableNumber]}
-                          changeBookingState={changeBookingState}
-                          sendBooking={send}
-                          unsavedChanges={unsavedChanges}
-                        />
-                      </td>
-                    );
-                  }
-
-                  let hour = twoHours * 2;
-                  tdArr.unshift(
-                    <td key="7" className="hours">
-                      <span>{hour < 10 ? `0${hour}` : hour} : 00</span>
-                    </td>
-                  );
-
-                  trArr.push(<tr key={twoHours}>{tdArr}</tr>);
-                }
-
-                return trArr;
-              })()}
-            </tbody>
-          </table>
-        ) : (
-          <DateBooking
-            dateStrings={dateStrings}
-            bookings={bookings}
-            addProps={addProps}
-            intervalCorrectionBasedOnTimeZone={
-              intervalCorrectionBasedOnTimeZone
-            }
-            sendToServer={sendToServer}
-            setSelectedTableNumber={setSelectedTableNumber}
-          />
-        )}
+        <BookingContext.Provider
+          value={{
+            selectedTableNumber,
+            setSelectedTableNumber,
+            firstDayIndex,
+            dateStrings,
+            days,
+            bookings,
+            changeBookingState,
+            send,
+            unsavedChanges,
+            addProps,
+            intervalCorrectionBasedOnTimeZone,
+            sendToServer,
+          }}
+        >
+          <Dashboard />
+          {parseInt(selectedTableNumber) ? <BookingTable /> : <DateBooking />}
+        </BookingContext.Provider>
       </div>
     </div>
   );
