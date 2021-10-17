@@ -50,6 +50,87 @@
     }
   }
 
+  .dashboard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    // border: 2px solid red;
+
+    padding-top: 7.5vw;
+    @media screen and (min-width: 501px) and (max-width: 750px) {
+      padding-top: 5vw;
+    }
+    @media screen and (min-width: 751px) {
+      padding-top: 5vw;
+    }
+
+    select {
+      font-family: "Teko", sans-serif;
+      color: greenyellow;
+      background: none;
+      outline: none;
+      border: none;
+
+      font-size: 14vw;
+      @media screen and (min-width: 501px) and (max-width: 750px) {
+        font-size: 7vw;
+      }
+      @media screen and (min-width: 751px) {
+        font-size: 3.5vw;
+      }
+
+      &:first-child {
+        margin-right: 2ch;
+      }
+    }
+
+    .checkboxContainer {
+      position: relative;
+      height: 1.5em;
+      width: 1.5em;
+      // border: 2px solid red;
+      display: inline-block;
+
+      [type="checkbox"] {
+        visibility: hidden;
+
+        &:checked + label {
+          svg:nth-child(1) {
+            display: block;
+          }
+          svg:nth-child(2) {
+            display: none;
+          }
+        }
+      }
+
+      label {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+
+        svg {
+          height: 100%;
+          width: auto;
+
+          path {
+            fill: greenyellow;
+          }
+        }
+
+        svg:nth-child(1) {
+          display: none;
+        }
+        svg:nth-child(2) {
+          display: block;
+        }
+      }
+    }
+  }
+
   .content {
     display: flex;
     flex-wrap: wrap;

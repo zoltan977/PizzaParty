@@ -67,35 +67,34 @@ const Profile = ({user, setUser, logout}) => {
     return (
         <div className="Profile">
             {
-                waitingForServer ? <LoadingMask/>
-                :
-
-                <div className="content">
-                    <h1>Fiók</h1>
-                    <form action="" ref={form}>
-                        <div className="image">
-                            <img src={user.photo} alt="" />
-                        </div>
-                        <div className="inputs">
-                            <input type="text" name="name" 
-                                    required value={user.name.trim()} 
-                                    onChange={e => {setUser({...user, name: e.target.value }); change(e)}}/>
-                            <FileInput change={change}/>
-                            <button type="button" disabled={!formValid || (!photo && !Object.keys(formData).length)} onClick={send}>
-                                Adatok frissítése
-                            </button>
-                            {
-                                error &&
-                                <p className="error">{error}</p>
-                            }
-                            {
-                                errors &&
-                                errors.map(err => <p className="error">{err.msg}</p>)
-                            }
-                        </div>
-                    </form>
-                </div>
+                waitingForServer && <LoadingMask/>
             }
+            <div className="content">
+                <h1>Fiók</h1>
+                <form action="" ref={form}>
+                    <div className="image">
+                        <img src={user.photo} alt="" />
+                    </div>
+                    <div className="inputs">
+                        <input type="text" name="name" 
+                                placeholder="név"
+                                required value={user.name} 
+                                onChange={e => {setUser({...user, name: e.target.value }); change(e)}}/>
+                        <FileInput change={change}/>
+                        <button type="button" disabled={!formValid || (!photo && !Object.keys(formData).length)} onClick={send}>
+                            Adatok frissítése
+                        </button>
+                        {
+                            error &&
+                            <p className="error">{error}</p>
+                        }
+                        {
+                            errors &&
+                            errors.map(err => <p className="error">{err.msg}</p>)
+                        }
+                    </div>
+                </form>
+            </div>
         </div>
     )
 }
