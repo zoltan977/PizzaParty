@@ -364,6 +364,11 @@
   font-family: "Teko", sans-serif;
 }
 
+.NavBar .linksAndUser .userInfo a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .NavBar .linksAndUser .userInfo img {
   height: 100%;
   width: auto;

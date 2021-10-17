@@ -1,6 +1,5 @@
 .Profile {
-  background-color: white;
-  min-height: 100vh;
+  // border: 2px solid red;
   box-sizing: border-box;
 
   padding-top: calc(80px + 3.5vw);
@@ -10,18 +9,40 @@
     padding-top: calc(50px + 3.5vw);
   }
 
-  form {
-    width: 70%;
+  .content {
+    width: 90%;
+    @media screen and (min-width: 751px) {
+      width: 70%;
+    }
     margin: 0 auto;
+    background-color: rgba($color: #fff, $alpha: 0.5);
+    padding: 2%;
 
+    h1 {
+      margin: 0 0 1em 0;
+      padding: 0;
+      line-height: 1;
+
+      text-align: center;
+      font-family: "Otomanopee One", sans-serif;
+
+      font-size: 9vw;
+      @media screen and (min-width: 751px) {
+        font-size: 4.5vw;
+      }
+    }
+  }
+
+  form {
     display: flex;
+    gap: 2.5%;
 
     .image {
       width: 50%;
       @media screen and (min-width: 751px) {
         width: 25%;
       }
-      border: 2px solid red;
+      // border: 2px solid red;
       overflow: hidden;
 
       img {
@@ -32,10 +53,13 @@
     }
 
     .inputs {
+      // border: 2px solid red;
       width: 50%;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
       gap: 4vw;
+
       @media screen and (min-width: 751px) {
         gap: 2vw;
         width: 75%;
@@ -49,6 +73,31 @@
 
     input,
     button {
+      text-align: center;
+      font-family: "Teko", sans-serif;
+      font-size: 4vw;
+      @media screen and (min-width: 751px) {
+        font-size: 2vw;
+      }
+    }
+
+    button {
+      background-image: linear-gradient(to bottom, grey, white);
+
+      &:hover {
+        background-image: linear-gradient(to top, grey, white);
+      }
+    }
+
+    p.error {
+      color: red;
+
+      text-align: center;
+
+      margin: 0;
+      padding: 0;
+      line-height: 1;
+
       font-family: "Teko", sans-serif;
       font-size: 4vw;
       @media screen and (min-width: 751px) {
