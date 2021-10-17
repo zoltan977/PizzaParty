@@ -26,6 +26,7 @@
     "prettier-check": "prettier --check .",
     "prettier-write": "prettier --write ."
   },
+  "proxy": "http://localhost:8000",
   "eslintConfig": {
     "extends": [
       "react-app",

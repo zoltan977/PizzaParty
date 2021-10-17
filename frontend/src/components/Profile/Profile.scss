@@ -81,6 +81,14 @@
       }
     }
 
+    input {
+      background: none;
+      border: none;
+      border-bottom: 2px solid #767676;
+      outline: none;
+      // box-shadow: 0vw 1.5vw 2.25vw -0.75vw black;
+    }
+
     button {
       background-image: linear-gradient(to bottom, grey, white);
 

@@ -1,20 +1,12 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const { randomBytes } = require("crypto");
-const nodemailer = require("nodemailer");
 const createToken = require("../utils/createToken");
 const oauth2Client = require("../utils/oauth2Client")();
 const jwt = require("jsonwebtoken");
 const settings = require("../settings");
 const { validateImage } = require("../utils/validateImage");
-
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL,
-    pass: process.env.PASSWORD,
-  },
-});
+const transporter = require("../utils/oauthEmail");
 
 exports.nameChange = async ({ newName }, user) => {
   const userInDatabase = await User.findOne({ email: user.email });
@@ -206,7 +198,7 @@ exports.register = async (registrationData) => {
 
     //Sending confirmation email
     await transporter.sendMail({
-      from: `"Admin" ${process.env.email}`, // sender address
+      from: `"Admin" ${process.env.EMAIL}`, // sender address
       to: savedUser.email, // list of receivers
       subject: "Regisztráció megerősítés", // Subject line
       html: `<p>A regisztráció megerősítéséhez kattints <a href="http://localhost:3000/confirm?code=${buf.toString(
@@ -282,7 +274,7 @@ exports.updateProfile = async (postedData, user, userFile) => {
     const uploadPath = settings.PROJECT_DIR + "/public/photos/" + user.email;
     try {
       userFile.mv(uploadPath);
-      update.photo = settings.BASE_URL + "/photos/" + user.email;
+      update.photo = "photos/" + user.email;
     } catch (error) {
       throw { msg: "Image saving error", status: 400 };
     }

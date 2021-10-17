@@ -105,6 +105,13 @@
   }
 }
 
+.Profile form input {
+  background: none;
+  border: none;
+  border-bottom: 2px solid #767676;
+  outline: none;
+}
+
 .Profile form button {
   background-image: -webkit-gradient(linear, left top, left bottom, from(grey), to(white));
   background-image: linear-gradient(to bottom, grey, white);

@@ -136,6 +136,7 @@
       height: 100%;
       width: fit-content;
       position: relative;
+      cursor: pointer;
 
       svg {
         height: 100%;
@@ -217,10 +218,21 @@
 
       div.order,
       div.booking {
-        display: none;
+        position: absolute;
+        left: 0;
+        top: 45px;
+        @media screen and (min-width: 751px) {
+          top: calc(15px + 2vw);
+        }
+
+        display: flex;
+        flex-direction: column;
         width: fit-content;
         height: fit-content;
-        // border: 2px solid white;
+
+        transform: scaleY(0);
+        transform-origin: top;
+        transition: transform 0.5s;
       }
 
       span.loggedIn {
@@ -232,15 +244,8 @@
       span.loggedIn:hover {
         div.order,
         div.booking {
-          display: flex;
-          flex-direction: column;
-          position: absolute;
-          left: 0;
-          top: 45px;
-
-          @media screen and (min-width: 751px) {
-            top: calc(15px + 2vw);
-          }
+          transform: scaleY(1);
+          transform-origin: top;
         }
       }
 
