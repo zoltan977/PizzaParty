@@ -23,7 +23,6 @@ const authReducer = (state = initialState, action) => {
       };
 
     case LOGIN_SUCCESS:
-      console.log("auth reducer login success action payload:", action.payload);
       localStorage.setItem("token", action.payload.token);
       setAuthToken(action.payload.token);
       return {

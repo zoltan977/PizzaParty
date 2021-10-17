@@ -9,6 +9,35 @@ import { logout } from "../../actions/authActions";
 const Bookings = ({ logout }) => {
   const [userBookings, setUserBookings] = useState([]);
   const [waitingForServer, setWaitingForServer] = useState(false);
+  const [direction, setDirection] = useState(true);
+  const [dateTable, setDateTable] = useState(true);
+
+  const compare = (incDec = true, dateOrTable = true, recCall = false) => (b1, b2) => {
+    const start1 = dateOrTable ? new Date(b1.start) : Number(b1.tableNumber)
+    const start2 = dateOrTable ? new Date(b2.start) : Number(b2.tableNumber)
+    
+    if (start1 < start2)
+      return incDec ? -1 : 1;
+
+    if (start2 < start1)
+      return incDec ? 1 : -1;
+    
+    if (start1 === start2) {
+      if (!recCall)
+        return compare(incDec, !dateOrTable, true)(b1, b2);
+      else
+        return 0;
+    }
+
+  }
+
+  const changeDirection = e => {
+    setDirection(e.target.value)
+  }
+
+  const changeDateOrTable = e => {
+    setDateTable(e.target.value)
+  }
 
   useEffect(() => {
     const asyncFn = async () => {
@@ -38,9 +67,19 @@ const Bookings = ({ logout }) => {
           <div className="title">
             <h1>Asztalfoglalások</h1>
           </div>
+          <div className="dashboard">
+            <select name="dateOrTable" id="dateOrTable" onChange={changeDateOrTable}>
+              <option value="1">dátum</option>
+              <option value="">asztal</option>
+            </select>
+            <select name="incDec" id="incDec" onChange={changeDirection}>
+              <option value="1">növekvő</option>
+              <option value="">csökkenő</option>
+            </select>
+          </div>
           <div className="content">
             {userBookings.length ? (
-              userBookings.map((u, i) => (
+              userBookings.sort(compare(direction, dateTable)).map((u, i) => (
                 <BookingCard
                   key={i}
                   tableNumber={u.tableNumber}

@@ -20,10 +20,12 @@ export default function BookingCard({ tableNumber, start, end }) {
           {new Date(start).toLocaleDateString()}{" "}
           {days[new Date(start).getDay()]}
           <br />
-          {new Date(end).toLocaleDateString()} {days[new Date(end).getDay()]}
+          {new Date(start).toLocaleTimeString()} -tól
         </p>
         <p>
-          {new Date(start).toLocaleTimeString()} -tól
+          {new Date(end).toLocaleDateString()}
+          <br />
+          {days[new Date(end).getDay()]}
           <br />
           {new Date(end).toLocaleTimeString()} -ig
         </p>

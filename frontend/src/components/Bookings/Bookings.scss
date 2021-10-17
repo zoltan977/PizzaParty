@@ -50,6 +50,34 @@
     }
   }
 
+  .dashboard {
+    text-align: center;
+
+    padding-top: 7.5vw;
+    @media screen and (min-width: 501px) and (max-width: 750px) {
+      padding-top: 5vw;
+    }
+    @media screen and (min-width: 751px) {
+      padding-top: 5vw;
+    }
+
+    select {
+      font-family: "Teko", sans-serif;
+
+      font-size: 3.75vw;
+      @media screen and (min-width: 501px) and (max-width: 750px) {
+        font-size: 2.5vw;
+      }
+      @media screen and (min-width: 751px) {
+        font-size: 2.5vw;
+      }
+
+      &:first-child {
+        margin-right: 2ch;
+      }
+    }
+  }
+
   .content {
     display: flex;
     flex-wrap: wrap;

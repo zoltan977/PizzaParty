@@ -22,7 +22,7 @@ exports.nameChange = async ({ newName }, user) => {
   if (!userInDatabase) throw { status: 400, msg: "user not exists" };
 
   try {
-    userInDatabase.name = newName;
+    userInDatabase.name = newName.trim();
     await userInDatabase.save();
   } catch (error) {
     throw { status: 400, msg: "save user error" };

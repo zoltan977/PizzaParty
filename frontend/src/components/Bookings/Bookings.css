@@ -70,6 +70,44 @@
   }
 }
 
+.UserBookings .dashboard {
+  text-align: center;
+  padding-top: 7.5vw;
+}
+
+@media screen and (min-width: 501px) and (max-width: 750px) {
+  .UserBookings .dashboard {
+    padding-top: 5vw;
+  }
+}
+
+@media screen and (min-width: 751px) {
+  .UserBookings .dashboard {
+    padding-top: 5vw;
+  }
+}
+
+.UserBookings .dashboard select {
+  font-family: "Teko", sans-serif;
+  font-size: 3.75vw;
+}
+
+@media screen and (min-width: 501px) and (max-width: 750px) {
+  .UserBookings .dashboard select {
+    font-size: 2.5vw;
+  }
+}
+
+@media screen and (min-width: 751px) {
+  .UserBookings .dashboard select {
+    font-size: 2.5vw;
+  }
+}
+
+.UserBookings .dashboard select:first-child {
+  margin-right: 2ch;
+}
+
 .UserBookings .content {
   display: -webkit-box;
   display: -ms-flexbox;
