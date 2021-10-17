@@ -2,7 +2,7 @@
   font-size: 6vw;
   padding: 30vw 0;
   -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+          box-sizing: border-box;
   padding: 90px 0;
 }
 
@@ -27,26 +27,26 @@
   overflow: visible;
   margin: 0 auto;
   -webkit-box-shadow: 0 0 7.6vw 4.3vw white;
-  box-shadow: 0 0 7.6vw 4.3vw white;
+          box-shadow: 0 0 7.6vw 4.3vw white;
 }
 
 @media screen and (min-width: 501px) and (max-width: 750px) {
   .UserBookings .title {
     -webkit-box-shadow: 0 0 7.6vw 4.3vw white;
-    box-shadow: 0 0 7.6vw 4.3vw white;
+            box-shadow: 0 0 7.6vw 4.3vw white;
   }
 }
 
 @media screen and (min-width: 751px) {
   .UserBookings .title {
     -webkit-box-shadow: 0 0 7.6vw 4.3vw white;
-    box-shadow: 0 0 7.6vw 4.3vw white;
+            box-shadow: 0 0 7.6vw 4.3vw white;
   }
 }
 
 .UserBookings .title h1 {
   -webkit-transform: translate(0, -50%);
-  transform: translate(0, -50%);
+          transform: translate(0, -50%);
   margin: 0;
   padding: 0;
   text-align: center;
@@ -75,28 +75,28 @@
   display: -ms-flexbox;
   display: flex;
   -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+      flex-wrap: wrap;
   -webkit-column-gap: 0;
-  column-gap: 0;
+          column-gap: 0;
   row-gap: 12vw;
   -webkit-box-align: start;
-  -ms-flex-align: start;
-  align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -ms-flex-line-pack: start;
-  align-content: flex-start;
+      align-content: flex-start;
   margin-top: 50px;
   min-height: calc(100vh - 7.5vw);
   -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 @media screen and (min-width: 501px) and (max-width: 750px) {
   .UserBookings .content {
     -webkit-column-gap: 0;
-    column-gap: 0;
+            column-gap: 0;
     row-gap: 6vw;
   }
 }
@@ -105,7 +105,7 @@
   .UserBookings .content {
     margin-top: calc(3 * (15px + 2vw));
     -webkit-column-gap: 0;
-    column-gap: 0;
+            column-gap: 0;
     row-gap: 3vw;
   }
 }

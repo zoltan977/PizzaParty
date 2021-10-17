@@ -10,8 +10,8 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .BookingCard {
@@ -24,7 +24,7 @@
   padding: 1em 2em 0 2em;
   text-align: center;
   -webkit-clip-path: polygon(20% 100%, 75% 100%, 100% 0, 0 0);
-  clip-path: polygon(20% 100%, 75% 100%, 100% 0, 0 0);
+          clip-path: polygon(20% 100%, 75% 100%, 100% 0, 0 0);
   background-color: gray;
   border-radius: 50%;
   font-family: "Otomanopee One", sans-serif;
@@ -35,14 +35,14 @@ div.shadow {
   height: 0;
   background-color: red;
   -webkit-box-shadow: -30vw 0 30vw 30vw black;
-  box-shadow: -30vw 0 30vw 30vw black;
+          box-shadow: -30vw 0 30vw 30vw black;
   width: 40vw;
 }
 
 @media screen and (min-width: 501px) and (max-width: 750px) {
   div.shadow {
     -webkit-box-shadow: -15vw 0 15vw 15vw black;
-    box-shadow: -15vw 0 15vw 15vw black;
+            box-shadow: -15vw 0 15vw 15vw black;
     width: 20vw;
   }
 }
@@ -50,7 +50,7 @@ div.shadow {
 @media screen and (min-width: 751px) {
   div.shadow {
     -webkit-box-shadow: -7.5vw 0 7.5vw 7.5vw black;
-    box-shadow: -7.5vw 0 7.5vw 7.5vw black;
+            box-shadow: -7.5vw 0 7.5vw 7.5vw black;
     width: 10vw;
   }
 }

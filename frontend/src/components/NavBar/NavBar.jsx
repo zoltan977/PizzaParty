@@ -164,6 +164,7 @@ const NavBar = ({ logout, user, cart, data }) => {
                   <NavLink to="/bookings">Asztalfoglalások</NavLink>
                 </div>
               </span>
+              <NavLink to="/profile">Profile</NavLink>
             </>
           ) : (
             <>
