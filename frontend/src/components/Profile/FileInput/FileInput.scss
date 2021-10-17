@@ -1,0 +1,33 @@
+.FileInput {
+  width: 100%;
+  // border: 2px solid red;
+
+  button {
+    display: block;
+    width: 100%;
+  }
+
+  [type="file"] {
+    width: 0;
+    height: 0;
+  }
+
+  p.error,
+  p.info {
+    text-align: center;
+
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+
+    font-family: "Teko", sans-serif;
+    font-size: 4vw;
+    @media screen and (min-width: 751px) {
+      font-size: 2vw;
+    }
+  }
+
+  p.error {
+    color: red;
+  }
+}

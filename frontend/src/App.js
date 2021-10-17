@@ -26,6 +26,7 @@ import { setData } from "./actions/dataActions";
 import { loadUser } from "./actions/authActions";
 
 import { useLocation } from "react-router-dom";
+import Profile from "./components/Profile/Profile";
 
 const App = ({ loadingData, setData, loadUser }) => {
   const location = useLocation();
@@ -55,6 +56,7 @@ const App = ({ loadingData, setData, loadUser }) => {
         <PrivateRoute path="/orders" component={Orders} />
         <PrivateRoute path="/booking" component={Booking} />
         <PrivateRoute path="/bookings" component={Bookings} />
+        <PrivateRoute path="/profile" component={Profile} />
         <Route path="/confirm" component={Confirm} />
         <Route path="/callback" component={Callback} />
         <Route path="/password_reset" component={PasswordReset} />

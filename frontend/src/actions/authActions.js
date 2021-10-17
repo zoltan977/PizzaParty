@@ -1,4 +1,4 @@
-import { LOGIN_SUCCESS, LOGOUT } from "./types";
+import { LOGIN_SUCCESS, LOGOUT, SET_USER } from "./types";
 
 import axios from "axios";
 import setAuthToken from "./../utils/setAuthToken";
@@ -18,6 +18,13 @@ export const setToken = (token) => {
   return {
     type: LOGIN_SUCCESS,
     payload: { token, user },
+  };
+};
+
+export const setUser = (user) => {
+  return {
+    type: SET_USER,
+    payload: user,
   };
 };
 

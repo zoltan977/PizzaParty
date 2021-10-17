@@ -5,11 +5,11 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 @media screen and (min-width: 751px) {
@@ -37,7 +37,7 @@
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
   padding: 1em;
   background-color: black;
   color: red;
@@ -59,13 +59,7 @@
 .Booking button {
   font-size: 1.8vw;
   padding: 0;
-  background-image: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(grey),
-    to(white)
-  );
+  background-image: -webkit-gradient(linear, left top, left bottom, from(grey), to(white));
   background-image: linear-gradient(to bottom, grey, white);
 }
 
@@ -76,13 +70,7 @@
 
 .Booking select:hover,
 .Booking button:hover {
-  background-image: -webkit-gradient(
-    linear,
-    left bottom,
-    left top,
-    from(grey),
-    to(white)
-  );
+  background-image: -webkit-gradient(linear, left bottom, left top, from(grey), to(white));
   background-image: linear-gradient(to top, grey, white);
 }
 
@@ -107,11 +95,11 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: end;
-  -ms-flex-align: end;
-  align-items: flex-end;
+      -ms-flex-align: end;
+          align-items: flex-end;
   position: fixed;
   top: 0;
   left: 0;
@@ -121,8 +109,8 @@
   z-index: 2;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .Booking div.Td div.overlay table.ContentTable {
@@ -145,7 +133,7 @@
   left: 0;
   top: 0;
   -webkit-transform: translate(-1em, -50%);
-  transform: translate(-1em, -50%);
+          transform: translate(-1em, -50%);
   font-size: 4em;
 }
 
@@ -153,7 +141,7 @@
   .Booking div.Td div.overlay table.ContentTable tr span {
     font-size: 3em;
     -webkit-transform: translate(-2em, -50%);
-    transform: translate(-2em, -50%);
+            transform: translate(-2em, -50%);
   }
 }
 
@@ -161,7 +149,7 @@
   .Booking div.Td div.overlay table.ContentTable tr span {
     font-size: calc(30px + 0.5em);
     -webkit-transform: translate(-3em, -50%);
-    transform: translate(-3em, -50%);
+            transform: translate(-3em, -50%);
   }
 }
 
@@ -203,13 +191,7 @@
   margin-left: 20px;
   margin-top: 40px;
   font-size: 15px;
-  background-image: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(grey),
-    to(white)
-  );
+  background-image: -webkit-gradient(linear, left top, left bottom, from(grey), to(white));
   background-image: linear-gradient(to bottom, grey, white);
 }
 
@@ -230,13 +212,7 @@
 }
 
 .Booking div.Td div.overlay button.booking:hover {
-  background-image: -webkit-gradient(
-    linear,
-    left bottom,
-    left top,
-    from(grey),
-    to(white)
-  );
+  background-image: -webkit-gradient(linear, left bottom, left top, from(grey), to(white));
   background-image: linear-gradient(to top, grey, white);
 }
 

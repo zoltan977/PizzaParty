@@ -11,14 +11,14 @@
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   overflow: hidden;
   -webkit-box-shadow: 0vw 1.5vw 2.25vw -0.75vw black;
-  box-shadow: 0vw 1.5vw 2.25vw -0.75vw black;
+          box-shadow: 0vw 1.5vw 2.25vw -0.75vw black;
 }
 
 @media screen and (min-width: 751px) {
@@ -48,8 +48,8 @@
   color: white;
   background-color: rgba(0, 0, 0, 0.5);
   -webkit-box-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   text-align: center;
 }
 
@@ -66,51 +66,27 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .Home .firstPart {
-  background: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(rgba(47, 62, 73, 0)),
-    color-stop(35%, rgba(47, 62, 73, 0)),
-    color-stop(90%, #2f3e49)
-  );
-  background: linear-gradient(
-    to bottom,
-    rgba(47, 62, 73, 0),
-    rgba(47, 62, 73, 0) 35%,
-    #2f3e49 90%
-  );
+  background: -webkit-gradient(linear, left top, left bottom, from(rgba(47, 62, 73, 0)), color-stop(35%, rgba(47, 62, 73, 0)), color-stop(90%, #2f3e49));
+  background: linear-gradient(to bottom, rgba(47, 62, 73, 0), rgba(47, 62, 73, 0) 35%, #2f3e49 90%);
 }
 
 .Home .secondPart {
-  background: -webkit-gradient(
-    linear,
-    left bottom,
-    left top,
-    from(rgba(47, 62, 73, 0)),
-    color-stop(35%, rgba(47, 62, 73, 0)),
-    color-stop(70%, #2f3e49)
-  );
-  background: linear-gradient(
-    to top,
-    rgba(47, 62, 73, 0),
-    rgba(47, 62, 73, 0) 35%,
-    #2f3e49 70%
-  );
+  background: -webkit-gradient(linear, left bottom, left top, from(rgba(47, 62, 73, 0)), color-stop(35%, rgba(47, 62, 73, 0)), color-stop(70%, #2f3e49));
+  background: linear-gradient(to top, rgba(47, 62, 73, 0), rgba(47, 62, 73, 0) 35%, #2f3e49 70%);
 }
 
 .Home p.introduction {
   width: 90%;
   -webkit-transform: scale(0);
-  transform: scale(0);
+          transform: scale(0);
   -webkit-transition: -webkit-transform 2s;
   transition: -webkit-transform 2s;
   transition: transform 2s;
@@ -123,7 +99,7 @@
   color: black;
   background-color: rgba(255, 255, 255, 0.25);
   -webkit-box-shadow: 0vw 1.5vw 2.25vw -0.75vw black;
-  box-shadow: 0vw 1.5vw 2.25vw -0.75vw black;
+          box-shadow: 0vw 1.5vw 2.25vw -0.75vw black;
 }
 
 @media screen and (min-width: 751px) and (max-width: 1000px) {
@@ -155,20 +131,20 @@
 .Home div.mainImage img {
   width: 100%;
   -webkit-transform: scale(0);
-  transform: scale(0);
+          transform: scale(0);
   -webkit-transition: -webkit-transform 2s;
   transition: -webkit-transform 2s;
   transition: transform 2s;
   transition: transform 2s, -webkit-transform 2s;
   border-radius: 5vw;
   -webkit-box-shadow: 0vw 1.5vw 2.25vw -0.75vw black;
-  box-shadow: 0vw 1.5vw 2.25vw -0.75vw black;
+          box-shadow: 0vw 1.5vw 2.25vw -0.75vw black;
 }
 
 .Home img.menuImage {
   width: 80%;
   -webkit-transform: scale(0);
-  transform: scale(0);
+          transform: scale(0);
   -webkit-transition: -webkit-transform 2s;
   transition: -webkit-transform 2s;
   transition: transform 2s;
@@ -176,7 +152,7 @@
   margin-bottom: 33px;
   border-radius: 15vw;
   -webkit-box-shadow: 0vw 1.5vw 2.25vw -0.75vw black;
-  box-shadow: 0vw 1.5vw 2.25vw -0.75vw black;
+          box-shadow: 0vw 1.5vw 2.25vw -0.75vw black;
 }
 
 @media screen and (min-width: 751px) and (max-width: 1500px) {
@@ -201,8 +177,8 @@
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
   gap: 20px;
 }
 
@@ -210,27 +186,15 @@
   .Home .pizzasAndToppings {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
-    -ms-flex-direction: row;
-    flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
   }
 }
 
 .Home .pizzasAndToppings .toppingsContainer {
   width: 100%;
-  background: -webkit-gradient(
-    linear,
-    left bottom,
-    left top,
-    from(rgba(47, 62, 73, 0)),
-    color-stop(50%, rgba(47, 62, 73, 0)),
-    to(#2f3e49)
-  );
-  background: linear-gradient(
-    to top,
-    rgba(47, 62, 73, 0),
-    rgba(47, 62, 73, 0) 50%,
-    #2f3e49 100%
-  );
+  background: -webkit-gradient(linear, left bottom, left top, from(rgba(47, 62, 73, 0)), color-stop(50%, rgba(47, 62, 73, 0)), to(#2f3e49));
+  background: linear-gradient(to top, rgba(47, 62, 73, 0), rgba(47, 62, 73, 0) 50%, #2f3e49 100%);
 }
 
 @media screen and (min-width: 751px) {
@@ -253,7 +217,7 @@
 
 .Home .pizzasAndToppings h2 {
   -webkit-box-shadow: 0vw 1.5vw 2.25vw -0.75vw black;
-  box-shadow: 0vw 1.5vw 2.25vw -0.75vw black;
+          box-shadow: 0vw 1.5vw 2.25vw -0.75vw black;
   color: white;
   width: -webkit-fit-content;
   width: -moz-fit-content;

@@ -2,12 +2,12 @@ import "./NavBar.css";
 import { useState, useRef } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import { logout } from "../../actions/authActions";
+import { logout, setUser } from "../../actions/authActions";
 import ContentEditable from "../ContentEditable/ContentEditable";
 import httpClient from "axios";
 
 //Main navigation: top bar
-const NavBar = ({ logout, user, cart, data }) => {
+const NavBar = ({ logout, setUser, user, cart, data }) => {
   const [rect1Class, setRect1Class] = useState("a");
   const [rect2Class, setRect2Class] = useState("b");
   const [rect3Class, setRect3Class] = useState("c");
@@ -57,7 +57,10 @@ const NavBar = ({ logout, user, cart, data }) => {
       );
 
       if (!res.data.success) logout();
-      else console.log("name change happened: ", newName);
+      else {
+        console.log("name change happened: ", newName);
+        setUser({ ...user, name: newName })
+      }
     } catch (err) {
       console.log("name change error: ", err.response.data);
       logout();
@@ -177,9 +180,11 @@ const NavBar = ({ logout, user, cart, data }) => {
             <img src={user.photo} alt="" />
           )}
           {user ? (
-            <ContentEditable onChange={nameChange}>
-              <span className="userName">{user.name}</span>
-            </ContentEditable>
+            <Link to="/profile">
+              <ContentEditable onChange={nameChange}>
+                <span className="userName">{user.name}</span>
+              </ContentEditable>
+            </Link>
           ) : (
             <span className="notLoggedIn" onClick={callGoogle}>
               Belépés
@@ -206,4 +211,4 @@ const mapStateToProps = (state) => ({
   user: state.auth.user,
 });
 
-export default connect(mapStateToProps, { logout })(NavBar);
+export default connect(mapStateToProps, { logout, setUser })(NavBar);

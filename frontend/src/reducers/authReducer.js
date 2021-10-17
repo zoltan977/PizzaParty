@@ -1,4 +1,4 @@
-import { LOGOUT, LOGIN_SUCCESS } from "../actions/types";
+import { LOGOUT, LOGIN_SUCCESS, SET_USER } from "../actions/types";
 
 import setAuthToken from "./../utils/setAuthToken";
 
@@ -11,6 +11,17 @@ const initialState = {
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_USER:
+      return {
+        ...state,
+        user: {
+          name: action.payload.name,
+          photo: action.payload.photo + "?time=" + Date.now(),
+          email: action.payload.email,
+        },
+        loading: false,
+      };
+
     case LOGIN_SUCCESS:
       console.log("auth reducer login success action payload:", action.payload);
       localStorage.setItem("token", action.payload.token);

@@ -1,0 +1,136 @@
+.Profile {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding-top: calc(80px + 3.5vw);
+  padding-bottom: 80px;
+}
+
+@media screen and (min-width: 751px) {
+  .Profile {
+    padding-top: calc(50px + 3.5vw);
+  }
+}
+
+.Profile .content {
+  width: 90%;
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 2%;
+}
+
+@media screen and (min-width: 751px) {
+  .Profile .content {
+    width: 70%;
+  }
+}
+
+.Profile .content h1 {
+  margin: 0 0 1em 0;
+  padding: 0;
+  line-height: 1;
+  text-align: center;
+  font-family: "Otomanopee One", sans-serif;
+  font-size: 9vw;
+}
+
+@media screen and (min-width: 751px) {
+  .Profile .content h1 {
+    font-size: 4.5vw;
+  }
+}
+
+.Profile form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 2.5%;
+}
+
+.Profile form .image {
+  width: 50%;
+  overflow: hidden;
+}
+
+@media screen and (min-width: 751px) {
+  .Profile form .image {
+    width: 25%;
+  }
+}
+
+.Profile form .image img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.Profile form .inputs {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  gap: 4vw;
+}
+
+@media screen and (min-width: 751px) {
+  .Profile form .inputs {
+    gap: 2vw;
+    width: 75%;
+  }
+}
+
+.Profile form img {
+  width: auto;
+  height: 100%;
+}
+
+.Profile form input,
+.Profile form button {
+  text-align: center;
+  font-family: "Teko", sans-serif;
+  font-size: 4vw;
+}
+
+@media screen and (min-width: 751px) {
+  .Profile form input,
+  .Profile form button {
+    font-size: 2vw;
+  }
+}
+
+.Profile form button {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(grey), to(white));
+  background-image: linear-gradient(to bottom, grey, white);
+}
+
+.Profile form button:hover {
+  background-image: -webkit-gradient(linear, left bottom, left top, from(grey), to(white));
+  background-image: linear-gradient(to top, grey, white);
+}
+
+.Profile form p.error {
+  color: red;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  font-family: "Teko", sans-serif;
+  font-size: 4vw;
+}
+
+@media screen and (min-width: 751px) {
+  .Profile form p.error {
+    font-size: 2vw;
+  }
+}
+
+.Profile form input:not(:valid) {
+  background-color: red;
+}
