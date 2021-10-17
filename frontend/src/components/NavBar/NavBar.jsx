@@ -63,7 +63,8 @@ const NavBar = ({ logout, setUser, user, cart, data }) => {
       }
     } catch (err) {
       console.log("name change error: ", err.response.data);
-      logout();
+      if (err?.response?.data?.msg && err.response.data.msg === "Authentication error")
+        logout();
     }
   };
 
