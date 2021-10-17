@@ -174,6 +174,7 @@
   width: -moz-fit-content;
   width: fit-content;
   position: relative;
+  cursor: pointer;
 }
 
 .NavBar .icons .hamburger svg {
@@ -294,13 +295,37 @@
 
 .NavBar .linksAndUser .links div.order,
 .NavBar .linksAndUser .links div.booking {
-  display: none;
+  position: absolute;
+  left: 0;
+  top: 45px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
+  -webkit-transform: scaleY(0);
+          transform: scaleY(0);
+  -webkit-transform-origin: top;
+          transform-origin: top;
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+  transition: transform 0.5s, -webkit-transform 0.5s;
+}
+
+@media screen and (min-width: 751px) {
+  .NavBar .linksAndUser .links div.order,
+  .NavBar .linksAndUser .links div.booking {
+    top: calc(15px + 2vw);
+  }
 }
 
 .NavBar .linksAndUser .links span.loggedIn {
@@ -311,23 +336,10 @@
 
 .NavBar .linksAndUser .links span.loggedIn:hover div.order,
 .NavBar .linksAndUser .links span.loggedIn:hover div.booking {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  position: absolute;
-  left: 0;
-  top: 45px;
-}
-
-@media screen and (min-width: 751px) {
-  .NavBar .linksAndUser .links span.loggedIn:hover div.order,
-  .NavBar .linksAndUser .links span.loggedIn:hover div.booking {
-    top: calc(15px + 2vw);
-  }
+  -webkit-transform: scaleY(1);
+          transform: scaleY(1);
+  -webkit-transform-origin: top;
+          transform-origin: top;
 }
 
 .NavBar .linksAndUser .links a,
