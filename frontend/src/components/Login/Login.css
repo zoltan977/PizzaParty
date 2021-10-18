@@ -247,6 +247,36 @@
   gap: 0.75vw;
 }
 
+.Confirm .content form .cart a,
+.Callback .content form .cart a,
+.Login .content form .cart a,
+.Register .content form .cart a,
+.Order .content form .cart a,
+.ForgotPassword .content form .cart a,
+.PasswordReset .content form .cart a {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+.Confirm .content form .cart a svg,
+.Callback .content form .cart a svg,
+.Login .content form .cart a svg,
+.Register .content form .cart a svg,
+.Order .content form .cart a svg,
+.ForgotPassword .content form .cart a svg,
+.PasswordReset .content form .cart a svg {
+  height: 1em;
+  margin-right: 1em;
+}
+
 .Confirm .content form button,
 .Callback .content form button,
 .Login .content form button,

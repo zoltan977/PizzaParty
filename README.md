@@ -28,18 +28,18 @@ You can test the running upplication on this [demo](https://cryptic-brushlands-3
     <tbody>
         <tr>
             <td>
-                <img src="https://github.com/zoltan977/PizzaParty/blob/DateBookingFeature/screenshot001.jpg" alt="" width="200">
+                <img src="https://github.com/zoltan977/PizzaParty/blob/main/screenshot001.jpg" alt="" width="200">
             </td>
             <td>
-                <img src="https://github.com/zoltan977/PizzaParty/blob/DateBookingFeature/screenshot002.jpg" alt="" width="200">
+                <img src="https://github.com/zoltan977/PizzaParty/blob/main/screenshot002.jpg" alt="" width="200">
             </td>
         </tr>
         <tr>
             <td>
-                <img src="https://github.com/zoltan977/PizzaParty/blob/DateBookingFeature/screenshot003.jpg" alt="" width="200">
+                <img src="https://github.com/zoltan977/PizzaParty/blob/main/screenshot003.jpg" alt="" width="200">
             </td>
             <td>
-                <img src="https://github.com/zoltan977/PizzaParty/blob/DateBookingFeature/screenshot004.jpg" alt="" width="200">
+                <img src="https://github.com/zoltan977/PizzaParty/blob/main/screenshot004.jpg" alt="" width="200">
             </td>
         </tr>
     </tbody>

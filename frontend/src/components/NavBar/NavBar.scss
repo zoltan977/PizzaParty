@@ -287,10 +287,16 @@
       img {
         height: 100%;
         width: auto;
+        display: none;
+
+        @media screen and (min-width: 351px) {
+          display: block;
+        }
       }
 
       span {
         &.userName {
+          display: inline-flex;
           font-size: 45px;
           @media screen and (min-width: 751px) {
             font-size: calc(15px + 2vw);
@@ -299,10 +305,10 @@
           cursor: pointer;
           white-space: nowrap;
           overflow: hidden;
-          max-width: 50px;
+          max-width: 90px;
 
           @media screen and (min-width: 321px) and (max-width: 350px) {
-            max-width: 75px;
+            max-width: 130px;
           }
           @media screen and (min-width: 351px) and (max-width: 370px) {
             max-width: 100px;
@@ -334,7 +340,7 @@
           color: red;
           font-weight: bold;
 
-          display: inline;
+          display: inline-flex;
           font-size: 6vw;
           @media screen and (min-width: 501px) and (max-width: 750px) {
             font-size: 4.5vw;
