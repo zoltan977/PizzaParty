@@ -384,14 +384,24 @@
 .NavBar .linksAndUser .userInfo img {
   height: 100%;
   width: auto;
+  display: none;
+}
+
+@media screen and (min-width: 351px) {
+  .NavBar .linksAndUser .userInfo img {
+    display: block;
+  }
 }
 
 .NavBar .linksAndUser .userInfo span.userName {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
   font-size: 45px;
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
-  max-width: 50px;
+  max-width: 90px;
 }
 
 @media screen and (min-width: 751px) {
@@ -402,7 +412,7 @@
 
 @media screen and (min-width: 321px) and (max-width: 350px) {
   .NavBar .linksAndUser .userInfo span.userName {
-    max-width: 75px;
+    max-width: 130px;
   }
 }
 
@@ -457,7 +467,9 @@
 .NavBar .linksAndUser .userInfo span.notLoggedIn {
   color: red;
   font-weight: bold;
-  display: inline;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
   font-size: 6vw;
   cursor: pointer;
 }

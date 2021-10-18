@@ -87,6 +87,21 @@
       align-items: center;
       gap: 0.75vw;
 
+      .cart {
+        a {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          // border: 2px solid red;
+
+          svg {
+            height: 1em;
+            margin-right: 1em;
+          }
+        }
+      }
+
       button {
         width: 50%;
 
