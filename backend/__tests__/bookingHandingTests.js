@@ -21,7 +21,7 @@ describe("Booking handling tests", () => {
     await deleteAll([Table, User]);
   });
 
-  test("/api/user_bookings should give back the data of all the future bookings of the user when a GET request is sent", async () => {
+  test("/api/user_bookings should give back the data of all the bookings of the user when a GET request is sent", async () => {
     //Given this bookings data in the database
     const aDayInTheFuture = new Date(Date.now() + 1 * 24 * 60 * 60 * 1000)
       .toISOString()
@@ -67,10 +67,10 @@ describe("Booking handling tests", () => {
       .set("Accept", "application/json")
       .expect("Content-Type", /json/);
 
-    //then we should get back the data of future bookings of the user in the database
+    //then we should get back the data of the bookings of the user in the database
     expect(resp.status).toBe(200);
     expect(Array.isArray(resp.body.userBookingsArray)).toBe(true);
-    expect(resp.body.userBookingsArray.length).toBe(1);
+    expect(resp.body.userBookingsArray.length).toBe(2);
     expect(resp.body.userBookingsArray[0].tableNumber).toBe("1");
   });
 
@@ -192,7 +192,7 @@ describe("Booking handling tests", () => {
       .expect("Content-Type", /json/)
       .send(objectToPOST);
 
-    //then we should get back the updated data of future bookings in the database
+    //then we should get back the updated data of the bookings in the database
     expect(resp.status).toBe(200);
     expect(resp.body.data).toBeTruthy();
     expect(Object.keys(resp.body.data).length).toBe(2);
@@ -203,10 +203,18 @@ describe("Booking handling tests", () => {
     );
 
     //Given the same conditions
-    //When we POST the same data again
+    //When the same data POST-ed by an other user
+    const email2 = "email2@email.hu";
+    const newUser2 = new User({
+      name: "my name2",
+      email: email2,
+    });
+    await newUser2.save();
+    const token2 = createToken(newUser2);
+
     const resp2 = await request
       .post(`/api/bookings`)
-      .set("Authorization", `Bearer ${token}`)
+      .set("Authorization", `Bearer ${token2}`)
       .set("Accept", "application/json")
       .expect("Content-Type", /json/)
       .send(objectToPOST);
