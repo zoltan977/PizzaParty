@@ -6,7 +6,17 @@ const oauth2Client = require("../utils/oauth2Client")();
 const jwt = require("jsonwebtoken");
 const settings = require("../settings");
 const { validateImage } = require("../utils/validateImage");
-const transporter = require("../utils/oauthEmail");
+// const transporter = require("../utils/oauthEmail");
+
+const nodemailer = require("nodemailer");
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD,
+  },
+});
 
 exports.nameChange = async ({ newName }, user) => {
   const userInDatabase = await User.findOne({ email: user.email });
