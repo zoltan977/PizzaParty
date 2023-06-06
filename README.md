@@ -20,7 +20,7 @@ Pizza Party is an online, mobile-friendly, ReactJS and NodeJS-powered pizza orde
 
 ## Demo
 
-You can test the running upplication on this [demo](https://cryptic-brushlands-33727.herokuapp.com) link.
+You can test the running upplication on this [demo](https://pizza-yo0m.onrender.com) link.
 
 ## Screenshots
 
@@ -47,7 +47,7 @@ You can test the running upplication on this [demo](https://cryptic-brushlands-3
 
 ## API documentation of the backend
 
-On the demo page you can view the API documentation too on this [documentation](https://cryptic-brushlands-33727.herokuapp.com/api/docs) link.
+On the demo page you can view the API documentation too on this [documentation](https://pizza-yo0m.onrender.com/api/docs) link.
 
 ## Tech
 
