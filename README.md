@@ -48,7 +48,7 @@ You can test the running application on this <a href="https://pizza-yo0m.onrende
 
 ## API documentation of the backend
 
-On the demo page you can view the API documentation too on this [documentation](https://pizza-yo0m.onrender.com/api/docs) link.
+On the demo page you can view the API documentation too on this [documentation](https://pizza-yo0m.onrender.com/api/docs) link.(It may take a few minutes to start...)
 
 ## Tech
 
