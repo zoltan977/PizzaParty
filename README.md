@@ -20,7 +20,7 @@ Pizza Party is an online, mobile-friendly, ReactJS and NodeJS-powered pizza orde
 
 ## Demo
 
-You can test the running application on this [demo](https://pizza-yo0m.onrender.com){:target="_blank"} link.
+You can test the running application on this <a href="https://pizza-yo0m.onrender.com" target="_blank">demo</a> link.
 (It may take a few minutes to start...)
 
 ## Screenshots
