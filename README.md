@@ -1,3 +1,4 @@
+<base target="_blank">
 ## Pizza Party
 
 Pizza Party is an online, mobile-friendly, ReactJS and NodeJS-powered pizza ordering webshop-like application with google and form-based authentication.
@@ -21,6 +22,7 @@ Pizza Party is an online, mobile-friendly, ReactJS and NodeJS-powered pizza orde
 ## Demo
 
 You can test the running application on this [demo](https://pizza-yo0m.onrender.com) link.
+(It may take a few minutes to start...)
 
 ## Screenshots
 
